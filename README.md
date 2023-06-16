@@ -51,4 +51,9 @@ Ideas
   - Races: race_id, name, date, location
   - Race Results: result_id, race_id, driver_id, team_id, start_position, end_positin, qualifying_time, points
 
-
+- API Endpoints: 
+  - GET: drivers: list of all drivers
+  - POST: drivers: create a new driver
+  - GET: drivers_id: details of a specific driver
+  - PUT: drivers_id: update details of specific driver
+  - Delete: drivers_id: delete a specific driver
