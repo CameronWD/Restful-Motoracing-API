@@ -57,3 +57,10 @@ Ideas
   - GET: drivers_id: details of a specific driver
   - PUT: drivers_id: update details of specific driver
   - Delete: drivers_id: delete a specific driver
+  - GET: teams: list of all teams
+  - POST: teams: create a new team
+  - GET: teams_id: details of a specific team
+  - PUT: teams_id: update details of specific team
+  - Delete: teams_id: delete a specific team
+
+
