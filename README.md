@@ -38,3 +38,17 @@ Database
 USE USER STORY FORMAT
 
 provide a data seed - only needs enough data to test all the end points - lesson only created 2 users, 3 cards and 3 comments. enough to test the end pointsetc
+
+
+
+Ideas
+
+## Formula 1
+
+- ERD: Four entities
+  - Drivers: driver_id, first_name, last_name, DOB, Nationality, team_id, team_history
+  - Teams: team_id, name, founding_year, championships, location, drivers
+  - Races: race_id, name, date, location
+  - Race Results: result_id, race_id, driver_id, team_id, start_position, end_positin, qualifying_time, points
+
+
