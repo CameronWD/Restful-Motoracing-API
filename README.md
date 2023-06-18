@@ -61,6 +61,29 @@ Ideas
   - POST: teams: create a new team
   - GET: teams_id: details of a specific team
   - PUT: teams_id: update details of specific team
-  - Delete: teams_id: delete a specific team
+  - Delete: teams_id: delete a specific team  
+  - GET: races: list of all races
+  - POST: races: create a new races
+  - GET: races_id: details of a specific races
+  - PUT: races_id: update details of specific races
+  - Delete: races_id: delete a specific races
+- - GET: race_results: list of all race results
+  - POST: race_results: create a new race_results
+  - GET: race_results_id: details of a specific race_results
+  - PUT: race_results_id: update details of specific race_results
+  - Delete: race_results_id: delete a specific race_results
 
 
+
+## Generic Racing API
+
+- Aim
+  - Create an API that helps sim and club racers track drivers, circuits, results and other statistics. Larger scale competitions like Formula 1, Indy Car already have APIs for their own internal competition but it would help in creating and tracking amateur competitions. 
+
+- Ideas for Entities
+  - Drivers: driver_id(PK), profile_id(FK), category_id(FK)
+  - Profiles: profile_id(PK), display_name
+  - Teams: team_id, name, category_id(FK)
+  - Circuits: circuit_id(PK), track_name, location, category_id(FK)
+  - Results: result_id(PK), circuit_id(FK), driver_id(FK), team_id(FK), start_position, end_position
+  - Categories: category_id(PK), name, description
