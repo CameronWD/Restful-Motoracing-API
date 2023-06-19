@@ -28,7 +28,11 @@ class Teams(db.Model):
     year_founded = db.Column(db.Integer)
     
 # Circuits: circuit_id(PK), track_name, location
-
+class Circuits(db.Circuits):
+    circuit_id = db.Column(db.Integer, primary_key=True)
+    track_name = db.Column(db.string, nullable=False)
+    location = db.Column(db.string, nullable=False)
+    
 # Results: results_id(PK), race_id(FK), driver_id(FK), start_position, end_position, points
 
 # Categories: category_id(PK), name, description
