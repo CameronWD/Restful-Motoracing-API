@@ -44,5 +44,10 @@ class Results(db.Results):
     
 # Categories: category_id(PK), name, description
 
+class Categories(db.Categories):
+    category_id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.Integer, nullabe=False)
+    description = db.Column(db.string, nullable=False)
+    
 # Race: race_id(PK), date, circuit_id(FK), category_id(FK)
 
