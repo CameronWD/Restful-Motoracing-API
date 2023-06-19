@@ -22,8 +22,11 @@ class Profiles(db.Model):
 
 # Teams: team_id(PK), name, year_founded, category_id(FK)
 class Teams(db.Model):
-    team_id = db.Column(d)
-
+    team_id = db.Column(db.Integer, primary_key=True)
+    category_id = db.Column(db.string, db.ForeignKey('category.category_id'), nullable=False)
+    name = db.Column(db.string, nullable=False)
+    year_founded = db.Column(db.Integer)
+    
 # Circuits: circuit_id(PK), track_name, location
 
 # Results: results_id(PK), race_id(FK), driver_id(FK), start_position, end_position, points
