@@ -48,6 +48,12 @@ class Categories(db.Categories):
     category_id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.Integer, nullabe=False)
     description = db.Column(db.string, nullable=False)
-    
+
 # Race: race_id(PK), date, circuit_id(FK), category_id(FK)
+
+class Races(db.Races):
+    race_id = db.Column(db.Integer, primary_key=True)
+    circuit_id = 
+    category_id = 
+    date = db.Column(db.Integer, nullabe=False)
 
