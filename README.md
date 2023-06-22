@@ -82,8 +82,10 @@ Ideas
 
 - Ideas for Entities
   - Drivers: driver_id(PK), profile_id(FK), category_id(FK)
-  - Profiles: profile_id(PK), display_name
-  - Teams: team_id, name, category_id(FK)
+  - Profiles: profile_id(PK), display_name, date_of_birth, first_name, last_name, nationality
+  - Teams: team_id, name, year_founded, category_id(FK)
   - Circuits: circuit_id(PK), track_name, location, category_id(FK)
-  - Results: result_id(PK), circuit_id(FK), driver_id(FK), team_id(FK), start_position, end_position
+  - Results: result_id(PK), driver_id(FK), team_id(FK), start_position, end_position
   - Categories: category_id(PK), name, description
+  - Race: race_id(PK), date, result_id(FK), circuit_id(FK)
+  - Users: user_id, username, password_hash, user_type
