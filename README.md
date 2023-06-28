@@ -89,3 +89,28 @@ Ideas
   - Categories: category_id(PK), name, description
   - Race: race_id(PK), date, result_id(FK), circuit_id(FK)
   - Users: user_id, username, password_hash, user_type
+
+
+
+# R1 - Identification of the problem you are trying to solve by building this particular app.
+
+# R2 - Why is it a problem that needs solving?
+
+# R3 - Why have you chosen this database system. What are the drawbacks compared to others? 
+
+# R4 - Identify and discuss the key functionalities and benefits of an ORM
+
+# R5 - Document all endpoints for your API
+
+Could use a docstring to do this OR do so manually. Look at public APIs to see how they are documented
+
+each end point needs URI, verbs accepted, restful parameters and what each end point does and an example of what it returns. "example request" -> "example response"
+# R6 - An ERD for your app
+
+# R7 - Detail any third party services that your app will use
+
+# R8 - Describe your projects models in terms of the relationships they have with each other
+ is talking about SQLAlchemy models. db.relationship, foreignkey etc. In terms of SQLAlch
+# R9 - Discuss the database relations to be implemented in your application
+ is at a lower level of discussion. relationships at the database level. PostgreSQL level. Talk about tables, foreign key, primary key. Database language
+# R10 - Describe the way tasks are allocated and tracked in your project
