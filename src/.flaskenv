@@ -1,3 +1,3 @@
-FLASK_APP=main:setup
 FLASK_DEBUG=1
 FLASK_RUN_PORT=5000
+FLASK_APP=app:create_app
