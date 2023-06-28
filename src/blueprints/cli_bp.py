@@ -24,7 +24,7 @@ def seed_db():
             is_organizer=True
         ),
         User(
-            name='Aryton Senna',
+            name='Charles Leclerc',
             email='driver@racingapi.com',
             password=bcrypt.generate_password_hash('suzuka')
         )
