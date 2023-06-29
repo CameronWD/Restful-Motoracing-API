@@ -15,18 +15,18 @@ def seed_db():
     users = [
         User(
             email='admin@racingapi.com',
-            password=bcrypt.generate_password_hash('spafrancorchamps'),
+            password=bcrypt.generate_password_hash('spafrancorchamps').decode('utf-8'),
             is_admin=True
         ),
         User(
             email='organizer@racingapi.com',
-            password=bcrypt.generate_password_hash('silverstone'),
+            password=bcrypt.generate_password_hash('silverstone').decode('utf-8'),
             is_organizer=True
         ),
         User(
             name='Charles Leclerc',
             email='driver@racingapi.com',
-            password=bcrypt.generate_password_hash('suzuka')
+            password=bcrypt.generate_password_hash('suzuka').decode('utf-8')
         )
     ]
 

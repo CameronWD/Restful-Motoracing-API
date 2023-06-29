@@ -114,3 +114,4 @@ each end point needs URI, verbs accepted, restful parameters and what each end p
 # R9 - Discuss the database relations to be implemented in your application
  is at a lower level of discussion. relationships at the database level. PostgreSQL level. Talk about tables, foreign key, primary key. Database language
 # R10 - Describe the way tasks are allocated and tracked in your project
+Trello etc
