@@ -4,7 +4,6 @@ from marshmallow.exceptions import ValidationError
 from models.user import User, UserSchema
 from models.team import Team, TeamSchema
 from models.driver import Driver, DriverSchema
-from models.driver import Driver, DriverSchema
 from datetime import date
 
 drivers_bp = Blueprint('driver', __name__, url_prefix='/drivers')
@@ -69,7 +68,7 @@ def delete_driver(driver_id):
     if driver:
         db.session.delete(driver)
         db.session.commit()
-        return{'message': f'Driver {driver_id} successfully deleted.'}, 200
+        return{'message': f'Driver {driver.first_name} {driver.last_name} successfully deleted.'}, 200
     else:
         return{'error': 'Driver not found.'}, 404
         

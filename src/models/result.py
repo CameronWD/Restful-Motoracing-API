@@ -21,4 +21,4 @@ class ResultSchema(ma.Schema):
     driver = ma.Nested('DriverSchema')
 
     class Meta:
-        fields = ('start_position', 'end_position', 'points', 'race', 'driver')
+        fields = ('start_position', 'end_position', 'points', 'driver', 'race')

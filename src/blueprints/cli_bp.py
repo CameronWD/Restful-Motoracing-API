@@ -140,16 +140,19 @@ def seed_db():
 
     races = [
         Race(
+            name = 'Mexico GP',
             date='25/03/1994',
             circuit_id=1,
             category_id=1
         ),
         Race(
+            name = 'Monaco GP',
             date='25/03/2005',
             circuit_id=1,
             category_id=2
         ),
         Race(
+            name = 'Brisbane GP',
             date='25/03/2000',
             circuit_id=2,
             category_id=1
