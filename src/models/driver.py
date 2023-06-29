@@ -1,5 +1,6 @@
 from init import db, ma
 from marshmallow import fields
+from datetime import datetime
 
 class Driver(db.Model):
     __tablename__ = 'drivers'

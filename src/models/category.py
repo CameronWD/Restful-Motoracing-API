@@ -13,6 +13,8 @@ class Category(db.Model):
 
     races = db.relationship('Race', back_populates='category')
 
+    teams = db.relationship('Team', back_populates='category')
+
 class CategorySchema(ma.Schema):
     class Meta:
-        fields = ('name', 'description')
+        fields = ('id','name', 'description')

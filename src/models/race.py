@@ -1,5 +1,6 @@
 from init import db, ma
 from marshmallow import fields
+from datetime import datetime
 
 class Race(db.Model):
     __tablename__ = 'races'
@@ -8,7 +9,7 @@ class Race(db.Model):
 
     date = db.Column(db.String)
 
-    circuit_id = db.Column(db.Integer, db.ForeignKey('circuit.id'), nullable=False)
+    circuit_id = db.Column(db.Integer, db.ForeignKey('circuits.id'))
     circuit = db.relationship('Circuit', back_populates='races')
 
     category_id = db.Column(db.Integer, db.ForeignKey('categories.id'), nullable=False)
@@ -19,6 +20,7 @@ class Race(db.Model):
 class RaceSchema(ma.Schema):
     circuit = ma.Nested('CircuitSchema')
     category = ma.Nested('CategorySchema')
+    results = fields.Nested('ResultSchema', many=True)
 
     class Meta:
-        fields = ('id', 'date', 'circuit', 'category')
+        fields = ('id', 'date', 'circuit', 'category', 'results')

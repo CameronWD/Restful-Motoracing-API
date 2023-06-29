@@ -12,4 +12,4 @@ class Circuit(db.Model):
 
 class CircuitSchema(ma.Schema):
     class Meta:
-        fields = ('track_name', 'location', 'lap_record')
+        fields = ('id','track_name', 'location', 'lap_record')

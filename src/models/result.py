@@ -10,10 +10,10 @@ class Result(db.Model):
     end_position = db.Column(db.Integer, nullable=False)
     points = db.Column(db.Integer)
 
-    race_id = db.Column(db.Integer, db.ForeignKey('race.id'), nullable=False)
+    race_id = db.Column(db.Integer, db.ForeignKey('races.id'), nullable=False)
     race = db.relationship('Race', back_populates='results')
 
-    driver_id = db.Column(db.Integer, db.ForeignKey('driver.id'), nullable=False)
+    driver_id = db.Column(db.Integer, db.ForeignKey('drivers.id'), nullable=False)
     driver = db.relationship('Driver', back_populates='results')
 
 class ResultSchema(ma.Schema):

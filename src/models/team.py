@@ -7,10 +7,12 @@ class Team(db.Model):
     id = db.Column(db.Integer, primary_key=True)
 
     name = db.Column(db.String, nullable=False, unique=True)
-    year_founded = db.Column(db.String)
+    year_founded = db.Column(db.Integer)
 
-    category_id = db.relationship(db.Integer, db.ForeignKey('categories.id', nullable=False))
+    category_id = db.Column(db.Integer, db.ForeignKey('categories.id'), nullable=False)
     category = db.relationship('Category', back_populates='teams')
+
+    drivers = db.relationship('Driver', back_populates='team')
 
 class TeamSchema(ma.Schema):
     category = ma.Nested('CategorySchema')
