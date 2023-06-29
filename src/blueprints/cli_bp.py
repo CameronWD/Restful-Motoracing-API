@@ -108,7 +108,7 @@ def seed_db():
 
     drivers = [
         Driver(
-            date_of_birth='11/4/2000',
+            date_of_birth='2000-04-11',
             first_name='Fernando',
             last_name='Alonso',
             nationality='Spanish',
@@ -116,7 +116,7 @@ def seed_db():
             team=teams[1]
         ),
         Driver(
-            date_of_birth='11/4/2000',
+            date_of_birth='2000-04-11',
             first_name='Michael',
             last_name='Phelps',
             nationality='American',
@@ -124,7 +124,7 @@ def seed_db():
             team=teams[1]
         ),
         Driver(
-            date_of_birth='11/4/2000',
+            date_of_birth='2000-04-11',
             first_name='Yuki',
             last_name='Tsunoda',
             nationality='Japanese',
@@ -141,19 +141,19 @@ def seed_db():
     races = [
         Race(
             name = 'Mexico GP',
-            date='25/03/1994',
+            date='1994-03-25',
             circuit_id=1,
             category_id=1
         ),
         Race(
             name = 'Monaco GP',
-            date='25/03/2005',
+            date='2005-03-25',
             circuit_id=1,
             category_id=2
         ),
         Race(
             name = 'Brisbane GP',
-            date='25/03/2000',
+            date='2000-03-25',
             circuit_id=2,
             category_id=1
         )
