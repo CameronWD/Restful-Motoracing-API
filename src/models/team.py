@@ -9,7 +9,7 @@ class Team(db.Model):
     name = db.Column(db.String, nullable=False, unique=True)
     year_founded = db.Column(db.Integer)
 
-    category_id = db.Column(db.Integer, db.ForeignKey('categories.id'), nullable=False)
+    category_id = db.Column(db.Integer, db.ForeignKey('categories.id'), nullable=True)
     category = db.relationship('Category', back_populates='teams')
 
     drivers = db.relationship('Driver', back_populates='team')

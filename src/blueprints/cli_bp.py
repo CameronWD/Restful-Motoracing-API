@@ -65,19 +65,19 @@ def seed_db():
     circuits = [
         Circuit(
             track_name='Nordschleife',
-            location='',
-            lap_record=''
+            location='test',
+            lap_record=10
 
         ), 
         Circuit(
             track_name='Mount Panorama',
-            location='',
-            lap_record=''
+            location='test',
+            lap_record=10
         ), 
         Circuit(
             track_name='Laguna Seca',
-            location='',
-            lap_record=''
+            location='test',
+            lap_record=10
         )
     ]
 
@@ -96,7 +96,7 @@ def seed_db():
             year_founded=2004
         ), 
         Team(
-            name='Darryl\'s Dodgers ',
+            name='Darryl Dodgers',
             year_founded=2020
         )
     ]
@@ -112,21 +112,27 @@ def seed_db():
             date_of_birth='11/4/2000',
             first_name='Fernando',
             last_name='Alonso',
-            nationality='Spanish'
+            nationality='Spanish',
+            category=categories[1],
+            team=teams[1]
         ),
         Driver(
             # date_of_birth=(1994,1,10),
             date_of_birth='11/4/2000',
             first_name='Michael',
             last_name='Phelps',
-            nationality='American'
+            nationality='American',
+            category=categories[1],
+            team=teams[1]
         ),
         Driver(
             # date_of_birth=(2000,4,11),
             date_of_birth='11/4/2000',
             first_name='Yuki',
             last_name='Tsunoda',
-            nationality='Japanese'
+            nationality='Japanese',
+            category=categories[1],
+            team=teams[1]
         )
     ]
 
