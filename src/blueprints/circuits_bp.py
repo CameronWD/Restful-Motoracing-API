@@ -7,7 +7,7 @@ from models.category import Category, CategorySchema
 from models.circuit import Circuit, CircuitSchema
 from datetime import date
 
-circuits_bp.py = Blueprint('circuit', __name__, url_prefix='/circuits')
+circuits_bp = Blueprint('circuit', __name__, url_prefix='/circuits')
 
 @circuits_bp.route('/')
 def all_circuits():

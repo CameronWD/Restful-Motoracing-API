@@ -7,6 +7,7 @@ from blueprints.auth_bp import auth_bp
 from blueprints.teams_bp import teams_bp
 from blueprints.categories_bp import categories_bp
 from blueprints.circuits_bp import circuits_bp
+from blueprints.drivers_bp import drivers_bp
 
 def create_app():
     app = Flask(__name__)
@@ -28,6 +29,7 @@ def create_app():
     app.register_blueprint(teams_bp)
     app.register_blueprint(categories_bp)
     app.register_blueprint(circuits_bp)
+    app.register_blueprint(drivers_bp)
 
     return app
 
