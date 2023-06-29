@@ -9,7 +9,7 @@ class Race(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
 
-    date = db.Column(db.Date, nullable=False, unique=True)
+    date = db.Column(db.Date, nullable=False)
     name = db.Column(db.String, nullable=False)
 
     circuit_id = db.Column(db.Integer, db.ForeignKey('circuits.id'))
@@ -32,6 +32,5 @@ class RaceSchema(ma.Schema):
 # repeating the category_id/circuit_id
     class Meta:
         fields = ('id', 'date', 'name', 'circuit', 'category', 'circuit_id', 'category_id')
-        load_instance = True  # Optional: deserialize to model instances
 
 
