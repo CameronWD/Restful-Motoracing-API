@@ -1,5 +1,7 @@
 from init import db, ma
 from marshmallow import fields
+from models.race import Race, RaceSchema
+from models.driver import Driver, DriverSchema
 
 class Result(db.Model):
     __tablename__ = 'results'

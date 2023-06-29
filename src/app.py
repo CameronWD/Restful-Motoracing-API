@@ -1,7 +1,6 @@
 from flask import Flask
 from os import environ
 from init import db, ma, bcrypt, jwt
-from os import environ
 from blueprints.cli_bp import cli_bp
 from blueprints.auth_bp import auth_bp
 from blueprints.teams_bp import teams_bp
@@ -9,6 +8,7 @@ from blueprints.categories_bp import categories_bp
 from blueprints.circuits_bp import circuits_bp
 from blueprints.drivers_bp import drivers_bp
 from blueprints.races_bp import races_bp
+from blueprints.results_bp import results_bp
 
 def create_app():
     app = Flask(__name__)
@@ -32,7 +32,8 @@ def create_app():
     app.register_blueprint(circuits_bp)
     app.register_blueprint(drivers_bp)
     app.register_blueprint(races_bp)
-
+    app.register_blueprint(results_bp)
+  
     return app
 
 if __name__ == '__main__':
