@@ -4,6 +4,7 @@ from init import db, ma, bcrypt, jwt
 from os import environ
 from blueprints.cli_bp import cli_bp
 from blueprints.auth_bp import auth_bp
+from blueprints.teams_bp import teams_bp
 
 def create_app():
     app = Flask(__name__)
@@ -22,6 +23,7 @@ def create_app():
 
     app.register_blueprint(cli_bp)
     app.register_blueprint(auth_bp)
+    app.register_blueprint(teams_bp)
 
     return app
 

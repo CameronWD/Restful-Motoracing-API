@@ -17,4 +17,4 @@ class Team(db.Model):
 class TeamSchema(ma.Schema):
     category = ma.Nested('CategorySchema')
     class Meta:
-        fields = ('name', 'year_founded', 'category')
+        fields = ('id','name', 'year_founded', 'category_id')

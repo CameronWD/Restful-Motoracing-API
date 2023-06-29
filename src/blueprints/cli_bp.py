@@ -108,7 +108,6 @@ def seed_db():
 
     drivers = [
         Driver(
-            # date_of_birth=(1981,7,29),
             date_of_birth='11/4/2000',
             first_name='Fernando',
             last_name='Alonso',
@@ -117,7 +116,6 @@ def seed_db():
             team=teams[1]
         ),
         Driver(
-            # date_of_birth=(1994,1,10),
             date_of_birth='11/4/2000',
             first_name='Michael',
             last_name='Phelps',
@@ -126,7 +124,6 @@ def seed_db():
             team=teams[1]
         ),
         Driver(
-            # date_of_birth=(2000,4,11),
             date_of_birth='11/4/2000',
             first_name='Yuki',
             last_name='Tsunoda',
@@ -191,5 +188,8 @@ def seed_db():
     db.session.query(Result).delete()
     db.session.add_all(results)
     db.session.commit()
-    print('Races seeded')
+    print('Results seeded')
+    print('Seeding Completed')
+
+
 
