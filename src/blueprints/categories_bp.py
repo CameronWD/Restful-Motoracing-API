@@ -27,8 +27,8 @@ def one_category(category_id):
 def create_category():
     try:
         category_details = CategorySchema().load(request.json)
-    except ValidationError as err:
-        return {'error': 'Validation Error', 'errors': err.messages}, 400
+    except ValidationError as valdiation_error:
+        return {'error': 'Validation Error', 'errors': valdiation_error.messages}, 400
 
     category = Category(
         name = category_details['name'],
