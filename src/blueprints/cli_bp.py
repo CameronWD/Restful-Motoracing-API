@@ -20,26 +20,41 @@ def create_db():
 def seed_db():
     users = [
         User(
+            name='Admin',
             email='admin@racingapi.com',
             password=bcrypt.generate_password_hash('spafrancorchamps').decode('utf-8'),
             is_admin=True
         ),
         User(
+            name = 'Organizer McOrganizerface',
             email='organizer@racingapi.com',
             password=bcrypt.generate_password_hash('silverstone').decode('utf-8'),
-            is_organizer=True
+            role='organizer'
+            ),
+        User(
+            name='Team Manager',
+            email='team@racingapi.com',
+            password=bcrypt.generate_password_hash('suzuka').decode('utf-8'),
+            role='team'
+        ),
+        User(
+            name='Joshua',
+            email='driver@racingapi.com',
+            password=bcrypt.generate_password_hash('suzuka').decode('utf-8'),
+            role='driver'
         ),
         User(
             name='Charles Leclerc',
-            email='driver@racingapi.com',
-            password=bcrypt.generate_password_hash('suzuka').decode('utf-8')
+            email='CLeclerc@racingapi.com',
+            password=bcrypt.generate_password_hash('suzuka').decode('utf-8'),
+            role='driver'
         )
     ]
 
     db.session.query(User).delete()
     db.session.add_all(users)
     db.session.commit()
-    print('Users seeded')
+    print('Users successfully seeded')
 
     categories = [
         Category(
@@ -60,7 +75,7 @@ def seed_db():
     db.session.query(Category).delete()
     db.session.add_all(categories)
     db.session.commit()
-    print('Categories seeded')
+    print('Categories successfully seeded')
 
     circuits = [
         Circuit(
@@ -84,7 +99,7 @@ def seed_db():
     db.session.query(Circuit).delete()
     db.session.add_all(circuits)
     db.session.commit()
-    print('Circuits seeded')
+    print('Circuits successfully seeded')
 
     teams = [
         Team(
@@ -104,7 +119,7 @@ def seed_db():
     db.session.query(Team).delete()
     db.session.add_all(teams)
     db.session.commit()
-    print('Teams seeded')
+    print('Teams successfully seeded')
 
     drivers = [
         Driver(
@@ -136,7 +151,7 @@ def seed_db():
     db.session.query(Driver).delete()
     db.session.add_all(drivers)
     db.session.commit()
-    print('Drivers seeded')
+    print('Drivers successfully seeded')
 
     races = [
         Race(
@@ -162,7 +177,7 @@ def seed_db():
     db.session.query(Race).delete()
     db.session.add_all(races)
     db.session.commit()
-    print('Races seeded')
+    print('Races successfully seeded')
 
     results = [
         Result(
@@ -191,8 +206,8 @@ def seed_db():
     db.session.query(Result).delete()
     db.session.add_all(results)
     db.session.commit()
-    print('Results seeded')
-    print('Seeding Completed')
+    print('Results successfully seeded')
+    print('Seeding Completed.')
 
 
 

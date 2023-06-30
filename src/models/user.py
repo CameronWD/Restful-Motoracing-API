@@ -1,5 +1,5 @@
 from init import db, ma
-from marshmallow import fields
+from marshmallow import validates, ValidationError, validates_schema
 
 class User(db.Model):
     __tablename__ = 'users'
@@ -8,9 +8,21 @@ class User(db.Model):
     name = db.Column(db.String)
     email = db.Column(db.String, nullable=False, unique=True)
     password = db.Column(db.String, nullable=False)
+    role = db.Column(db.String, default=False)
+
     is_admin = db.Column(db.Boolean, default=False)
-    is_organizer = db.Column(db.Boolean, default=False)
 
 class UserSchema(ma.Schema):
+   class UserSchema(ma.Schema):
     class Meta:
-        fields = ('name', 'email', 'password', 'is_admin', 'is_organizer')
+       fields = ('id', 'name', 'email', 'password', 'role', 'is_admin')
+
+    @validates('role')
+    def validate_role(self, role):
+        if role not in ['user', 'team', 'driver', 'organizer']:
+            raise ValidationError('Role must be either user, team, driver or organizer.')
+
+    @validates_schema
+    def validate_role_and_admin(self, data, **kwargs):
+        if not data.get('is_admin', False) and 'role' not in data:
+            raise ValidationError('Non-admin users must have a role.')
