@@ -12,8 +12,8 @@ class Result(db.Model):
     end_position = db.Column(db.Integer, nullable=False)
     points = db.Column(db.Integer)
 
-    race_id = db.Column(db.Integer, db.ForeignKey('races.id'), nullable=False)
-    race = db.relationship('Race', back_populates='results')
+    race_id = db.Column(db.Integer, db.ForeignKey('races.id'))
+    race = db.relationship('Race', backrefs='results')
 
     driver_id = db.Column(db.Integer, db.ForeignKey('drivers.id'), nullable=False)
     driver = db.relationship('Driver', back_populates='results')
@@ -21,6 +21,8 @@ class Result(db.Model):
 class ResultSchema(ma.Schema):
     race = ma.Nested('RaceSchema')
     driver = ma.Nested('DriverSchema')
+    race_id = fields.Int(required=True)
+    driver_id = fields.Int(required=True)
 
     class Meta:
-        fields = ('start_position', 'end_position', 'points', 'driver', 'race')
+        fields = ('id','start_position', 'end_position', 'points', 'driver', 'race', 'race_id', 'driver_id')
