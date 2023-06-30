@@ -13,7 +13,7 @@ class Result(db.Model):
     points = db.Column(db.Integer)
 
     race_id = db.Column(db.Integer, db.ForeignKey('races.id'))
-    race = db.relationship('Race', backrefs='results')
+    race = db.relationship('Race', back_populates='results')
 
     driver_id = db.Column(db.Integer, db.ForeignKey('drivers.id'), nullable=False)
     driver = db.relationship('Driver', back_populates='results')
