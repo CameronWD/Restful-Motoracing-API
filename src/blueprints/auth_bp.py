@@ -1,8 +1,24 @@
-from flask import Blueprint
+from flask import Blueprint, request, abort
 from init import db, bcrypt
 from models.user import User, UserSchema
+from marshmallow.exceptions import ValidationError
+from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required
+from datetime import datetime
 
 auth_bp = Blueprint('auth', __name__)
+
+@auth_bp.route('/login', methods=['POST'])
+def login():
+    try:
+        stmt = db.select(User).filter_by(email=request.json['email'])
+        user = db.session.scalar(stmt)
+        if user and bcrypt.check_password_hash(user.password, request.json['password']):
+            token = create_access_token(identity=user.id)
+            return {'token': token, 'user': UserSchema(exclude=['email','name']).dump(user)}, 200
+        else:
+            return {'error': 'Invalid email or password'}, 401
+    except KeyError:
+        return {'error': 'Invalid email or password'}, 401
 
 @auth_bp.route('/register', methods=['POST'])
 def register():
@@ -27,4 +43,28 @@ def register():
     db.session.add(new_user)
     db.session.commit()
 
-    return UserSchema().dump(new_user), 201
+    return UserSchema(exclude=['password']).dump(new_user), 201
+
+
+@auth_bp.route('/users', methods=['GET'])
+def all_users():
+    stmt = db.select(User)
+    users = db.session.scalars(stmt).all()
+    return UserSchema(many=True, exclude=['password']).dump(users)
+
+
+def admin_required():
+    user_id = get_jwt_identity()
+    stmt = db.select(User).filter_by(id=user_id)
+    user = db.session.scalar(stmt)
+    if not user:
+        abort(400, 'User not found.')
+    if not user.is_admin:
+        abort(400, 'Admin required.')
+
+
+def admin_or_team_role_required():
+
+def admin_or_driver_role_required():
+
+def admin_or_organizer_role_required():

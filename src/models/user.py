@@ -13,7 +13,6 @@ class User(db.Model):
     is_admin = db.Column(db.Boolean, default=False)
 
 class UserSchema(ma.Schema):
-   class UserSchema(ma.Schema):
     class Meta:
        fields = ('id', 'name', 'email', 'password', 'role', 'is_admin')
 
@@ -23,6 +22,6 @@ class UserSchema(ma.Schema):
             raise ValidationError('Role must be either user, team, driver or organizer.')
 
     @validates_schema
-    def validate_role_and_admin(self, data, **kwargs):
-        if not data.get('is_admin', False) and 'role' not in data:
+    def validate_role_and_admin(self, both, **kwargs):
+        if not both.get('is_admin', False) and 'role' not in both:
             raise ValidationError('Non-admin users must have a role.')
