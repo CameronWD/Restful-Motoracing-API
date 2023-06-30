@@ -2,8 +2,6 @@ from flask import Blueprint, request
 from init import db, bcrypt
 from marshmallow.exceptions import ValidationError
 from models.user import User, UserSchema
-from models.category import Category, CategorySchema
-from models.driver import Driver, DriverSchema
 from models.race import Race, RaceSchema
 from datetime import date
 

@@ -2,9 +2,7 @@ from flask import Blueprint, request
 from init import db, bcrypt
 from marshmallow.exceptions import ValidationError
 from models.user import User, UserSchema
-from models.team import Team, TeamSchema
 from models.driver import Driver, DriverSchema
-from datetime import date
 
 drivers_bp = Blueprint('driver', __name__, url_prefix='/drivers')
 

@@ -2,9 +2,7 @@ from flask import Blueprint, request
 from init import db, bcrypt
 from marshmallow.exceptions import ValidationError
 from models.user import User, UserSchema
-from models.team import Team, TeamSchema
 from models.category import Category, CategorySchema
-from datetime import date
 
 categories_bp = Blueprint('category', __name__, url_prefix='/categories')
 
@@ -21,7 +19,7 @@ def one_category(category_id):
     if category:
         return CategorySchema().dump(category)
     else:
-        return{'error': 'Category not found.'}, 400
+        return{'error': 'Category not found.'}, 404
 
 @categories_bp.route('/', methods=['POST'])
 def create_category():
@@ -29,6 +27,10 @@ def create_category():
         category_details = CategorySchema().load(request.json)
     except ValidationError as validation_error:
         return {'error': 'Validation Error', 'errors': validation_error.messages}, 400
+
+    existing_category = db.session.query(Category).filter_by(name=category_details['name']).first()
+    if existing_category:
+        return {'error': 'Category already exists.'}, 400
 
     category = Category(
         name = category_details['name'],
@@ -52,7 +54,6 @@ def update_category(category_id):
     if category:
         category.name = category_details.get('name', category.name)
         category.description = category_details.get('description', category.description)
-        category.id = category_details.get('id', category.id)
         db.session.commit()
         return CategorySchema().dump(category)
     else:

@@ -1,11 +1,8 @@
 from flask import Blueprint, request
-from init import db, bcrypt
+from init import db
 from marshmallow.exceptions import ValidationError
 from models.user import User, UserSchema
-from models.team import Team, TeamSchema
-from models.category import Category, CategorySchema
 from models.circuit import Circuit, CircuitSchema
-from datetime import date
 
 circuits_bp = Blueprint('circuit', __name__, url_prefix='/circuits')
 

@@ -1,10 +1,8 @@
 from flask import Blueprint, request
 from init import db, bcrypt
 from marshmallow.exceptions import ValidationError
-from models.user import User, UserSchema
 from models.team import Team, TeamSchema
 from models.category import Category
-from datetime import date
 
 teams_bp = Blueprint('team', __name__, url_prefix='/teams')
 
