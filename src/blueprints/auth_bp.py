@@ -3,7 +3,7 @@ from init import db, bcrypt
 from models.user import User, UserSchema
 from marshmallow.exceptions import ValidationError
 from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required
-from datetime import datetime
+from datetime import datetime, timedelta
 
 auth_bp = Blueprint('auth', __name__)
 
@@ -13,7 +13,7 @@ def login():
         stmt = db.select(User).filter_by(email=request.json['email'])
         user = db.session.scalar(stmt)
         if user and bcrypt.check_password_hash(user.password, request.json['password']):
-            token = create_access_token(identity=user.id)
+            token = create_access_token(identity=user.id, expires_delta=timedelta(days=1))
             return {'token': token, 'user': UserSchema(only=['email','name']).dump(user)}, 200
         else:
             return {'error': 'Invalid email or password'}, 401
@@ -72,6 +72,7 @@ def admin_or_team_role_required():
     if not (user.is_admin or user.role == 'team'):
         abort(400, 'Admin or Team can only perform this function.')
 
+@jwt_required()
 def admin_or_driver_role_required():
     user_id = get_jwt_identity()
     stmt = db.select(User).filter_by(id=user_id)
@@ -80,6 +81,7 @@ def admin_or_driver_role_required():
         abort(400, 'User not found.')
     if not (user.is_admin or user.role == 'driver'):
         abort(400, 'Admin or Driver can only perform this function.')
+    return user
 
 def admin_or_organizer_role_required():
     user_id = get_jwt_identity()

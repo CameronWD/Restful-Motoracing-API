@@ -3,6 +3,8 @@ from init import db, bcrypt
 from marshmallow.exceptions import ValidationError
 from models.user import User, UserSchema
 from models.driver import Driver, DriverSchema
+from blueprints.auth_bp import admin_or_driver_role_required
+from flask_jwt_extended import get_jwt_identity, jwt_required
 
 drivers_bp = Blueprint('driver', __name__, url_prefix='/drivers')
 
@@ -23,7 +25,8 @@ def one_driver(driver_id):
 
 @drivers_bp.route('/', methods=['POST'])
 def create_driver():
-    current_user = get_jwt_identity()
+    current_user = admin_or_driver_role_required()
+
     try:
         driver_details = DriverSchema().load(request.json)
     except ValidationError as valdiation_error:
@@ -33,7 +36,7 @@ def create_driver():
         first_name = driver_details['first_name'],
         last_name = driver_details['last_name'],
         date_of_birth = driver_details['date_of_birth'],
-        nationality = driver_details['nationality']
+        nationality = driver_details['nationality'],
         user_id = current_user.id
     )
 
@@ -43,13 +46,21 @@ def create_driver():
 
 @drivers_bp.route('/<int:driver_id>', methods=['PUT', 'PATCH'])
 def update_driver(driver_id):
+    current_user = admin_or_driver_role_required()
+
+    stmt = db.select(Driver).filter_by(id=driver_id)
+    driver = db.session.scalar(stmt)
+
+    if not driver:
+        return{'error': 'Driver not found.'}, 404
+    
+    if not (current_user.is_admin or current_user.id == driver.user_id):
+        return{'error': 'Permission denied.'}, 403
+
     try:
         driver_details = DriverSchema().load(request.json)
     except ValidationError as valdiation_error:
         return{'error': 'Validation Error', 'errors': valdiation_error.messages}, 400
-
-    stmt = db.select(Driver).filter_by(id=driver_id)
-    driver = db.session.scalar(stmt)
     
     if driver:
         driver.first_name = driver_details.get('first_name', driver.first_name)
@@ -58,13 +69,22 @@ def update_driver(driver_id):
         driver.date_of_birth = driver_details.get('date_of_birth', driver.date_of_birth)
         db.session.commit()
         return DriverSchema().dump(driver)
-    else:
-        return{'error': 'Driver not found.'}, 404
+
 
 @drivers_bp.route('/<int:driver_id>', methods=['DELETE'])
+@jwt_required()
 def delete_driver(driver_id):
+    current_user = admin_or_driver_role_required()
+
     stmt = db.select(Driver).filter_by(id=driver_id)
     driver = db.session.scalar(stmt)
+
+    if not driver:
+        return{'error': 'Driver not found.'}, 404
+    
+    if not (current_user.is_admin or current_user.id == driver.user_id):
+        return{'error': 'Permission denied.'}, 403
+    
     if driver:
         db.session.delete(driver)
         db.session.commit()

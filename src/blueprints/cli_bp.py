@@ -128,7 +128,8 @@ def seed_db():
             last_name='Alonso',
             nationality='Spanish',
             category=categories[1],
-            team=teams[1]
+            team=teams[1],
+            user_id=4
         ),
         Driver(
             date_of_birth='2000-04-11',
@@ -136,7 +137,8 @@ def seed_db():
             last_name='Phelps',
             nationality='American',
             category=categories[1],
-            team=teams[1]
+            team=teams[1],
+            user_id=4
         ),
         Driver(
             date_of_birth='2000-04-11',
@@ -144,7 +146,8 @@ def seed_db():
             last_name='Tsunoda',
             nationality='Japanese',
             category=categories[1],
-            team=teams[1]
+            team=teams[1],
+            user_id=1
         )
     ]
 

@@ -15,7 +15,7 @@ class Result(db.Model):
     race_id = db.Column(db.Integer, db.ForeignKey('races.id'))
     race = db.relationship('Race', back_populates='results')
 
-    driver_id = db.Column(db.Integer, db.ForeignKey('drivers.id'), nullable=False)
+    driver_id = db.Column(db.Integer, db.ForeignKey('drivers.id', ondelete='CASCADE'), nullable=False)
     driver = db.relationship('Driver', back_populates='results')
 
 class ResultSchema(ma.Schema):
