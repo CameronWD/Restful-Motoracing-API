@@ -23,6 +23,7 @@ def one_driver(driver_id):
 
 @drivers_bp.route('/', methods=['POST'])
 def create_driver():
+    current_user = get_jwt_identity()
     try:
         driver_details = DriverSchema().load(request.json)
     except ValidationError as valdiation_error:
@@ -33,6 +34,7 @@ def create_driver():
         last_name = driver_details['last_name'],
         date_of_birth = driver_details['date_of_birth'],
         nationality = driver_details['nationality']
+        user_id = current_user.id
     )
 
     db.session.add(driver)
