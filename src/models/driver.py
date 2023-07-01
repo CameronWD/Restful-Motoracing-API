@@ -7,7 +7,7 @@ class Driver(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
 
-    date_of_birth = db.Column(db.String)
+    date_of_birth = db.Column(db.Date())
     first_name = db.Column(db.String)
     last_name = db.Column(db.String)
     nationality = db.Column(db.String)
@@ -28,5 +28,6 @@ class DriverSchema(ma.Schema):
     team = ma.Nested('TeamSchema', only=('id',))
     user = ma.Nested('UserSchema', only=('id',))
 
+    
     class Meta:
         fields = ('id','date_of_birth', 'first_name', 'last_name', 'nationality', 'category', 'team', 'user') 

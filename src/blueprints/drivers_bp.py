@@ -27,6 +27,10 @@ def one_driver(driver_id):
 def create_driver():
     current_user = admin_or_driver_role_required()
 
+    exising_driver = Driver.query.filter_by(user_id=current_user.id).first()
+    if exising_driver:
+        return{'error': 'Driver already exists for this user. Please delete or update your current driver profile.'}, 400
+
     try:
         driver_details = DriverSchema().load(request.json)
     except ValidationError as valdiation_error:

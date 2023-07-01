@@ -52,7 +52,7 @@ def all_users():
     users = db.session.scalars(stmt).all()
     return UserSchema(many=True, exclude=['password']).dump(users)
 
-
+@jwt_required()
 def admin_required():
     user_id = get_jwt_identity()
     stmt = db.select(User).filter_by(id=user_id)
@@ -62,7 +62,7 @@ def admin_required():
     if not user.is_admin:
         abort(400, 'Admin required.')
 
-
+@jwt_required()
 def admin_or_team_role_required():
     user_id = get_jwt_identity()
     stmt = db.select(User).filter_by(id=user_id)
@@ -83,6 +83,7 @@ def admin_or_driver_role_required():
         abort(400, 'Admin or Driver can only perform this function.')
     return user
 
+@jwt_required()
 def admin_or_organizer_role_required():
     user_id = get_jwt_identity()
     stmt = db.select(User).filter_by(id=user_id)
