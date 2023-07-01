@@ -2,9 +2,9 @@ from flask import Blueprint, request
 from init import db, bcrypt
 from marshmallow.exceptions import ValidationError
 from models.team import Team, TeamSchema
-from models.category import Category
 from models.user import User, UserSchema
 from blueprints.auth_bp import admin_or_team_role_required
+from flask_jwt_extended import get_jwt_identity, jwt_required
 
 teams_bp = Blueprint('team', __name__, url_prefix='/teams')
 
@@ -28,6 +28,7 @@ def create_team():
     current_user = admin_or_team_role_required()
 
     exising_team = Team.query.filter_by(user_id=current_user.id).first()
+
     if exising_team:
         return{'error': 'Team already exists for this user. Please delete or update your current team profile.'}, 400
     
@@ -35,15 +36,11 @@ def create_team():
         team_details = TeamSchema().load(request.json)
     except ValidationError as err:
         return {'error': 'Validation Error', 'errors': err.messages}, 400
-    
-    category = Category.query.get(team_details['category_id'])
-    if not category:
-        return {'error':'Category not found.'}, 400
 
     team = Team(
         name = team_details['name'],
         year_founded = team_details['year_founded'],
-        category_id = team_details['category_id']
+        user_id = current_user.id
     )
 
     db.session.add(team)
@@ -70,7 +67,6 @@ def update_team(team_id):
     if team:
         team.name = team_details.get('name', team.name)
         team.year_founded = team_details.get('year_founded', team.year_founded)
-        team.category_id = team_details.get('category_id', team.category_id)
         db.session.commit()
         return TeamSchema().dump(team)
     

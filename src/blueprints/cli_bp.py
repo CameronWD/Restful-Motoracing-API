@@ -34,7 +34,7 @@ def seed_db():
         User(
             name='Team Manager',
             email='team@racingapi.com',
-            password=bcrypt.generate_password_hash('suzuka').decode('utf-8'),
+            password=bcrypt.generate_password_hash('margin').decode('utf-8'),
             role='team'
         ),
         User(
@@ -104,15 +104,18 @@ def seed_db():
     teams = [
         Team(
             name='Ferrari',
-            year_founded=1929
+            year_founded=1929,
+            user_id=3
         ),
         Team(
             name='Burnouts',
-            year_founded=2004
+            year_founded=2004,
+            user_id=3
         ), 
         Team(
             name='Darryl Dodgers',
-            year_founded=2020
+            year_founded=2020,
+            user_id=3
         )
     ]
 
@@ -127,7 +130,6 @@ def seed_db():
             first_name='Fernando',
             last_name='Alonso',
             nationality='Spanish',
-            category=categories[1],
             team=teams[1],
             user_id=4
         ),
@@ -136,7 +138,6 @@ def seed_db():
             first_name='Michael',
             last_name='Phelps',
             nationality='American',
-            category=categories[1],
             team=teams[1],
             user_id=4
         ),
@@ -145,9 +146,8 @@ def seed_db():
             first_name='Yuki',
             last_name='Tsunoda',
             nationality='Japanese',
-            category=categories[1],
             team=teams[1],
-            user_id=1
+            user_id=5
         )
     ]
 

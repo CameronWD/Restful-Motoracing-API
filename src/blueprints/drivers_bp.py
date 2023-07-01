@@ -28,8 +28,9 @@ def create_driver():
     current_user = admin_or_driver_role_required()
 
     exising_driver = Driver.query.filter_by(user_id=current_user.id).first()
+    
     if exising_driver:
-        return{'error': 'Driver already exists for this user. Please delete or update your current driver profile.'}, 400
+        return{'error': f'Driver already exists for this user. Please delete or update your current driver profile, {exising_driver.first_name} {exising_driver.last_name}'}, 400
 
     try:
         driver_details = DriverSchema().load(request.json)

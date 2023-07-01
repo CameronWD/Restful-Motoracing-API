@@ -12,10 +12,7 @@ class Driver(db.Model):
     last_name = db.Column(db.String)
     nationality = db.Column(db.String)
 
-    category_id = db.Column(db.Integer, db.ForeignKey('categories.id'))
-    category = db.relationship('Category', back_populates='drivers')
-
-    team_id = db.Column(db.Integer, db.ForeignKey('teams.id', ondelete='CASCADE'))
+    team_id = db.Column(db.Integer, db.ForeignKey('teams.id'), nullable=True)
     team = db.relationship('Team', back_populates='drivers')
 
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
@@ -24,10 +21,9 @@ class Driver(db.Model):
     results = db.relationship('Result', back_populates='driver', cascade='all, delete-orphan')
 
 class DriverSchema(ma.Schema):
-    category = ma.Nested('CategorySchema', only=('id',))
     team = ma.Nested('TeamSchema', only=('id',))
     user = ma.Nested('UserSchema', only=('id',))
 
     
     class Meta:
-        fields = ('id','date_of_birth', 'first_name', 'last_name', 'nationality', 'category', 'team', 'user') 
+        fields = ('id','date_of_birth', 'first_name', 'last_name', 'nationality', 'team', 'user') 

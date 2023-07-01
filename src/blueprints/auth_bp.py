@@ -71,6 +71,7 @@ def admin_or_team_role_required():
         abort(400, 'User not found.')
     if not (user.is_admin or user.role == 'team'):
         abort(400, 'Admin or Team can only perform this function.')
+    return user
 
 @jwt_required()
 def admin_or_driver_role_required():

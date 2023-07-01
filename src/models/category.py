@@ -9,11 +9,8 @@ class Category(db.Model):
     name = db.Column(db.String, nullable=False, unique=True)
     description = db.Column(db.String)
 
-    drivers = db.relationship('Driver', back_populates='category', cascade='all,delete')
-
     races = db.relationship('Race', back_populates='category')
 
-    teams = db.relationship('Team', back_populates='category')
 
 class CategorySchema(ma.Schema):
     class Meta:

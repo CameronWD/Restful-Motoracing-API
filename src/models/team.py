@@ -9,15 +9,13 @@ class Team(db.Model):
     name = db.Column(db.String, nullable=False, unique=True)
     year_founded = db.Column(db.Integer)
 
-    category_id = db.Column(db.Integer, db.ForeignKey('categories.id'), nullable=True)
-    category = db.relationship('Category', back_populates='teams')
-
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     user = db.relationship('User', back_populates='team')
 
     drivers = db.relationship('Driver', back_populates='team')
 
 class TeamSchema(ma.Schema):
-    category = ma.Nested('CategorySchema')
+    drivers = ma.Nested('DriverSchema', many=True, only=('id', 'first_name', 'last_name'))
+    user= ma.Nested('UserSchema', only=('id',))
     class Meta:
-        fields = ('id','name', 'year_founded', 'category_id')
+        fields = ('id','name', 'year_founded', 'drivers', 'user', 'user_id')

@@ -8,7 +8,7 @@ class User(db.Model):
     name = db.Column(db.String)
     email = db.Column(db.String, nullable=False, unique=True)
     password = db.Column(db.String, nullable=False)
-    role = db.Column(db.String, default=False)
+    role = db.Column(db.String, nullable=False)
 
     is_admin = db.Column(db.Boolean, default=False)
 
@@ -20,8 +20,8 @@ class UserSchema(ma.Schema):
 
     @validates('role')
     def validate_role(self, role):
-        if role not in ['user', 'team', 'driver', 'organizer']:
-            raise ValidationError('Role must be either user, team, driver or organizer.')
+        if role not in ['team', 'driver', 'organizer']:
+            raise ValidationError('Role must be either team, driver or organizer.')
 
     @validates_schema
     def validate_role_and_admin(self, both, **kwargs):
