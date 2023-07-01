@@ -5,12 +5,13 @@
 # Installation Guide
 
 # What is the problem?
-## R1 - Identification of the problem you are trying to solve by building this particular app.
+### R1 - Identification of the problem you are trying to solve by building this particular app.
 
 # Why is it a problem?
 ## R2 - Why is it a problem that needs solving?
 
-# R3 - Why have you chosen this database system. What are the drawbacks compared to others? 
+# Why PostgreSQL?
+## R3 - Why have you chosen this database system. What are the drawbacks compared to others? 
 
 # R4 - Identify and discuss the key functionalities and benefits of an ORM
 
