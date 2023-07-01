@@ -93,3 +93,4 @@ def admin_or_organizer_role_required():
         abort(400, 'User not found.')
     if not (user.is_admin or user.role == 'organizer'):
         abort(400, 'Admin or Organizer can only perform this function.')
+    return user

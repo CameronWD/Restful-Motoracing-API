@@ -11,7 +11,11 @@ class Category(db.Model):
 
     races = db.relationship('Race', back_populates='category')
 
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    user = db.relationship('User', back_populates='category')
+
 
 class CategorySchema(ma.Schema):
+    user= ma.Nested('UserSchema', only=('id',))
     class Meta:
-        fields = ('id','name', 'description')
+        fields = ('id','name', 'description', 'user')

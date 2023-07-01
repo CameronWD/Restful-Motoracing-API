@@ -8,12 +8,17 @@ class User(db.Model):
     name = db.Column(db.String)
     email = db.Column(db.String, nullable=False, unique=True)
     password = db.Column(db.String, nullable=False)
-    role = db.Column(db.String, nullable=False)
+    role = db.Column(db.String, nullable=True)
 
     is_admin = db.Column(db.Boolean, default=False)
 
     driver = db.relationship('Driver', back_populates='user')
     team = db.relationship('Team', back_populates='user')
+    category = db.relationship('Category', back_populates='user')
+    # circuit = db.relationship('Circuit', back_populates='user')
+    # race = db.relationship('Circuit', back_populates='user')
+    # result = db.relationship('Result', back_populates='user')
+
 class UserSchema(ma.Schema):
     class Meta:
        fields = ('id', 'name', 'email', 'password', 'role', 'is_admin')
