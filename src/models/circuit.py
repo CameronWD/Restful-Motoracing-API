@@ -10,6 +10,9 @@ class Circuit(db.Model):
     location = db.Column(db.String)
     lap_record = db.Column(db.Integer)
 
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    user = db.relationship('User', back_populates='circuits')
+
     races = db.relationship('Race', back_populates='circuit')
 
 class CircuitSchema(ma.Schema):

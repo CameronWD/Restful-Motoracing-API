@@ -15,8 +15,8 @@ class User(db.Model):
     driver = db.relationship('Driver', back_populates='user')
     team = db.relationship('Team', back_populates='user')
     category = db.relationship('Category', back_populates='user')
-    # circuit = db.relationship('Circuit', back_populates='user')
-    # race = db.relationship('Circuit', back_populates='user')
+    circuits = db.relationship('Circuit', back_populates='user')
+    races = db.relationship('Race', back_populates='user')
     # result = db.relationship('Result', back_populates='user')
 
 class UserSchema(ma.Schema):
