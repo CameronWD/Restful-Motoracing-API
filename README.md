@@ -18,6 +18,14 @@
 ## What is the problem?
 ### R1 - Identification of the problem you are trying to solve by building this particular app.
 
+High-profile motorsports such as Formula 1, Indy Car, and V8 Supercars are bolstered by extensive data infrastructure that provides in-depth information not only for the sport's participants but also for its fans. This availability of data enhances fans' ability to support and understand the sporting events they find engaging. However, a stark contrast emerges as we shift our focus from these top-tier professional sports to the more diverse world of amateur, semi-professional, club, virtual, and friend racing circles. As the variety of categories, vehicles, teams, circuits, and drivers dramatically increases, the ability to access data on these events becomes poorly managed, unintuitive, or inaccessible.
+
+Whether it's a local karting championship, a club weekend at a circuit, or friends wishing to track their own virtual racing league, the lack of a comprehensive and accessible system for capturing, storing, and displaying data for these types of competitions becomes apparent. This deficiency is evidenced by the makeshift solutions, or lack of, currently employed by these communities. This shortfall not only hinders participants' ability to follow their results but also impacts spectators' engagement with these less-known categories of motorsport.
+
+Typically, data for these semi-organized leagues are managed using rudimentary methods such as word documents, group chats, or even manually, with more casual groups often having less organization than this. There's no centrally managed, readily available system for people to access data about drivers, teams, circuits, races, results, and categories. Often, someone seeking information about a previous result must scroll through numerous social media posts in hopes of finding the comment that references the results. This approach is a disservice to these exciting events, as it heightens the barrier to entry for fans looking to connect with the sport and broaden their understanding of different communities.
+
+The Motor Racing API aims to lay a foundation to rectify this problem. By creating an accessible and comprehensive system that stores data about various components of motor racing—and their interconnectedness—it caters to the needs of racers, teams, event organizers, and those interested in learning more about local competitions. This system is also beneficial for friend groups who simply want to maintain a well-kept record of their weekend ritual of battling it out at the local karting track. 
+
 ## Why is it a problem?
 ### R2 - Why is it a problem that needs solving?
 
