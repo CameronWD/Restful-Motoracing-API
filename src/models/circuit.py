@@ -16,5 +16,7 @@ class Circuit(db.Model):
     races = db.relationship('Race', back_populates='circuit')
 
 class CircuitSchema(ma.Schema):
+    user = fields.Nested('UserSchema', only=('id',))
+    races =fields.Nested('RaceSchema', many=True, only=('id', 'name', 'date'))
     class Meta:
-        fields = ('id','track_name', 'location', 'lap_record')
+        fields = ('id','track_name', 'location', 'lap_record', 'user_id', 'user', 'races')
