@@ -13,6 +13,7 @@ class User(db.Model):
     is_admin = db.Column(db.Boolean, default=False)
 
     driver = db.relationship('Driver', back_populates='user')
+    team = db.relationship('Team', back_populates='user')
 class UserSchema(ma.Schema):
     class Meta:
        fields = ('id', 'name', 'email', 'password', 'role', 'is_admin')

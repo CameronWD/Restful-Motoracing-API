@@ -12,6 +12,9 @@ class Team(db.Model):
     category_id = db.Column(db.Integer, db.ForeignKey('categories.id'), nullable=True)
     category = db.relationship('Category', back_populates='teams')
 
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    user = db.relationship('User', back_populates='team')
+
     drivers = db.relationship('Driver', back_populates='team')
 
 class TeamSchema(ma.Schema):

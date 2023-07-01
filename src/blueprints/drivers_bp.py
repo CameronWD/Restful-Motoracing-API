@@ -76,7 +76,6 @@ def update_driver(driver_id):
 
 
 @drivers_bp.route('/<int:driver_id>', methods=['DELETE'])
-@jwt_required()
 def delete_driver(driver_id):
     current_user = admin_or_driver_role_required()
 
