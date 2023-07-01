@@ -1,9 +1,14 @@
-Term Two - Assessment Two
-## Racing API
+# **T2A2 - API Webserver Project - Motor Racing API**
 
-# R1 - Identification of the problem you are trying to solve by building this particular app.
+# Table of Contents
 
-# R2 - Why is it a problem that needs solving?
+# Installation Guide
+
+# What is the problem?
+## R1 - Identification of the problem you are trying to solve by building this particular app.
+
+# Why is it a problem?
+## R2 - Why is it a problem that needs solving?
 
 # R3 - Why have you chosen this database system. What are the drawbacks compared to others? 
 
