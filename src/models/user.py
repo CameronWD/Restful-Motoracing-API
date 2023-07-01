@@ -17,7 +17,7 @@ class User(db.Model):
     category = db.relationship('Category', back_populates='user')
     circuits = db.relationship('Circuit', back_populates='user')
     races = db.relationship('Race', back_populates='user')
-    # result = db.relationship('Result', back_populates='user')
+    results = db.relationship('Result', back_populates='user')
 
 class UserSchema(ma.Schema):
     class Meta:

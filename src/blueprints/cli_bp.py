@@ -188,21 +188,24 @@ def seed_db():
             end_position=1,
             points=25,
             race_id=1,
-            driver_id=2
+            driver_id=2,
+            user_id=4
         ),
          Result(
             start_position=10,
             end_position=15,
             points=0,
             race_id=2,
-            driver_id=1
+            driver_id=1,
+            user_id=4
         ),
          Result(
             start_position=5,
             end_position=5,
             points=7,
             race_id=2,
-            driver_id=2
+            driver_id=2,
+            user_id=4
         )
     ]
     

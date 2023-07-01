@@ -18,11 +18,15 @@ class Result(db.Model):
     driver_id = db.Column(db.Integer, db.ForeignKey('drivers.id', ondelete='CASCADE'), nullable=False)
     driver = db.relationship('Driver', back_populates='results')
 
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    user = db.relationship('User', back_populates='results')
+
 class ResultSchema(ma.Schema):
     race = ma.Nested('RaceSchema')
     driver = ma.Nested('DriverSchema')
     race_id = fields.Int(required=True)
     driver_id = fields.Int(required=True)
+    user = ma.Nested('UserSchema', only=('id',))
 
     class Meta:
-        fields = ('id','start_position', 'end_position', 'points', 'driver', 'race', 'race_id', 'driver_id')
+        fields = ('id','start_position', 'end_position', 'points', 'driver', 'race', 'race_id', 'driver_id', 'user_id')
