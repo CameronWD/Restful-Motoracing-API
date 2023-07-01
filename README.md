@@ -29,6 +29,16 @@ The Motor Racing API aims to lay a foundation to rectify this problem. By creati
 ## Why is it a problem?
 ### R2 - Why is it a problem that needs solving?
 
+At the core of this issue are two fundamental challenges that are in need of a resolution.
+
+1. Reduced Engagement and Enjoyment
+    - As with many sports, enjoyment goes beyond the event itself. Following sportspeople over a season of races, accessing statistics, and discovering intriguing information about the participants all enhance engagement and enjoyment. Currently, many lower-tier motor racing communities lack a comprehensive, approachable, or even discoverable platform for fans to delve deeper and find more information about races, teams, drivers, and circuits. By creating a tool that makes data more accessible, we pave the way for increased spectator engagement and enjoyment.
+
+2. Restricted Growth of Communities
+    - Most of these events or organizations spring from passion projects or weekend work by dedicated volunteers who aim to create competitive and enjoyable races. With this passion comes a lack of organization and substantial friction for new drivers, teams, sponsors, or races looking to get involved, primarily due to the organizers' limited resources. By introducing a platform that not only simplifies processing new drivers and teams into competitions but also serves as a central hub for sharing information about upcoming races and race results, we empower the community to grow.
+
+The unique aspect of these communities and other lower-tier motorsport competitions is the harmonious blend of community and competition. Utilizing an API like the Motor Racing API enables these groups to foster a more interconnected and cohesive structure, while simultaneously enhancing accessibility and engagement with their fan base. This solution significantly broadens the level of participation that people can enjoy when following these events.
+
 ## Why PostgreSQL?
 ### R3 - Why have you chosen this database system. What are the drawbacks compared to others? 
 
