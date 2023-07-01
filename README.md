@@ -42,6 +42,18 @@ The unique aspect of these communities and other lower-tier motorsport competiti
 ## Why PostgreSQL?
 ### R3 - Why have you chosen this database system. What are the drawbacks compared to others? 
 
+The choice of a Relational Database Management System (RDBMS) for this application is most suitable due to the intrinsically relational nature of the data that will be stored. Racing data, which is composed of interconnected entities such as drivers, races, teams, circuits, and results, can be effectively modeled and managed within a relational database structure. An RDBMS, such as PostgreSQL, provides strong ACID compliance ensuring reliable transactions and maintaining data integrity.
+
+PostgreSQL stands out among RDBMS options and has been chosen for this project. Its robustness, reliability, and ability to handle a vast amount of interconnected data make it an ideal choice. The popularity of PostgreSQL among developers leads to it being well documented, easing troubleshooting. It also boasts strong community support, enhancing its appeal due to the greater ability to find resources. 
+
+Key features of PostgreSQL include its ability to efficiently process complex queries, which is essential for detailed analyses of race results. It's also extensible, enabling the addition of various functionalities and creating custom functions and data types. This flexibility allows it to cater to a wide range of use cases. Furthermore, PostgreSQL’s ACID compliance underscores the integrity and consistency of data transactions.
+
+However, potential drawbacks should be considered. When compared to some other RDBMS, PostgreSQL exhibits slower read speeds. There may also be a steep learning curve during initial setup due to its complexity. Lastly, being an open-source system managed by multiple communities, PostgreSQL can occasionally present compatibility issues with certain setups.
+
+In conclusion, despite its limitations, PostgreSQL benefits of robustness, ACID compliance, complex query handling, extensibility provide a compelling case for it to be used for this project. It aligns well with the nature of the data used for this case and makes it a great choice for this application. 
+
+
+# Attached image of databases for this project with seeded data
 ## ORM
 ### R4 - Identify and discuss the key functionalities and benefits of an ORM
 
