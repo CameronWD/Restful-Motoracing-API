@@ -1,7 +1,18 @@
 # **T2A2 - API Webserver Project - Motor Racing API**
 
 # Table of Contents
-  - [Installation Guide](#Installation Guide)
+
+1. [Installation Guide](#installation-guide)
+2. [What is the problem?](#what-is-the-problem?)
+3. [Why is it a problem?](#why-is-it-a-problem?)
+4. [Why PostgreSQL?](#why-postgresql)
+5. [ORM](#orm)
+6. [Endpoints for Motor Racing API](#endpoints-for-motor-racing-api)
+7. [ERD](#erd)
+8. [Third party services](#third-party-services)
+9. [Models and Relationships](#models-and-relationships)
+10. [Database Relations](#database-relations)
+11. [Project Managment Methodology](#project-managment-methodology)
 ## Installation Guide
 
 ## What is the problem?
