@@ -72,31 +72,79 @@ For this project, SQLAlchemy has been selected as the ORM. It is popular among p
 ### R5 - Document all endpoints for your API
 1. Login ('/login')
     - Method: POST
-    - Required data:
+    - Required JSON Request Data:
       - 'email': User's email address
       - 'password': User's password
-    - Expected response data:
+    - Expected JSON Response Data:
       - 'token': JWT token for the user session
       - 'user': Object containing user's email and name
     - Authentication: Not required 
 
 2. Register ('/register')
     - Method: POST
-    - Required data:
+    - Required JSON Request Data:
       - 'name': User's full name
       - 'email': User's email address
       - 'password': User's password
       - 'role': Role of the user (team, driver, organizer)
-    - Expected response data:
+    - Expected JSON Response Data:
       - The newly registered user's data (excluding password)
     - Authentication: Not required
 
 3. Get All Users ('/users')
    - Method: GET
-   - Required data: None
-   - Expected response data:
+   - Required JSON Request Data: None
+   - Expected JSON Response Data:
      - An array of all users in the database (excluding their passwords)
    - Authentication: Required (JWT token and user must have 'admin' role)
+
+4. Categories ('/categories')
+- Get All Categories ('/')
+        - Method:GET
+        - Required JSON Request Data: 
+          - None
+        - Expected JSON Response Data: 
+          - Array of all categories in the database
+        - Expected HTTP Response Code: 200
+        - Authentication: Not required
+- Get Single Categories ('/<int:category_id>')
+        - Method: GET
+        - Required JSON Request Data:
+          - None
+        - Expected JSON Response Data: 
+          - Object containing the details of the requested category
+        - Expected HTTP Response Code: 200 (404 if not found)
+        - Authentication: Not required
+- Create a Category ('/')
+        - Method: POST
+        - Required JSON Request Data:
+          - 'name': Name of the category
+          - 'description': Description of the category
+        - Expected JSON Response Data: 
+          - Object containing the newly created category's data
+        - Expected HTTP Response Code: 201 (400 if validation error, 400 if category already exists)
+        - Authentication: Required (JWT token and user must have 'admin' or 'organizer' role)
+- Update a Category('/<int:category_id>')
+        - Method: PUT, PATCH
+        - Required JSON Request Data:
+          - Object containing category data to be changed
+            -  'name' (New name for the category, string, optional)
+            -  'description' (New description for the category, string, optional)
+        - Expected JSON response data:
+          - Object containing the updated category's data
+        - Expected HTTP Response Code: 200 (400 if validation error, 404 if not found, 403 if unauthorized)
+        - Authentication:
+          - Required (JWT token and user must have 'admin' or 'organizer' role, or be the category owner)
+- Delete a Category ('/<int:category_id>')
+        - Method: DELETE
+        - Required JSON Request Data:
+        - Expected JSON response data:
+          - Empty JSON object
+        - Expected HTTP Response Code: 200 (404 if not found, 403 if unauthorized)
+        - Authentication:
+          - Required (JWT token and user must have 'admin' or 'organizer' role, or be the category owner)
+ 
+
 ## ERD
 ### R6 - An ERD for your app
 
