@@ -48,6 +48,7 @@ def register():
 
 @auth_bp.route('/users', methods=['GET'])
 def all_users():
+    admin_required()
     stmt = db.select(User)
     users = db.session.scalars(stmt).all()
     return UserSchema(many=True, exclude=['password']).dump(users)
