@@ -25,7 +25,7 @@
    ```
    CREATE DATABASE racingapi;
    ```
-4. You can then connect to this database to create a user and give it all prviliges. Please note that this is just for using this database. 
+4. You can then connect to this database to create a user and grant them all privileges. Please note that this is just for using this database. 
    ```
    \c racingapi;
    ```
@@ -34,7 +34,7 @@
    ``` 
    ```
    GRANT ALL PRIVILEGES ON DATABASE racingapi TO yourusername;
-5. You have now created a user for the racingapi database. Now open another tab in your terminal and create the virtual environment before installing dependencies. 
+5. After creating a user for the racingapi database, open another terminal tab and create the virtual environment before installing dependencies.
     ```
     python3 -m venv .venv
     ```
@@ -50,7 +50,7 @@
     DB_URI = 'postgresql+psycopg2://yourusername:yourpassword@localhost:5432/racingapi'
     JWT_KEY = 'YOUR KEY'
     ```
-8. Ensure you're in the correct location and start the api. 
+8. Ensure you're in the correct directory and start the API. 
    ```
    flask db create
    ```
@@ -72,7 +72,7 @@ Whether it's a local karting championship, a club weekend at a circuit, or frien
 
 Typically, data for these semi-organized leagues are managed using rudimentary methods such as word documents, group chats, or even manually, with more casual groups often having less organization than this. There's no centrally managed, readily available system for people to access data about drivers, teams, circuits, races, results, and categories. Often, someone seeking information about a previous result must scroll through numerous social media posts in hopes of finding the comment that references the results. This approach is a disservice to these exciting events, as it heightens the barrier to entry for fans looking to connect with the sport and broaden their understanding of different communities.
 
-The Motor Racing API aims to lay a foundation to rectify this problem. By creating an accessible and comprehensive system that stores data about various components of motor racing—and their interconnectedness—it caters to the needs of racers, teams, event organizers, and those interested in learning more about local competitions. This system is also beneficial for friend groups who simply want to maintain a well-kept record of their weekend ritual of battling it out at the local karting track. 
+The Motor Racing API aims to lay a foundation to rectify this problem. By creating an accessible and comprehensive system that stores data about various components of motor racing and their interconnectedness, it caters to the needs of racers, teams, event organizers, and those interested in learning more about local competitions. This system is also beneficial for friend groups who simply want to maintain a well-kept record of their weekend ritual of battling it out at the local karting track. 
 
 ## Why is it a problem?
 ### R2 - Why is it a problem that needs solving?
@@ -85,7 +85,7 @@ At the core of this issue are two fundamental challenges that are in need of a r
 2. Restricted Growth of Communities
     - Most of these events or organizations spring from passion projects or weekend work by dedicated volunteers who aim to create competitive and enjoyable races. With this passion comes a lack of organization and substantial friction for new drivers, teams, sponsors, or races looking to get involved, primarily due to the organizers' limited resources. By introducing a platform that not only simplifies processing new drivers and teams into competitions but also serves as a central hub for sharing information about upcoming races and race results, we empower the community to grow.
 
-The unique aspect of these communities and other lower-tier motorsport competitions is the harmonious blend of community and competition. Utilizing an API like the Motor Racing API enables these groups to foster a more interconnected and cohesive structure, while simultaneously enhancing accessibility and engagement with their fan base. This solution significantly broadens the level of participation that people can enjoy when following these events.
+The unique aspect of these communities and other lower-tier motorsport competitions is the harmonious blend of community and competition. Utilizing an API like the Motor Racing API enables these groups to foster a more interconnected and cohesive structure while simultaneously enhancing accessibility and engagement with their fan base. This solution significantly broadens the level of participation that people can enjoy when following these events.
 
 ## Why PostgreSQL?
 ### R3 - Why have you chosen this database system. What are the drawbacks compared to others? 
@@ -94,7 +94,7 @@ The choice of a Relational Database Management System (RDBMS) for this applicati
 
 PostgreSQL stands out among RDBMS options and has been chosen for this project. Its robustness, reliability, and ability to handle a vast amount of interconnected data make it an ideal choice. The popularity of PostgreSQL among developers leads to it being well documented, easing troubleshooting. It also boasts strong community support, enhancing its appeal due to the greater ability to find resources. 
 
-Key features of PostgreSQL include its ability to efficiently process complex queries, which is essential for detailed analyses of race results. It's also extensible, enabling the addition of various functionalities and creating custom functions and data types. This flexibility allows it to cater to a wide range of use cases. Furthermore, PostgreSQL’s ACID compliance underscores the integrity and consistency of data transactions.
+Key features of PostgreSQL include its ability to efficiently process complex queries, which is essential for detailed analyses of race results. It's also extensible, enabling the addition of various functionalities by creating custom functions and data types. This flexibility allows it to cater to a wide range of use cases. Furthermore, PostgreSQL’s ACID compliance underscores the integrity and consistency of data transactions.
 
 However, potential drawbacks should be considered. When compared to some other RDBMS, PostgreSQL exhibits slower read speeds. There may also be a steep learning curve during initial setup due to its complexity. Lastly, being an open-source system managed by multiple communities, PostgreSQL can occasionally present compatibility issues with certain setups.
 
@@ -103,9 +103,9 @@ In conclusion, despite its limitations, PostgreSQL benefits of robustness, ACID 
 ## ORM
 ### R4 - Identify and discuss the key functionalities and benefits of an ORM
 
-Object-Relational Mapping (ORM) is a technique that allows developers to interact with their database like a set of objects in their chosen programming language, providing several distinct advantages.
+Object-Relational Mapping (ORM) is a technique that allows developers to interact with their database as if it were a set of objects in their chosen programming language, providing several distinct advantages.
 
-1. Language Consistency: ORMs enable developers to manipulate database entries using the syntax and idioms of their preferred programming language, such as Python, rather than writing raw SQL queries. This makes the code more readable and maintainable and allows developers to leverage their existing knowledge and skills more effectively.
+1. Language Consistency: ORMs enable developers to manipulate database entries using the syntax and idioms of their preferred programming language (like Python), rather than writing raw SQL queries. This makes the code more readable and maintainable and allows developers to leverage their existing knowledge and skills more effectively.
 
 2. Data Transformation: ORM handles the transformation between incompatible type systems (object-oriented and relational), simplifying the process of mapping database entries to objects in code. This can streamline the development process, reducing the likelihood of errors due to data type mismatches.
 
@@ -113,7 +113,7 @@ Object-Relational Mapping (ORM) is a technique that allows developers to interac
 
 4. Security: The abstraction provided by ORMs also helps enhance security by reducing the risk of SQL injection attacks, as commands are parameterized, and strings aren't directly inserted into queries.
 
-For this project, SQLAlchemy has been selected as the ORM. It is popular among python developers due to its ease of use and expansive features. It allows developers to work with a database like it is a set of Python objects.
+For this project, SQLAlchemy has been selected as the ORM. It is popular among python developers due to its ease of use and expansive features. It allows developers to work with a database as if it were a set of Python objects.
 ## Endpoints for Motor Racing API
 ### R5 - Document all endpoints for your API
 ### Login ('/login')
@@ -727,7 +727,7 @@ The relationships between these models are vital to the functionality of the app
 # Database Relations
 ## R9 - Discuss the database relations to be implemented in your application
  
- The database for this racing api is called "racingapi" and uses postgreSQL. It composes of seven tables (entities): User, Driver, Team, Category, Circuit, Race and Result. These tables are interconnected via various database relations to faciliate operations and maintain integerity of data in an effort to provide a resiliant and useful database for users. The API is meant to be accessed without having a user for the general gathering of information from the API. Users are specific for drivers, teams and organizers. 
+ The database for this racing api is called "racingapi" and uses postgreSQL. It comprises of seven tables (entities): User, Driver, Team, Category, Circuit, Race and Result. These tables are interconnected via various database relations to facilitate operations and maintain integrity of data in an effort to provide a resilient and useful database for users. The API is meant to be accessed without having a user for the general gathering of information from the API. Users are specific for drivers, teams and organizers. 
 
  ![Alltables](/docs/psql/alltables.png)
 
@@ -825,7 +825,7 @@ The Race table holds information about each race. It links to the circuit where 
   - driver_id (integer, foreign key references Driver(id), not null): The id of the driver.
   - user_id (integer, foreign key references User(id), not null): The id of the user who created the result record.
 
-The Result table stores results from races. For this reason, it uses the race_id and driver_id so that each row is unique to that race, and that driver. A race with twenty drivers would therefore have twent rows in the results table all with the same race_id foreign key but differing driver_id. This table is very important for more complex functions within the API as it is the culmination of many data points. 
+The Result table stores results from races. For this reason, it uses the race_id and driver_id so that each row is unique to that race, and that driver. A race with twenty drivers would therefore have twenty rows in the results table all with the same race_id foreign key but differing driver_id. This table is very important for more complex functions within the API as it is the culmination of many data points. 
 
 ![Results](/docs/psql/results.png)
 
@@ -834,7 +834,7 @@ The Result table stores results from races. For this reason, it uses the race_id
 ### R10 - Describe the way tasks are allocated and tracked in your project
 
 
- It is important to plan out larger projects to make sure that goals are met in a timely manner, ensuring greater organization and time manamgnet. 
+ It is important to plan out larger projects to make sure that goals are met in a timely manner, ensuring greater organization and time management. 
 
  Trello was the project managment software used for this project. Additionally, User Stories were utilized at the start of the project as a way to develop furhter understanding of possible needs or functions for future users of the API. I also did daily standup notes as a way to track my progress. 
 
@@ -844,7 +844,7 @@ The Result table stores results from races. For this reason, it uses the race_id
   I want to be able to view a driver's complete profile, including their name, date of birth, nationality, and team affiliation.
   So that I can understand their racing history, and find their results. 
 
-### 1. Acceptance Critera:
+### 1. Acceptance Criteria:
 - Given that I know the name of my favourite driver, 
   When I search for their details, I will recieve a list of all their stats and information.
 
@@ -853,7 +853,7 @@ The Result table stores results from races. For this reason, it uses the race_id
   I want to browse through different teams, see when they were founded, and view all the drivers associated with each team,
   So that I can follow my favourite teams and stay updated on their drivers.
 
-### 2. Acceptance Critera:
+### 2. Acceptance Criteria:
 - Given that I know the name of my favourite team, 
   When I search for their details, I will recieve a list of all their stats and information, including drivers and founding year.
 ### 3. User Story: 
@@ -861,14 +861,14 @@ The Result table stores results from races. For this reason, it uses the race_id
   I want to be able to centralize information about races and results,
   So that participants and fans can follow competitions more effecitvely
 
-### 3. Acceptance Critera:
+### 3. Acceptance Criteria:
 - Given that I need to share results information about a race, When I upload those to a central system, then all drivers, teams and fans can access the information.
 ### 4. User Story:
 - As a driver, 
   I want to be able to track my results and other details about myself,
  So that I can easily track how I have been performing and what tracks I have participated at. 
 
- ### 4. Acceptance Critera:
+ ### 4. Acceptance Criteria:
 
 - Given that I want to keep track of my results throughout the season of racing, I want to be able to see all of my results so then I can see how I have been performing. 
 
@@ -880,7 +880,7 @@ The Result table stores results from races. For this reason, it uses the race_id
 1. Wrote out my ERD on pen and paper for ERD. Thought about user stories.
 2. Finding it hard to get started as I dont have an idea I love.
 3. I plan to start planning out the template of the README.md and revise some content
-4. That sometimes the best way to get inspiration is to force yourself to do some work. It might just comee to you.
+4. That sometimes the best way to get inspiration is to force yourself to do some work. It might just come to you.
 
 ![KanBan2](/docs/kanban/second.png)
 ### 25/6/23
@@ -918,13 +918,13 @@ The Result table stores results from races. For this reason, it uses the race_id
 3. Add error/response codes where they are needed.
 4. For me, it helps to use pen and paper to write down some interconnectedness to better visualise and understand it.
 ### 30/6/23
-1. Added error/reponse codes to every return in the API.
+1. Added error/response codes to every return in the API.
 2. Can be tough to know which HTTP response is the right one.
 3. Finish the coding - Need to add comments to code too.
 4. There is more than one way to achieve something.
 
 ![KanBan7](/docs/kanban/secondlast.png)
-### 1/6/23
+### 1/7/23
 
 1. Finished coding.
 2. I have some errors that keep slipping through and am struggling to solve in a DRY way.
