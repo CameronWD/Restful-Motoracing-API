@@ -477,14 +477,14 @@ For this project, SQLAlchemy has been selected as the ORM. It is popular among p
 ![UpdateTeam](/docs/Teams_Endpoints/teams_put.png)
 
 ### Delete a Team ('/<int:team_id>')
-    - Method: DELETE
-    - Required JSON Request Data:
-      - None
-    - Expected JSON response data:
-        - Empty JSON object
-    - Expected HTTP Response Code: 204 (404 if not found, 403 if unauthorized)
-    - Authentication:
-        - Required (JWT token and user must have 'admin' or be the team owner)
+  - Method: DELETE
+  - Required JSON Request Data:
+    - None
+  - Expected JSON response data:
+      - Empty JSON object
+  - Expected HTTP Response Code: 204 (404 if not found, 403 if unauthorized)
+  - Authentication:
+      - Required (JWT token and user must have 'admin' or be the team owner)
 
 ![DeleteTeam](/docs/Teams_Endpoints/teams_delete.png)
 
@@ -677,6 +677,42 @@ The relationships between these models are vital to the functionality of the app
 ## Database Relations
 ### R9 - Discuss the database relations to be implemented in your application
  
+ The database for this racing api is called "racingapi" and uses postgreSQL. It composes of seven tables (entities): User, Driver, Team, Category, Circuit, Race and Result. These tables are interconnected via various database relations to faciliate operations and maintain integerity of data in an effort to provide a resiliant and useful database for users. The API is meant to be accessed without having a user for the general gathering of information from the API. Users are specific for drivers, teams and organizers. 
+
+ ![Alltables](/docs/psql/alltables.png)
+
+1. Table "Users":
+    Primary Key: id (not null)
+    Attributes: name, email, password, role, is_admin(Boolean)
+    The user table stores information related to individual users. The id is the primary key that is unique to every row in the table. Other attributes within the table are important in determining what types of relations each user is authorized to have with different tables. Users are related to multiple entities in the other entities. Passwords are stored in a one-way hashed, utf-8 format within this table. 
+![Users](/docs/psql/users.png)
+
+
+2. Table "Drivers":
+
+![Drivers](/docs/psql/drivers.png)
+
+3. Table "Teams":
+
+![Teams](/docs/psql/teams.png)
+
+5. Table "Categories":
+
+![Categories](/docs/psql/categories.png)
+
+6. Table "Circuits":
+
+![Circuits](/docs/psql/circuits.png)
+
+7. Table "Races":
+
+![Races](/docs/psql/races.png)
+
+8. Table "Results":
+
+![Results](/docs/psql/results.png)
+
+   
 ## Project Managment Methodology
 ### R10 - Describe the way tasks are allocated and tracked in your project
 
