@@ -100,49 +100,55 @@ For this project, SQLAlchemy has been selected as the ORM. It is popular among p
 
 4. Categories ('/categories')
 - Get All Categories ('/')
-        - Method:GET
-        - Required JSON Request Data: 
-          - None
-        - Expected JSON Response Data: 
-          - Array of all categories in the database
-        - Expected HTTP Response Code: 200
-        - Authentication: Not required
+    - Method:GET
+    - Required JSON Request Data: 
+        - None
+    - Expected JSON Response Data: 
+        - Array of all categories in the database
+    - Expected HTTP Response Code: 200
+    - Authentication: Not required
+  
 - Get Single Categories ('/<int:category_id>')
-        - Method: GET
-        - Required JSON Request Data:
-          - None
-        - Expected JSON Response Data: 
-          - Object containing the details of the requested category
-        - Expected HTTP Response Code: 200 (404 if not found)
-        - Authentication: Not required
+    - Method: GET
+    - Required JSON Request Data:
+        - None
+    - Expected JSON Response Data: 
+        - Object containing the details of the requested category
+    - Expected HTTP Response Code: 200 (404 if not found)
+    - Authentication: Not required
+
 - Create a Category ('/')
-        - Method: POST
-        - Required JSON Request Data:
-          - 'name': Name of the category
-          - 'description': Description of the category
-        - Expected JSON Response Data: 
-          - Object containing the newly created category's data
-        - Expected HTTP Response Code: 201 (400 if validation error, 400 if category already exists)
-        - Authentication: Required (JWT token and user must have 'admin' or 'organizer' role)
+    - Method: POST
+    - Required JSON Request Data:
+        - 'name': Name of the category
+        - 'description': Description of the category
+    - Expected JSON Response Data: 
+        - Object containing the newly created category's data
+    - Expected HTTP Response Code: 201 (400 if validation error, 400 if category already exists)
+    - Authentication: Required (JWT token and user must have 'admin' or 'organizer' role)
+
+
 - Update a Category('/<int:category_id>')
-        - Method: PUT, PATCH
-        - Required JSON Request Data:
-          - Object containing category data to be changed
-            -  'name' (New name for the category, string, optional)
-            -  'description' (New description for the category, string, optional)
-        - Expected JSON response data:
-          - Object containing the updated category's data
-        - Expected HTTP Response Code: 200 (400 if validation error, 404 if not found, 403 if unauthorized)
-        - Authentication:
-          - Required (JWT token and user must have 'admin' or 'organizer' role, or be the category owner)
+    - Method: PUT, PATCH
+    - Required JSON Request Data:
+        - Object containing category data to be changed
+        -  'name' (New name for the category, string, optional)
+        -  'description' (New description for the category, string, optional)
+    - Expected JSON response data:
+        - Object containing the updated category's data
+    - Expected HTTP Response Code: 200 (400 if validation error, 404 if not found, 403 if unauthorized)
+    - Authentication:
+        - Required (JWT token and user must have 'admin' or 'organizer' role, or be the category owner)
+
+
 - Delete a Category ('/<int:category_id>')
-        - Method: DELETE
-        - Required JSON Request Data:
-        - Expected JSON response data:
-          - Empty JSON object
-        - Expected HTTP Response Code: 200 (404 if not found, 403 if unauthorized)
-        - Authentication:
-          - Required (JWT token and user must have 'admin' or 'organizer' role, or be the category owner)
+    - Method: DELETE
+    - Required JSON Request Data:
+    - Expected JSON response data:
+        - Empty JSON object
+    - Expected HTTP Response Code: 200 (404 if not found, 403 if unauthorized)
+    - Authentication:
+        - Required (JWT token and user must have 'admin' or 'organizer' role, or be the category owner)
  
 
 ## ERD
