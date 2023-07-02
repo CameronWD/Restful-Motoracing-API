@@ -41,3 +41,4 @@ class DriverSchema(ma.Schema):
             raise ValidationError('Date of birth must be between 1900-01-01 and today.')
     class Meta:
         fields = ('id','date_of_birth', 'first_name', 'last_name', 'nationality', 'team', 'user') 
+        

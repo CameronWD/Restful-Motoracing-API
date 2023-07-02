@@ -40,3 +40,4 @@ class UserSchema(ma.Schema):
     def validate_role_and_admin(self, both, **kwargs):
         if not both.get('is_admin', False) and 'role' not in both:
             raise ValidationError('Non-admin users must have a role.')
+        

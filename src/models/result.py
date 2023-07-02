@@ -35,3 +35,4 @@ class ResultSchema(ma.Schema):
 
     class Meta:
         fields = ('id','start_position', 'end_position', 'points', 'driver', 'race', 'race_id', 'driver_id', 'user_id')
+        

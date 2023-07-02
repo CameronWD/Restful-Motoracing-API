@@ -36,6 +36,7 @@ class RaceSchema(ma.Schema):
     
     class Meta:
         fields = ('id', 'date', 'name', 'circuit', 'category', 'circuit_id', 'category_id', 'user')
+        
 
 
  

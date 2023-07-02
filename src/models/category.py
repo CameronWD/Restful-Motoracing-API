@@ -22,3 +22,4 @@ class CategorySchema(ma.Schema):
     description = fields.Str(required=False, validate=validate.Length(max=500))
     class Meta:
         fields = ('id','name', 'description', 'user')
+        

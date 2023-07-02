@@ -25,3 +25,4 @@ class CircuitSchema(ma.Schema):
     lap_record_seconds = fields.Int(validate=validate.Range(min=5, max=9000000)) # in thousands of a second can handle over 24 hours which is probably the longest a race can go that is 'common' 
     class Meta:
         fields = ('id','track_name', 'location', 'lap_record_seconds', 'user', 'races')
+        

@@ -25,3 +25,4 @@ class TeamSchema(ma.Schema):
     year_founded = fields.Int(required=True, validate=validate.Range(min=1000, max=datetime.now().year))
     class Meta:
         fields = ('id','name', 'year_founded', 'drivers', 'user', 'user_id')
+        
