@@ -98,7 +98,7 @@ For this project, SQLAlchemy has been selected as the ORM. It is popular among p
     - An array of all users in the database (excluding their passwords)
   - Authentication: Required (JWT token and user must have 'admin' role)
 
-[Get_All_Users](/docs/Users_Endpoints/users_get.png)
+![Get_All_Users](/docs/Users_Endpoints/users_get.png)
 
 ### 4. Categories ('/categories')
   - Get All Categories ('/')
