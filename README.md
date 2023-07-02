@@ -674,41 +674,108 @@ This project uses various models to store and manage data effectively from the v
    ```
 
 The relationships between these models are vital to the functionality of the application as they offer the flexibility to make complex queries and data retrievals across different entities. These interconnections also define the data structure and are pivotal in its functionality. 
-## Database Relations
-### R9 - Discuss the database relations to be implemented in your application
+# Database Relations
+## R9 - Discuss the database relations to be implemented in your application
  
  The database for this racing api is called "racingapi" and uses postgreSQL. It composes of seven tables (entities): User, Driver, Team, Category, Circuit, Race and Result. These tables are interconnected via various database relations to faciliate operations and maintain integerity of data in an effort to provide a resiliant and useful database for users. The API is meant to be accessed without having a user for the general gathering of information from the API. Users are specific for drivers, teams and organizers. 
 
  ![Alltables](/docs/psql/alltables.png)
 
-1. Table "Users":
-    Primary Key: id (not null)
-    Attributes: name, email, password, role, is_admin(Boolean)
-    The user table stores information related to individual users. The id is the primary key that is unique to every row in the table. Other attributes within the table are important in determining what types of relations each user is authorized to have with different tables. Users are related to multiple entities in the other entities. Passwords are stored in a one-way hashed, utf-8 format within this table. 
+## Table "Users"
+
+- Primary Key: id (serieal, primary key)
+- Attributes: 
+  - name (varchar, not null): Representrs the user's name
+  - email (varchar, not null, unique): Stores the user's email address.
+  - password (varchar, not null): Stores the user's encrypted password. 
+  - role (varchar, not null): Specifies the role of the user ('driver', 'organizer' or 'team').
+  - is_admin (boolean, not null, default: false): Indicates whether the user has administrative privileges.
+  
+The User table holds the core data about users. It forms the backbone of the database as users can be associated with various aspects of the racing platform. Users can either be drivers, team managers, or organizers associated with managing Categories, Circuits, Races, or Results. This table is used frequently across different functionalities of the racing API to authenticate, authorize, and associate users with different entities and CRUD functions.
+
 ![Users](/docs/psql/users.png)
 
 
-2. Table "Drivers":
+## Table "Drivers":
+
+- Primary Key: id (serial, primary key)
+- Attributes: 
+  - date_of_birth (date, not null): The driver's birth date.
+  - first_name (varchar, not null): The driver's first name.
+  - last_name (varchar, not null): The driver's last name.
+  - nationality (varchar, not null): The driver's nationality.
+  - team_id (integer, foreign key references Team(id)): The id of the team to which the driver belongs.
+  - user_id (integer, foreign key references User(id), not null): The id of the user associated with the driver.
+
+ The table includes data points such as birth dates, names, nationality, and team affiliations. This table is crucial for operations such as listing all drivers, retrieving a driver's details, could be used for calculating age-based statistics, or finding drivers affiliated with specific teams.
+
 
 ![Drivers](/docs/psql/drivers.png)
 
-3. Table "Teams":
+## Table "Teams":
+
+- Primary Key: id (serial, primary key)
+- Attributes:
+  - name (varchar, not null): The team's name.
+  - year_founded (integer, not null): The year when the team was founded.
+  - user_id (integer, foreign key references User(id), not null): The id of the user associated with the team.
+
+The Teams table contains essential details about the various racing teams. Each team has an associated manager represented as a user (user_id), and the team's name and founding year. This table is vital for retrieving all drivers under a team, finding a team's details.
 
 ![Teams](/docs/psql/teams.png)
 
-5. Table "Categories":
+## Table "Categories":
+
+- Primary Key: id (serial, primary key)
+- Attributes: 
+  - name (varchar, not null): The category's name.
+  - description (varchar): A brief description of the category.
+  - user_id (integer, foreign key references User(id), not null): The id of the user managing the category.
+
+The Categories table stores information about the different racing categories available. Each category is managed by a user(organizer or admin) and has a unique description. The table becomes a key entity when classifying races into different categories or retrieving category-specific details.
 
 ![Categories](/docs/psql/categories.png)
 
-6. Table "Circuits":
+## Table "Circuits":
+
+- Primary Key: id (serial, primary key)
+- Attributes: 
+  - track_name (varchar, not null): The name of the racing track.
+  - location (varchar, not null): The location of the circuit.
+  - lap_record_seconds (numeric, not null): The record lap time for the circuit in seconds.
+  - user_id (integer, foreign key references User(id), not null): The id of the user managing the circuit.
+
+The Circuit table is dedicated to maintaining data about the various racing circuits. It is associated with a user(either an admin user or role organizer) who manages the circuit and provides vital details about the circuit, such as track name, location, and lap record. The Circuit table is crucial when retrieving all races occurring in a specific circuit or displaying details about a circuit.
 
 ![Circuits](/docs/psql/circuits.png)
 
-7. Table "Races":
+## Table "Races":
+
+- Primary Key: id (serial, primary key)
+- Attributes: 
+  - date (date, not null): The date of the race.
+  - name (varchar, not null): The name of the race.
+  - circuit_id (integer, foreign key references Circuit(id), not null): The id of the circuit where the race took place.
+  - category_id (integer, foreign key references Category(id), not null): The id of the category of the race.
+  - user_id (integer, foreign key references User(id), not null): The id of the user who created the race record.
+
+The Race table holds information about each race. It links to the circuit where the race took place, the category of the race, and the user who created the record. It plays a crucial role when querying for races based on circuits, categories, or users.
+
 
 ![Races](/docs/psql/races.png)
 
-8. Table "Results":
+## Table "Results":
+
+- Primary Key: id (serial, primary key)
+- Attributes: 
+  - start_position (integer, not null): The starting position of the driver in the race.
+  - end_position (integer, not null): The finishing position of the driver in the race.
+  - points (integer, not null): The points obtained by the driver in the race.
+  - race_id (integer, foreign key references Race(id), not null): The id of the race.
+  - driver_id (integer, foreign key references Driver(id), not null): The id of the driver.
+  - user_id (integer, foreign key references User(id), not null): The id of the user who created the result record.
+
+The Result table stores results from races. For this reason, it uses the race_id and driver_id so that each row is unique to that race, and that driver. A race with twenty drivers would therefore have twent rows in the results table all with the same race_id foreign key but differing driver_id. This table is very important for more complex functions within the API as it is the culmination of many data points. 
 
 ![Results](/docs/psql/results.png)
 
