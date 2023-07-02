@@ -99,8 +99,7 @@ def admin_or_organizer_role_required():
         abort(400, 'User not found.')
     if not (user.is_admin or user.role == 'organizer'):
         abort(400, 'Admin or Organizer can only perform this function.')
-    return user
-    ``` 
+    return user ``` 
 5. [Flask-Bcrypt](https://flask-bcrypt.readthedocs.io/en/1.0.1/): Bcrypt provides support for hashing and protecting passwords. It is used in creating the password hash with ``generate_password_hash()`` as well as in the login process with ``check_password_hash()``. Overall BCrpyt is very helpful in helping to ensure the security and privacy of users. 
     ``@auth_bp.route('/login', methods=['POST'])
 def login():
