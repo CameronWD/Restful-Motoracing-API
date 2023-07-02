@@ -1,5 +1,6 @@
-# **T2A2 - API Webserver Project - Motor Racing API**
+# **API Webserver Project - Motor Racing API**
 
+# [GitHub](https://github.com/CameronWD/T2A2)
 # Table of Contents
 
 1. [Installation Guide](#installation-guide)
@@ -59,7 +60,7 @@
    ``` 
    flask run
    ```
-9. The api should now be running on 127.0.0.1:5000/ This can be changed in the .flaskenv file if you encounter any issues with port 5000.
+9. The api should now be running on 127.0.0.1:5000/ This can be changed in the .flaskenv file if you encounter any issues with port 5000. 
 
 
 ## What is the problem?
