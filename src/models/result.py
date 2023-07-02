@@ -12,8 +12,8 @@ class Result(db.Model):
     end_position = db.Column(db.Integer, nullable=False)
     points = db.Column(db.Integer)
 
-    race_id = db.Column(db.Integer, db.ForeignKey('races.id'), ondelete='CASCADE', nullable=False)
-    race = db.relationship('Race', back_populates='results')
+    race_id = db.Column(db.Integer, db.ForeignKey('races.id', ondelete='CASCADE'), nullable=False)
+    race = db.relationship('Race', back_populates='results', cascade='all')
 
     driver_id = db.Column(db.Integer, db.ForeignKey('drivers.id', ondelete='CASCADE'), nullable=False)
     driver = db.relationship('Driver', back_populates='results')
