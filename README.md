@@ -120,6 +120,7 @@ For this project, SQLAlchemy has been selected as the ORM. It is popular among p
               - Object containing the details of the requested category
           - Expected HTTP Response Code: 200 (404 if not found)
           - Authentication: Not required
+![Get_Single_Cat](/docs/Categories_Endpoints/categories_get_single.png)
 
   - Create a Category ('/')
           - Method: POST
@@ -131,6 +132,7 @@ For this project, SQLAlchemy has been selected as the ORM. It is popular among p
           - Expected HTTP Response Code: 201 (400 if validation error, 400 if category already exists)
           - Authentication: Required (JWT token and user must have 'admin' or 'organizer' role)
 
+![Cat_Post](/docs/Categories_Endpoints/categories_post.png)
 
   - Update a Category('/<int:category_id>')
           - Method: PUT, PATCH
@@ -143,7 +145,7 @@ For this project, SQLAlchemy has been selected as the ORM. It is popular among p
           - Expected HTTP Response Code: 200 (400 if validation error, 404 if not found, 403 if unauthorized)
           - Authentication:
               - Required (JWT token and user must have 'admin' or 'organizer' role, or be the category owner)
-
+![Cat_Update](/docs/Categories_Endpoints/categories_post.png)
 
   - Delete a Category ('/<int:category_id>')
           - Method: DELETE
@@ -153,7 +155,7 @@ For this project, SQLAlchemy has been selected as the ORM. It is popular among p
           - Expected HTTP Response Code: 200 (404 if not found, 403 if unauthorized)
           - Authentication:
               - Required (JWT token and user must have 'admin' or 'organizer' role, or be the category owner)
-
+![Cat_Delete](/docs/Categories_Endpoints/categories_delete.png)
 ### 5. Circuits ('/circuits')
 - Get All Categories ('/')
     - Method:GET
