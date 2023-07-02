@@ -109,6 +109,8 @@ For this project, SQLAlchemy has been selected as the ORM. It is popular among p
           - Array of all categories in the database
       - Expected HTTP Response Code: 200
       - Authentication: Not required
+
+![Get_All_Categories](/docs/Categories_Endpoints/categories_get.png)
   
   - Get Single Categories ('/<int:category_id>')
           - Method: GET
@@ -262,7 +264,7 @@ For this project, SQLAlchemy has been selected as the ORM. It is popular among p
   - Authentication:
       - Required (JWT token and user must have 'admin' or 'driver' role, or be the driver owner)
 
-### 6. Races ('/races')
+### 7. Races ('/races')
 - Get All Races ('/')
   - Method:GET
   - Required JSON Request Data: 
@@ -318,7 +320,7 @@ For this project, SQLAlchemy has been selected as the ORM. It is popular among p
   - Authentication:
       - Required (JWT token and user must have 'admin' or 'organizer' role, or be the race owner)
 
-### 7. Results ('/results')
+### 8. Results ('/results')
 - Get All Results ('/')
   - Method:GET
   - Required JSON Request Data: 
@@ -377,7 +379,7 @@ For this project, SQLAlchemy has been selected as the ORM. It is popular among p
       - Required (JWT token and user must have 'admin' or 'organizer' role, or be the result owner)
 
 
-### 8. Teams ('/teams')
+### 9. Teams ('/teams')
 - Get All Teams ('/')
   - Method:GET
   - Required JSON Request Data: 

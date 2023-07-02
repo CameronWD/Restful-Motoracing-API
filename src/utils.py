@@ -2,10 +2,10 @@ from marshmallow.exceptions import ValidationError
 from flask import abort
 from init import db
 
-def validate_schema(schema, data):
+def validate_schema(schema, data, partial=False):
     print(data)
     try:
-        validated_data = schema.load(data)
+        validated_data = schema.load(data, partial=partial)
     except KeyError as key_error:
         missing_key = str(key_error).strip("'")
         abort(400, {'error': f'Request is missing {missing_key}.'})

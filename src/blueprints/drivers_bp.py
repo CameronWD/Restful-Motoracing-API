@@ -26,7 +26,7 @@ def one_driver(driver_id):
 @drivers_bp.route('/', methods=['POST'])
 def create_driver():
     current_user = admin_or_driver_role_required()
-    driver_details = validate_schema(DriverSchema(), request.json)
+    driver_details = validate_schema(DriverSchema(), request.json, partial=True)
 
     exising_driver = db.session.query(Driver).filter_by(user_id=current_user.id).first()
     if exising_driver:
