@@ -492,6 +492,10 @@ For this project, SQLAlchemy has been selected as the ORM. It is popular among p
 ## ERD
 ### R6 - An ERD for your app
 
+![ERD](/docs/ERDRacingAPI.drawio.png
+)
+
+
 ## Third party services
 ### R7 - Detail any third party services that your app will use
 
@@ -683,9 +687,9 @@ The relationships between these models are vital to the functionality of the app
 
 ## Table "Users"
 
-- Primary Key: id (serieal, primary key)
+- Primary Key: id (serial, primary key)
 - Attributes: 
-  - name (varchar, not null): Representrs the user's name
+  - name (varchar, not null): Represents the user's name
   - email (varchar, not null, unique): Stores the user's email address.
   - password (varchar, not null): Stores the user's encrypted password. 
   - role (varchar, not null): Specifies the role of the user ('driver', 'organizer' or 'team').
