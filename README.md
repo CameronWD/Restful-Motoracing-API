@@ -77,6 +77,42 @@ For this project, SQLAlchemy has been selected as the ORM. It is popular among p
 ## Third party services
 ### R7 - Detail any third party services that your app will use
 
+1. [Flask](https://flask.palletsprojects.com/en/2.3.x/): Flask is the framework used for this API, providing a structure to handle routing and request mechanisms. The 'blueprint' function is also imported to to assist with organizing these routes. 
+   ``from flask import Flask`` 
+2. [Flask-SQLAlchemy](https://flask-sqlalchemy.palletsprojects.com/en/3.0.x/): SQLAlchemy is the ORM for this API. It is used extensively throughout the application when interacting with the databases without having to directly enter SQL commands. Operations such as 'select()`, 'add()', 'commit()', and 'delete()' are used.
+    ``from flask_sqlalchemy import SQLAlchemy``
+3. [Flask-Marshmallow](https://flask-marshmallow.readthedocs.io/en/latest/): Marshmallow is used to serialize and deserialize data types into simpler, Python-friendly formats. Marshmallow schemas are also being used, which is a blueprint for how to serialize and deserialize data for a particular model. 
+   ``class TeamSchema(ma.Schema):
+    drivers = ma.Nested('DriverSchema', many=True, only=('id', 'first_name', 'last_name'))
+    user= ma.Nested('UserSchema', only=('id',))
+    class Meta:
+        fields = ('id','name', 'year_founded', 'drivers', 'user', 'user_id') `` 
+4. [Flask-JWT-Extended](https://flask-jwt-extended.readthedocs.io/en/stable/): This third party service assists in providing functionality surronding JSON web tokens (JWT). It is being used in this application to create access tokens for certain methods that require authetnication. My version: "The jwt_required() decorator is used to protect specific routes, and get_jwt_identity() retrieves the login information of the currently authenticated user. This allows for greater security around particular functions of the application. 
+   ``@jwt_required()
+def admin_or_organizer_role_required():
+    user_id = get_jwt_identity()
+    stmt = db.select(User).filter_by(id=user_id)
+    user =db.session.scalar(stmt)
+    if not user:
+        abort(400, 'User not found.')
+    if not (user.is_admin or user.role == 'organizer'):
+        abort(400, 'Admin or Organizer can only perform this function.')
+    return user`` 
+5. [Flask-Bcrypt](https://flask-bcrypt.readthedocs.io/en/1.0.1/): Bcrypt provides support for hashing and protecting passwords. It is used in creating the password hash with ``generate_password_hash()`` as well as in the login process with ``check_password_hash()``. Overall BCrpyt is very helpful in helping to ensure the security and privacy of users. 
+    ``@auth_bp.route('/login', methods=['POST'])
+def login():
+    try:
+        stmt = db.select(User).filter_by(email=request.json['email'])
+        user = db.session.scalar(stmt)
+        if user and bcrypt.check_password_hash(user.password, request.json['password']):
+            token = create_access_token(identity=user.id, expires_delta=timedelta(days=1))
+            return {'token': token, 'user': UserSchema(only=['email','name']).dump(user)}, 200
+        else:
+            return {'error': 'Invalid email or password'}, 401
+    except KeyError:
+        return {'error': 'Invalid email or password'}, 401`` 
+
+
 ## Models and Relationships
 ### R8 - Describe your projects models in terms of the relationships they have with each other
 

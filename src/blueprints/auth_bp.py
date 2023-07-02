@@ -3,7 +3,7 @@ from init import db, bcrypt
 from models.user import User, UserSchema
 from marshmallow.exceptions import ValidationError
 from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required
-from datetime import datetime, timedelta
+from datetime import timedelta
 
 auth_bp = Blueprint('auth', __name__)
 
