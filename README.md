@@ -92,11 +92,11 @@ For this project, SQLAlchemy has been selected as the ORM. It is popular among p
     - Authentication: Not required
 
 ### 3. Get All Users ('/users')
-   - Method: GET
-   - Required JSON Request Data: None
-   - Expected JSON Response Data:
-     - An array of all users in the database (excluding their passwords)
-   - Authentication: Required (JWT token and user must have 'admin' role)
+      - Method: GET
+      - Required JSON Request Data: None
+      - Expected JSON Response Data:
+        - An array of all users in the database (excluding their passwords)
+      - Authentication: Required (JWT token and user must have 'admin' role)
 
 ### 4. Categories ('/categories')
 - Get All Categories ('/')
@@ -485,22 +485,22 @@ This project uses various models to store and manage data effectively from the v
 1. **User**: This is the cornerstone of the application. I designed it to have relationships with almost all the other models. It comprises fields for user identification and authentication (name, email, password, role, is_admin). I have established one-to-many relationships from the User model to Driver, Team, Category, Circuit, Race, and Result models. This design implies that a single user can own multiple instances of these entities based on their access level.
     ```
     class User(db.Model):
-    __tablename__ = 'users'
+        __tablename__ = 'users'
 
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100))
-    email = db.Column(db.String, nullable=False, unique=True)
-    password = db.Column(db.String, nullable=False)
-    role = db.Column(db.String, nullable=True)
+        id = db.Column(db.Integer, primary_key=True)
+        name = db.Column(db.String(100))
+        email = db.Column(db.String, nullable=False, unique=True)
+        password = db.Column(db.String, nullable=False)
+        role = db.Column(db.String, nullable=True)
 
-    is_admin = db.Column(db.Boolean, default=False)
+        is_admin = db.Column(db.Boolean, default=False)
 
-    driver = db.relationship('Driver', back_populates='user')
-    team = db.relationship('Team', back_populates='user')
-    category = db.relationship('Category', back_populates='user')
-    circuits = db.relationship('Circuit', back_populates='user')
-    races = db.relationship('Race', back_populates='user')
-    results = db.relationship('Result', back_populates='user')
+        driver = db.relationship('Driver', back_populates='user')
+        team = db.relationship('Team', back_populates='user')
+        category = db.relationship('Category', back_populates='user')
+        circuits = db.relationship('Circuit', back_populates='user')
+        races = db.relationship('Race', back_populates='user')
+        results = db.relationship('Result', back_populates='user')
     ```
 2. **Driver**: This model represents the drivers in the various racing communities who use this API. It exhibits a one-to-many relationship with Result, indicating that a driver can have multiple race results. Furthermore, it has a many-to-one relationship with Team and User, meaning each driver is associated with a specific team and user.
    ```
@@ -510,9 +510,9 @@ This project uses various models to store and manage data effectively from the v
         id = db.Column(db.Integer, primary_key=True)
 
         date_of_birth = db.Column(db.Date())
-        first_name = db.Column(db.String)
-        last_name = db.Column(db.String)
-        nationality = db.Column(db.String)
+        first_name = db.Column(db.String(50))
+        last_name = db.Column(db.String(50))
+        nationality = db.Column(db.String(60)) #longest nationality is 58 charcters long 
 
         team_id = db.Column(db.Integer, db.ForeignKey('teams.id'), nullable=True)
         team = db.relationship('Team', back_populates='drivers')
@@ -529,7 +529,7 @@ This project uses various models to store and manage data effectively from the v
 
         id = db.Column(db.Integer, primary_key=True)
 
-        name = db.Column(db.String, nullable=False, unique=True)
+        name = db.Column(db.String(100), nullable=False, unique=True)
         year_founded = db.Column(db.Integer)
 
         user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
@@ -544,8 +544,8 @@ This project uses various models to store and manage data effectively from the v
 
         id = db.Column(db.Integer, primary_key=True)
 
-        name = db.Column(db.String, nullable=False, unique=True)
-        description = db.Column(db.String)
+        name = db.Column(db.String(100), nullable=False, unique=True)
+        description = db.Column(db.Text(), nullable=True)
 
         races = db.relationship('Race', back_populates='category')
 
@@ -559,9 +559,9 @@ This project uses various models to store and manage data effectively from the v
 
         id = db.Column(db.Integer, primary_key=True)
 
-        track_name = db.Column(db.String, nullable=False, unique=True)
-        location = db.Column(db.String)
-        lap_record = db.Column(db.Integer)
+        track_name = db.Column(db.String(100), nullable=False, unique=True)
+        location = db.Column(db.String(100))
+        lap_record_seconds = db.Column(db.Integer)
 
         user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
         user = db.relationship('User', back_populates='circuits')
@@ -571,13 +571,13 @@ This project uses various models to store and manage data effectively from the v
    ```
 6. **Race**: This model encapsulates the races. Each race has multiple outcomes, indicating a one-to-many relationship with Result. This means each race can produce multiple results, where each result represents the performance of a specific driver in the race. Furthermore, each race is associated with one Circuit, one Category, and one User, creating many-to-one relationships.
    ```
-    class Race(db.Model):
+   class Race(db.Model):
         __tablename__ = 'races'
 
         id = db.Column(db.Integer, primary_key=True)
 
         date = db.Column(db.Date, nullable=False)
-        name = db.Column(db.String, nullable=False)
+        name = db.Column(db.String(100), nullable=False)
 
         circuit_id = db.Column(db.Integer, db.ForeignKey('circuits.id'),nullable=False)
         circuit = db.relationship('Circuit', back_populates='races')
@@ -588,7 +588,7 @@ This project uses various models to store and manage data effectively from the v
         user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
         user = db.relationship('User', back_populates='races')
 
-        results = db.relationship('Result', back_populates='race')
+        results = db.relationship('Result', back_populates='race', cascade='all, delete-orphan')
 
    ```
 7. **Result**: This model records the outcomes of the races. It has many-to-one relationships with Driver, Race, and User, meaning each race result is associated with a specific driver, race, and user.
@@ -602,7 +602,7 @@ This project uses various models to store and manage data effectively from the v
         end_position = db.Column(db.Integer, nullable=False)
         points = db.Column(db.Integer)
 
-        race_id = db.Column(db.Integer, db.ForeignKey('races.id'))
+        race_id = db.Column(db.Integer, db.ForeignKey('races.id'), ondelete='CASCADE', nullable=False)
         race = db.relationship('Race', back_populates='results')
 
         driver_id = db.Column(db.Integer, db.ForeignKey('drivers.id', ondelete='CASCADE'), nullable=False)

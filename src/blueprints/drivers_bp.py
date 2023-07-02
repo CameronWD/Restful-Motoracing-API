@@ -1,9 +1,8 @@
 from flask import Blueprint, request
-from init import db, bcrypt
+from init import db
 from models.driver import Driver, DriverSchema
 from blueprints.auth_bp import admin_or_driver_role_required
 from utils import validate_schema, get_resource_or_404
-from datetime import datetime, date
 
 drivers_bp = Blueprint('driver', __name__, url_prefix='/drivers')
 

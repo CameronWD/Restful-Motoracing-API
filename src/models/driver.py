@@ -1,7 +1,6 @@
 from init import db, ma
 from marshmallow import fields, validate, validates, ValidationError
-from marshmallow.validate import Range
-from datetime import datetime, date
+from datetime import date
 
 # Creation of the Driver model with the attributes: id, date of birth, first_name, last_name, nationality, team_id, team, user_id, user and results
 class Driver(db.Model):
