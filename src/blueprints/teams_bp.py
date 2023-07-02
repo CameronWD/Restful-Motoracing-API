@@ -2,7 +2,6 @@ from flask import Blueprint, request
 from init import db, bcrypt
 from marshmallow.exceptions import ValidationError
 from models.team import Team, TeamSchema
-from models.user import User, UserSchema
 from blueprints.auth_bp import admin_or_team_role_required
 from flask_jwt_extended import get_jwt_identity, jwt_required
 

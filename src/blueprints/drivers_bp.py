@@ -12,16 +12,16 @@ drivers_bp = Blueprint('driver', __name__, url_prefix='/drivers')
 def all_drivers():
     stmt = db.select(Driver)
     drivers = db.session.scalars(stmt).all()
-    return DriverSchema(many=True).dump(drivers) # Status code will be 200 by default
+    return DriverSchema(many=True).dump(drivers) 
 
 @drivers_bp.route('/<int:driver_id>')
 def one_driver(driver_id):
     stmt = db.select(Driver).filter_by(id=driver_id)
     driver = db.session.scalar(stmt)
     if driver:
-        return DriverSchema().dump(driver) # Status code will be 200 by default
+        return DriverSchema().dump(driver) 
     else:
-        return{'error': 'Driver not found.'}, 404
+        return{'error': 'Driver not found.'}, 404 # Not Found: The requested driver resource does not exist.
 
 @drivers_bp.route('/', methods=['POST'])
 def create_driver():
@@ -35,7 +35,7 @@ def create_driver():
     try:
         driver_details = DriverSchema().load(request.json)
     except ValidationError as valdiation_error:
-        return {'error': 'Validation Error', 'errors': valdiation_error.messages}, 400
+        return {'error': 'Validation Error', 'errors': valdiation_error.messages}, 400 # Bad Request: The request could not be understood by the server due to malformed syntax.
 
     driver = Driver(
         first_name = driver_details['first_name'],
@@ -47,7 +47,7 @@ def create_driver():
 
     db.session.add(driver)
     db.session.commit()
-    return DriverSchema().dump(driver), 201
+    return DriverSchema().dump(driver), 201 
 
 @drivers_bp.route('/<int:driver_id>', methods=['PUT', 'PATCH'])
 def update_driver(driver_id):
@@ -57,15 +57,15 @@ def update_driver(driver_id):
     driver = db.session.scalar(stmt)
 
     if not driver:
-        return{'error': 'Driver not found.'}, 404
+        return{'error': 'Driver not found.'}, 404 # Not Found: The requested driver resource does not exist.
     
     if not (current_user.is_admin or current_user.id == driver.user_id):
-        return{'error': 'Permission denied.'}, 403
+        return{'error': 'Permission denied.'}, 403 # Forbidden: The server understood the request, but is refusing to fulfill it.
 
     try:
         driver_details = DriverSchema().load(request.json)
     except ValidationError as valdiation_error:
-        return{'error': 'Validation Error', 'errors': valdiation_error.messages}, 400
+        return{'error': 'Validation Error', 'errors': valdiation_error.messages}, 400 # Bad Request: The request could not be understood by the server due to malformed syntax.
     
     if driver:
         driver.first_name = driver_details.get('first_name', driver.first_name)
@@ -84,15 +84,15 @@ def delete_driver(driver_id):
     driver = db.session.scalar(stmt)
 
     if not driver:
-        return{'error': 'Driver not found.'}, 404
+        return{'error': 'Driver not found.'}, 404 # Not Found: The requested driver resource does not exist.
     
     if not (current_user.is_admin or current_user.id == driver.user_id):
-        return{'error': 'Permission denied.'}, 403
+        return{'error': 'Permission denied.'}, 403 # Forbidden: The server understood the request, but is refusing to fulfill it.
     
     if driver:
         db.session.delete(driver)
         db.session.commit()
         return{'message': f'Driver {driver.first_name} {driver.last_name} successfully deleted.'}, 200
     else:
-        return{'error': 'Driver not found.'}, 404
+        return{'error': 'Driver not found.'}, 404 # Not Found: The requested driver resource does not exist.
         

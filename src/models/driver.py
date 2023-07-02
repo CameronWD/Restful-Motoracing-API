@@ -1,5 +1,6 @@
 from init import db, ma
-from marshmallow import fields
+from marshmallow import fields, validate
+from marhsmallow.validate import Range
 from datetime import datetime
 
 class Driver(db.Model):
@@ -8,9 +9,9 @@ class Driver(db.Model):
     id = db.Column(db.Integer, primary_key=True)
 
     date_of_birth = db.Column(db.Date())
-    first_name = db.Column(db.String)
-    last_name = db.Column(db.String)
-    nationality = db.Column(db.String)
+    first_name = db.Column(db.String(50))
+    last_name = db.Column(db.String(50))
+    nationality = db.Column(db.String(60)) #longest nationality is 58 charcters long 
 
     team_id = db.Column(db.Integer, db.ForeignKey('teams.id'), nullable=True)
     team = db.relationship('Team', back_populates='drivers')
@@ -23,7 +24,12 @@ class Driver(db.Model):
 class DriverSchema(ma.Schema):
     team = ma.Nested('TeamSchema', only=('id',))
     user = ma.Nested('UserSchema', only=('id',))
-
     
+    first_name = fields.Str(required=True, validate=validate.Length(min=1, max=50))
+    last_name = fields.Str(required=True, validate=validate.Length(min=1, max=50))
+    nationality = fields.Str(validate=validate.Length(min=4, max=60))
+    date_of_birth = fields.Date(required=True, validate=Range(min=datetime.date(1900, 1, 1), max=datetime.date.today()))
+
+
     class Meta:
         fields = ('id','date_of_birth', 'first_name', 'last_name', 'nationality', 'team', 'user') 

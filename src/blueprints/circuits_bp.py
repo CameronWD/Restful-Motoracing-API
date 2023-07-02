@@ -11,7 +11,10 @@ circuits_bp = Blueprint('circuit', __name__, url_prefix='/circuits')
 def all_circuits():
     stmt=db.select(Circuit)
     circuits=db.session.scalars(stmt).all()
-    return CircuitSchema(many=True).dump(circuits)
+    if circuits:
+        return CircuitSchema(many=True).dump(circuits)
+    else:
+        return{'error': 'No circuits found.'}, 404 # Not Found: The requested circuits resource does not exist.
 
 @circuits_bp.route('/<int:circuit_id>')
 def one_circuit(circuit_id):
@@ -20,7 +23,7 @@ def one_circuit(circuit_id):
     if circuit:
         return CircuitSchema().dump(circuit)
     else:
-        return{'error': 'Circuit not found.'}, 400
+        return{'error': 'Circuit not found.'}, 404 # Not Found: The requested circuit resource does not exist.
 
 @circuits_bp.route('/', methods=['POST'])
 def create_circuit():
@@ -54,24 +57,23 @@ def update_circuit(circuit_id):
     circuit = db.session.scalar(stmt)
 
     if not circuit:
-        return{'error': 'Circuit not found.'}, 404
+        return{'error': 'Circuit not found.'}, 404 # Not Found: The requested circuit resource does not exist.
     if not (current_user.is_admin or current_user.id == circuit.user_id):
-        return {'error': 'You are not authorized to update this circuit.'}, 403
+        return {'error': 'You are not authorized to update this circuit.'}, 403 # Forbidden: The server understood the request, but is refusing to fulfill it.
     
     try:
         circuit_details=CircuitSchema().load(request.json)
     except ValidationError as valdiation_error:
-        return{'error': 'Validation Error', 'errors': valdiation_error.messages}, 400
+        return{'error': 'Validation Error', 'errors': valdiation_error.messages}, 400 # Bad Request: The request could not be understood by the server due to malformed syntax. The client SHOULD NOT repeat the request without modifications.
     
     if circuit:
         circuit.track_name = circuit_details.get('track_name', circuit.track_name)
         circuit.location = circuit_details.get('location', circuit.location)
         circuit.lap_record = circuit_details.get('lap_record', circuit.lap_record)
-        circuit.id = circuit_details.get('id', circuit.id)
         db.session.commit()
         return CircuitSchema().dump(circuit)
     else:
-        return{'error': 'Circuit not found.'}, 404
+        return{'error': 'Circuit not found.'}, 404 # Not Found: The requested circuit resource does not exist.
 
 @circuits_bp.route('/<int:circuit_id>', methods=['DELETE'])
 def delete_circuit(circuit_id):
@@ -81,12 +83,12 @@ def delete_circuit(circuit_id):
     circuit = db.session.scalar(stmt)
 
     if not circuit:
-        return{'error': 'Circuit not found.'}, 404
+        return{'error': 'Circuit not found.'}, 404 # Not Found: The requested circuit resource does not exist.
     if not (current_user.is_admin or current_user.id == circuit.user_id):
-        return {'error': 'You are not authorized to delete this circuit.'}, 403
+        return {'error': 'You are not authorized to delete this circuit.'}, 403 # Forbidden: The server understood the request, but is refusing to fulfill it.
     
     if circuit:
         db.session.delete(circuit)
         db.session.commit()
-        return{}, 200
+        return{}, 204 # No Content: The server successfully processed the request and is not returning any content.
    

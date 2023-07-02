@@ -1,5 +1,5 @@
 from init import db, ma
-from marshmallow import fields
+from marshmallow import fields, validate
 from models.circuit import CircuitSchema
 from models.category import CategorySchema
 from datetime import date
@@ -10,7 +10,7 @@ class Race(db.Model):
     id = db.Column(db.Integer, primary_key=True)
 
     date = db.Column(db.Date, nullable=False)
-    name = db.Column(db.String, nullable=False)
+    name = db.Column(db.String(100), nullable=False)
 
     circuit_id = db.Column(db.Integer, db.ForeignKey('circuits.id'),nullable=False)
     circuit = db.relationship('Circuit', back_populates='races')
@@ -26,7 +26,7 @@ class Race(db.Model):
 
 class RaceSchema(ma.Schema):
     id = fields.Integer(dump_only=True)
-    name = fields.Str(required=True)
+    name = fields.Str(required=True, validate=validate.Length(min=5, max=100))
     date = fields.Date(required=True)
     circuit_id = fields.Int(required=True, load_only=True)
     category_id = fields.Int(required=True, load_only=True)

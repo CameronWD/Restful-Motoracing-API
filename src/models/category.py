@@ -1,13 +1,13 @@
 from init import db, ma
-from marshmallow import fields
+from marshmallow import validate, fields
 
 class Category(db.Model):
     __tablename__ = 'categories'
 
     id = db.Column(db.Integer, primary_key=True)
 
-    name = db.Column(db.String, nullable=False, unique=True)
-    description = db.Column(db.String)
+    name = db.Column(db.String(100), nullable=False, unique=True)
+    description = db.Column(db.Text())
 
     races = db.relationship('Race', back_populates='category')
 
@@ -17,5 +17,7 @@ class Category(db.Model):
 
 class CategorySchema(ma.Schema):
     user= ma.Nested('UserSchema', only=('id',))
+    name = fields.Str(required=True, validate=validate.Length(min=4, max=100))
+    description = fields.Str(validate=validate.Length(min=5, max=500))
     class Meta:
         fields = ('id','name', 'description', 'user')

@@ -1,11 +1,11 @@
 from init import db, ma
-from marshmallow import validates, ValidationError, validates_schema
+from marshmallow import validates, ValidationError, validates_schema, validate, fields
 
 class User(db.Model):
     __tablename__ = 'users'
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String)
+    name = db.Column(db.String(100))
     email = db.Column(db.String, nullable=False, unique=True)
     password = db.Column(db.String, nullable=False)
     role = db.Column(db.String, nullable=True)
@@ -20,6 +20,12 @@ class User(db.Model):
     results = db.relationship('Result', back_populates='user')
 
 class UserSchema(ma.Schema):
+    name = fields.Str(validate=validate.Length(min=2, max=100))
+    email = fields.Email(required=True)
+    # Minimum eight characters, at least one uppercase letter, one lowercase letter and one number
+    password = fields.Str(required=True, validate=validate.Regexp('^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$')) 
+    role = fields.Str(validate=validate.OneOf(["team", "driver", "organizer"], case_sensitive=False))
+    is_admin = fields.Boolean()
     class Meta:
        fields = ('id', 'name', 'email', 'password', 'role', 'is_admin')
 
