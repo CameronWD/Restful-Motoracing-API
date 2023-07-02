@@ -57,6 +57,17 @@ In conclusion, despite its limitations, PostgreSQL benefits of robustness, ACID 
 ## ORM
 ### R4 - Identify and discuss the key functionalities and benefits of an ORM
 
+Object-Relational Mapping (ORM) is a technique that allows developers to interact with their database like a set of objects in their chosen programming language, providing several distinct advantages.
+
+1. Language Consistency: ORMs enable developers to manipulate database entries using the syntax and idioms of their preferred programming language, such as Python, rather than writing raw SQL queries. This makes the code more readable and maintainable and allows developers to leverage their existing knowledge and skills more effectively.
+
+2. Data Transformation: ORM handles the transformation between incompatible type systems (object-oriented and relational), simplifying the process of mapping database entries to objects in code. This can streamline the development process, reducing the likelihood of errors due to data type mismatches.
+
+3. Database Agnosticism: By abstracting the underlying SQL commands, ORMs make it easier to switch between different types of databases with minimal changes to the codebase. This can be invaluable for projects that may need to scale or adapt to changing requirements in the future.
+
+4. Security: The abstraction provided by ORMs also helps enhance security by reducing the risk of SQL injection attacks, as commands are parameterized, and strings aren't directly inserted into queries.
+
+For this project, SQLAlchemy has been selected as the ORM. It is popular among python developers due to its ease of use and expansive features. It allows developers to work with a database like it is a set of Python objects.
 ## Endpoints for Motor Racing API
 ### R5 - Document all endpoints for your API
 
