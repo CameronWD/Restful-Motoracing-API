@@ -15,6 +15,53 @@
 11. [Project Managment Methodology](#project-managment-methodology)
 ## Installation Guide
 
+1. Clone the repository from Github to the location of your choice. 
+2. Open terminal and connect to PostgreSQL database 
+   ``` 
+   psql 
+   ```
+3. Create the database with the following command
+   ```
+   CREATE DATABASE racingapi;
+   ```
+4. You can then connect to this database to create a user and give it all prviliges. Please note that this is just for using this database. 
+   ```
+   \c racingapi;
+   ```
+   ```
+   CREATE USER yourusername WITH PASSWORD 'yourpassword';
+   ``` 
+   ```
+   GRANT ALL PRIVILEGES ON DATABASE racingapi TO yourusername;
+5. You have now created a user for the racingapi database. Now open another tab in your terminal and create the virtual environment before installing dependencies. 
+    ```
+    python3 -m venv .venv
+    ```
+    ```
+    source .venv/bin/activate
+    ```
+6. Install packages
+   ```
+   pip install -r requirments.txt
+   ```
+7. Locate the .env.sample and change its name to .env. You will then need to enter your recently created psql username and password into the URI like the below example. 
+   ```
+    DB_URI = 'postgresql+psycopg2://yourusername:yourpassword@localhost:5432/racingapi'
+    JWT_KEY = 'YOUR KEY'
+    ```
+8. Ensure you're in the correct location and start the api. 
+   ```
+   flask db create
+   ```
+   ```
+   flask db seed
+   ```
+   ``` 
+   flask run
+   ```
+9. The api should now be running on 127.0.0.1:5000/ This can be changed in the .flaskenv file if you encounter any issues with port 5000.
+
+
 ## What is the problem?
 ### R1 - Identification of the problem you are trying to solve by building this particular app.
 
@@ -788,9 +835,9 @@ The Result table stores results from races. For this reason, it uses the race_id
 
  It is important to plan out larger projects to make sure that goals are met in a timely manner, ensuring greater organization and time manamgnet. 
 
- Trello was the project managment software used for this project. Additionally, User Stories were utilized at the start of the project as a way to develop furhter understanding of possible needs or functions for future users of the API.
+ Trello was the project managment software used for this project. Additionally, User Stories were utilized at the start of the project as a way to develop furhter understanding of possible needs or functions for future users of the API. I also did daily standup notes as a way to track my progress. 
 
-## Perzonalised Enthusiest Experience
+## User Stories
 ### 1. User Story: 
 - As a user without an account, 
   I want to be able to view a driver's complete profile, including their name, date of birth, nationality, and team affiliation.
@@ -823,3 +870,60 @@ The Result table stores results from races. For this reason, it uses the race_id
  ### 4. Acceptance Critera:
 
 - Given that I want to keep track of my results throughout the season of racing, I want to be able to see all of my results so then I can see how I have been performing. 
+
+
+## Standups
+
+### 24/6/23
+1. Wrote out my ERD on pen and paper for ERD. Thought about user stories.
+2. Finding it hard to get started as I dont have an idea I love.
+3. I plan to start planning out the template of the README.md and revise some content
+4. That sometimes the best way to get inspiration is to force yourself to do some work. It might just comee to you.
+
+### 25/6/23
+1. Finished all that I could for the readme
+2. Finding it hard to start coding on a blank VSC page. But just need to get something down as its okay that it wont be perfect the first time.
+3. Complete the Models and app.py parts of my code. 
+4. Just doing what I can do, really helps start some momentum on the assingment. 
+
+
+### 26/6/23
+1. Finished with a solid base for the models of my API. 
+2. Forgot a lot of the little things. Revised some of the inclass work to remind myself of ways to achieve certain things. 
+3. Add all the blueprints, including cli commands and auth.
+4. That sometimes its not about knowing everything, but knowing how to access the information quickly.
+
+
+### 27/6/23
+1. Adding all the blueprints and did most of the cli commands and auth.
+2. Feeling quite confident at the moment. No real issues. Just a bit time poor at the moment.
+3. Go over code and try to abstract where I can and make more DRY. Add error handling too.
+4. Got a greater understanding of ways to use postman to test endpoints.
+
+
+### 28/6/23
+1. Made code much more dry. Tested endpoints with differnt permissions.
+2. Sometimes feel silly not using the skills I learnt in python last term to create utility functions. More that I forget to use those ideas until later on, and its frustrating not have remembered at the start.
+3. Sanitize and validate data for API.
+4. That I struggled a bit with the backend work when we started but am really enjoying it now.
+
+### 29/6/23
+1. Went over models ensuring sanitization and validation of data. 
+2. I had an issue where I thought I added a nice utility function that would make my blueprints more dry but it caused a lot of headache to fix.
+3. Add error/response codes where they are needed.
+4. For me, it helps to use pen and paper to write down some interconnectedness to better visualise and understand it.
+### 30/6/23
+1. Added error/reponse codes to every return in the API.
+2. Can be tough to know which HTTP response is the right one.
+3. Finish the coding - Need to add comments to code too.
+4. There is more than one way to achieve something.
+
+### 1/6/23
+
+1. Finished coding.
+2. I have some errors that keep slipping through and am struggling to solve in a DRY way.
+3. Finish the readme and if I have time do study for the exam. 
+4. Documentation takes a long time.
+
+
+## Trello Board
