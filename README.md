@@ -146,11 +146,114 @@ This project uses various models to store and manage data effectively from the v
         results = db.relationship('Result', back_populates='user')
     ```
 2. **Driver**: This model represents the drivers in the various racing communities who use this API. It exhibits a one-to-many relationship with Result, indicating that a driver can have multiple race results. Furthermore, it has a many-to-one relationship with Team and User, meaning each driver is associated with a specific team and user.
+   ```
+    class Driver(db.Model):
+        __tablename__ = 'drivers'
+
+        id = db.Column(db.Integer, primary_key=True)
+
+        date_of_birth = db.Column(db.Date())
+        first_name = db.Column(db.String)
+        last_name = db.Column(db.String)
+        nationality = db.Column(db.String)
+
+        team_id = db.Column(db.Integer, db.ForeignKey('teams.id'), nullable=True)
+        team = db.relationship('Team', back_populates='drivers')
+
+        user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+        user = db.relationship('User', back_populates='driver')
+
+        results = db.relationship('Result', back_populates='driver', cascade='all, delete-orphan')
+   ```
 3. **Team**: I used this model to represent the teams in the application. A team has a one-to-many relationship with Driver and a many-to-one relationship with User. This arrangement means a team can consist of multiple drivers but is owned by one user.
+   ```
+    class Team(db.Model):
+        __tablename__ = 'teams'
+
+        id = db.Column(db.Integer, primary_key=True)
+
+        name = db.Column(db.String, nullable=False, unique=True)
+        year_founded = db.Column(db.Integer)
+
+        user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+        user = db.relationship('User', back_populates='team')
+
+        drivers = db.relationship('Driver', back_populates='team')
+   ```
 4. **Category**: This model represents different race categories. It maintains a one-to-many relationship with Race, as a category can correspond to multiple races. Each category is linked to a single user through a many-to-one relationship.
+   ```
+    class Category(db.Model):
+        __tablename__ = 'categories'
+
+        id = db.Column(db.Integer, primary_key=True)
+
+        name = db.Column(db.String, nullable=False, unique=True)
+        description = db.Column(db.String)
+
+        races = db.relationship('Race', back_populates='category')
+
+        user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+        user = db.relationship('User', back_populates='category')
+   ```
 5. **Circuit**: This model embodies the racing circuits or tracks. A circuit can be associated with multiple races, exhibiting a one-to-many relationship with Race. Also, each circuit is connected to a single user. 
+   ```
+    class Circuit(db.Model):
+        __tablename__ = 'circuits'
+
+        id = db.Column(db.Integer, primary_key=True)
+
+        track_name = db.Column(db.String, nullable=False, unique=True)
+        location = db.Column(db.String)
+        lap_record = db.Column(db.Integer)
+
+        user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+        user = db.relationship('User', back_populates='circuits')
+
+        races = db.relationship('Race', back_populates='circuit')
+
+   ```
 6. **Race**: This model encapsulates the races. Each race has multiple outcomes, indicating a one-to-many relationship with Result. This means each race can produce multiple results, where each result represents the performance of a specific driver in the race. Furthermore, each race is associated with one Circuit, one Category, and one User, creating many-to-one relationships.
+   ```
+    class Race(db.Model):
+        __tablename__ = 'races'
+
+        id = db.Column(db.Integer, primary_key=True)
+
+        date = db.Column(db.Date, nullable=False)
+        name = db.Column(db.String, nullable=False)
+
+        circuit_id = db.Column(db.Integer, db.ForeignKey('circuits.id'),nullable=False)
+        circuit = db.relationship('Circuit', back_populates='races')
+
+        category_id = db.Column(db.Integer, db.ForeignKey('categories.id'), nullable=False)
+        category = db.relationship('Category', back_populates='races')
+
+        user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+        user = db.relationship('User', back_populates='races')
+
+        results = db.relationship('Result', back_populates='race')
+
+   ```
 7. **Result**: This model records the outcomes of the races. It has many-to-one relationships with Driver, Race, and User, meaning each race result is associated with a specific driver, race, and user.
+   ```
+    class Result(db.Model):
+        __tablename__ = 'results'
+
+        id = db.Column(db.Integer, primary_key=True)
+
+        start_position = db.Column(db.Integer, nullable=False)
+        end_position = db.Column(db.Integer, nullable=False)
+        points = db.Column(db.Integer)
+
+        race_id = db.Column(db.Integer, db.ForeignKey('races.id'))
+        race = db.relationship('Race', back_populates='results')
+
+        driver_id = db.Column(db.Integer, db.ForeignKey('drivers.id', ondelete='CASCADE'), nullable=False)
+        driver = db.relationship('Driver', back_populates='results')
+
+        user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+        user = db.relationship('User', back_populates='results')
+   ```
 
 The relationships between these models are vital to the functionality of the application as they offer the flexibility to make complex queries and data retrievals across different entities. These interconnections also define the data structure and are pivotal in its functionality. 
 ## Database Relations
