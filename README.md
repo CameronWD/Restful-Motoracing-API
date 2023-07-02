@@ -80,6 +80,8 @@ For this project, SQLAlchemy has been selected as the ORM. It is popular among p
 - 'user': Object containing user's email and name
 - Authentication: Not required 
 
+![Login](/docs/Users_Endpoints/users_login_post.png)
+
 ### Register ('/register')
 - Method: POST
 - Required JSON Request Data:
@@ -90,6 +92,8 @@ For this project, SQLAlchemy has been selected as the ORM. It is popular among p
 - Expected JSON Response Data:
  - The newly registered user's data (excluding password)
 - Authentication: Not required
+
+![register](/docs/Users_Endpoints/users_register_post.png)
 
 ### Get All Users ('/users')
   - Method: GET
@@ -146,6 +150,7 @@ For this project, SQLAlchemy has been selected as the ORM. It is popular among p
   - Expected HTTP Response Code: 200 (400 if validation error, 404 if not found, 403 if unauthorized)
   - Authentication:
       - Required (JWT token and user must have 'admin' or 'organizer' role, or be the category owner)
+
 ![Cat_Update](/docs/Categories_Endpoints/categories_post.png)
 
 ### Delete a Category ('/<int:category_id>')
@@ -156,108 +161,125 @@ For this project, SQLAlchemy has been selected as the ORM. It is popular among p
   - Expected HTTP Response Code: 200 (404 if not found, 403 if unauthorized)
   - Authentication:
       - Required (JWT token and user must have 'admin' or 'organizer' role, or be the category owner)
+      - 
 ![Cat_Delete](/docs/Categories_Endpoints/categories_delete.png)
-### 5. Circuits ('/circuits')
-- Get All Categories ('/')
-    - Method:GET
-    - Required JSON Request Data: 
-        - None
-    - Expected JSON Response Data: 
-        - Array of all circuits in the database
-    - Expected HTTP Response Code: 200
-    - Authentication: Not required
+
+## Circuits ('/circuits')
+### Get All Categories ('/')
+  - Method:GET
+  - Required JSON Request Data: 
+      - None
+  - Expected JSON Response Data: 
+      - Array of all circuits in the database
+  - Expected HTTP Response Code: 200
+  - Authentication: Not required
   
-- Get Single Circuit ('/<int:circuit_id>')
-      - Method: GET
-      - Required JSON Request Data:
-          - None
-      - Expected JSON Response Data: 
-          - Object containing the details of the requested circuit
-      - Expected HTTP Response Code: 200 (404 if not found)
-      - Authentication: Not required
+  ![GetCat](/docs/Circuits_Endpoints/circuits_get.png)
 
-- Create a Circuit ('/')
-      - Method: POST
-      - Required JSON Request Data:
-          - 'track_name': Name of the track
-          - 'location': Location of the circuit
-          - 'lap_record': Lap record of the circuit
-      - Expected JSON Response Data: 
-          - Object containing the newly created circuit's data
-      - Expected HTTP Response Code: 201 (400 if validation error, 400 if circuit already exists)
-      - Authentication: Required (JWT token and user must have 'admin' or 'organizer' role)
+### Get Single Circuit ('/<int:circuit_id>')
+  - Method: GET
+  - Required JSON Request Data:
+      - None
+  - Expected JSON Response Data: 
+      - Object containing the details of the requested circuit
+  - Expected HTTP Response Code: 200 (404 if not found)
+  - Authentication: Not required
 
+![GetCat1](/docs/Circuits_Endpoints/circuits_get_1.png)
+### Create a Circuit ('/')
+  - Method: POST
+  - Required JSON Request Data:
+      - 'track_name': Name of the track
+      - 'location': Location of the circuit
+      - 'lap_record': Lap record of the circuit
+  - Expected JSON Response Data: 
+      - Object containing the newly created circuit's data
+  - Expected HTTP Response Code: 201 (400 if validation error, 400 if circuit already exists)
+  - Authentication: Required (JWT token and user must have 'admin' or 'organizer' role)
 
-- Update a Circuit('/<int:circuit_id>')
-      - Method: PUT, PATCH
-      - Required JSON Request Data:
-          - Object containing category data to be changed
-          -  'track_name' (New name for the track, string, optional)
-          -  'location' (New location for the circuit, string, optional)
-          -  'lap_record' (New lap record for the circuit, string, optional)
-      - Expected JSON response data:
-          - Object containing the updated circuit's data
-      - Expected HTTP Response Code: 200 (400 if validation error, 404 if not found, 403 if unauthorized)
-      - Authentication:
-          - Required (JWT token and user must have 'admin' or 'organizer' role, or be the circuit owner)
+![CreateCirc](/docs/Circuits_Endpoints/circuits_put.png)
 
-- Delete a Circuit ('/<int:circuit_id>')
-      - Method: DELETE
-      - Required JSON Request Data:
-        - None
-      - Expected JSON response data:
-          - Empty JSON object
-      - Expected HTTP Response Code: 200 (404 if not found, 403 if unauthorized)
-      - Authentication:
-          - Required (JWT token and user must have 'admin' or 'organizer' role, or be the circuit owner)
+### Update a Circuit('/<int:circuit_id>')
+  - Method: PUT, PATCH
+  - Required JSON Request Data:
+      - Object containing category data to be changed
+      -  'track_name' (New name for the track, string, optional)
+      -  'location' (New location for the circuit, string, optional)
+      -  'lap_record' (New lap record for the circuit, string, optional)
+  - Expected JSON response data:
+      - Object containing the updated circuit's data
+  - Expected HTTP Response Code: 200 (400 if validation error, 404 if not found, 403 if unauthorized)
+  - Authentication:
+      - Required (JWT token and user must have 'admin' or 'organizer' role, or be the circuit owner)
 
-### 6. Drivers ('/drivers')
-- Get All Drivers ('/')
-- Method:GET
-- Required JSON Request Data: 
+![Put](/docs/Circuits_Endpoints/circuits_post.png)
+
+### Delete a Circuit ('/<int:circuit_id>')
+  - Method: DELETE
+  - Required JSON Request Data:
     - None
-- Expected JSON Response Data: 
-    - Array of all drivers in the database
-- Expected HTTP Response Code: 200
-- Authentication: Not required
+  - Expected JSON response data:
+      - Empty JSON object
+  - Expected HTTP Response Code: 200 (404 if not found, 403 if unauthorized)
+  - Authentication:
+      - Required (JWT token and user must have 'admin' or 'organizer' role, or be the circuit owner)
 
-- Get Single Driver ('/<int:driver_id>')
-    - Method: GET
-    - Required JSON Request Data:
-        - None
-    - Expected JSON Response Data: 
-        - Object containing the details of the requested driver
-    - Expected HTTP Response Code: 200 (404 if not found)
-    - Authentication: Not required
+![DeleteCirc](/docs/Circuits_Endpoints/circuits_delete.png)
 
-- Create a Driver ('/')
-    - Method: POST
-    - Required JSON Request Data:
-        - 'first_name': First name of the driver
-        - 'last_name': Last name of the driver
-        - 'date_of_birth': Date of birth of the driver
-        - 'nationality': Nationality of the driver
-    - Expected JSON Response Data: 
-        - Object containing the newly created driver's data
-    - Expected HTTP Response Code: 201 (400 if validation error, 400 if driver already exists)
-    - Authentication: Required (JWT token and user must have 'admin' or 'driver' role)
+## Drivers ('/drivers')
+### Get All Drivers ('/')
+  - Method:GET
+  - Required JSON Request Data: 
+      - None
+  - Expected JSON Response Data: 
+      - Array of all drivers in the database
+  - Expected HTTP Response Code: 200
+  - Authentication: Not required
 
+![DriversGet](/docs/Drivers_Endpoints/drivers_get.png)
 
-- Update a Driver('/<int:driver_id>')
-    - Method: PUT, PATCH
-    - Required JSON Request Data:
-        - Object containing driver data to be changed
-        -  'first_name' (New first name for the driver, string, optional)
-        -  'last_name' (New last name for the driver, string, optional)
-        -  'date_of_birth' (New date of birth for the driver, string, optional)
-        -  'nationality' (New nationality for the driver, string, optional)
-    - Expected JSON response data:
-        - Object containing the updated driver's data
-    - Expected HTTP Response Code: 200 (400 if validation error, 404 if not found, 403 if unauthorized)
-    - Authentication:
-        - Required (JWT token and user must have 'admin' or 'driver' role, or be the driver owner)
+### Get Single Driver ('/<int:driver_id>')
+  - Method: GET
+  - Required JSON Request Data:
+      - None
+  - Expected JSON Response Data: 
+      - Object containing the details of the requested driver
+  - Expected HTTP Response Code: 200 (404 if not found)
+  - Authentication: Not required
 
-- Delete a Driver ('/<int:driver_id>')
+![DriversGet1](/docs/Drivers_Endpoints/drivers_get_1.png)
+
+### Create a Driver ('/')
+  - Method: POST
+  - Required JSON Request Data:
+      - 'first_name': First name of the driver
+      - 'last_name': Last name of the driver
+      - 'date_of_birth': Date of birth of the driver
+      - 'nationality': Nationality of the driver
+  - Expected JSON Response Data: 
+      - Object containing the newly created driver's data
+  - Expected HTTP Response Code: 201 (400 if validation error, 400 if driver already exists)
+  - Authentication: Required (JWT token and user must have 'admin' or 'driver' role)
+
+![DriversCreate](/docs/Drivers_Endpoints/drivers_post.png)
+
+### Update a Driver('/<int:driver_id>')
+  - Method: PUT, PATCH
+  - Required JSON Request Data:
+      - Object containing driver data to be changed
+      -  'first_name' (New first name for the driver, string, optional)
+      -  'last_name' (New last name for the driver, string, optional)
+      -  'date_of_birth' (New date of birth for the driver, string, optional)
+      -  'nationality' (New nationality for the driver, string, optional)
+  - Expected JSON response data:
+      - Object containing the updated driver's data
+  - Expected HTTP Response Code: 200 (400 if validation error, 404 if not found, 403 if unauthorized)
+  - Authentication:
+      - Required (JWT token and user must have 'admin' or 'driver' role, or be the driver owner)
+
+![DriversUpdate](/docs/Drivers_Endpoints/drivers_put.png)
+
+### Delete a Driver ('/<int:driver_id>')
   - Method: DELETE
   - Required JSON Request Data:
     - None
@@ -267,8 +289,10 @@ For this project, SQLAlchemy has been selected as the ORM. It is popular among p
   - Authentication:
       - Required (JWT token and user must have 'admin' or 'driver' role, or be the driver owner)
 
-### 7. Races ('/races')
-- Get All Races ('/')
+![DriverDelete](/docs/Drivers_Endpoints/drivers_delete.png)
+
+## Races ('/races')
+### Get All Races ('/')
   - Method:GET
   - Required JSON Request Data: 
       - None
@@ -277,7 +301,8 @@ For this project, SQLAlchemy has been selected as the ORM. It is popular among p
   - Expected HTTP Response Code: 200
   - Authentication: Not required
 
-- Get Single Race ('/<int:race_id>')
+![RaceGetAll](/docs/Races_Endpoints/races_get.png)
+### Get Single Race ('/<int:race_id>')
   - Method: GET
   - Required JSON Request Data:
       - None
@@ -286,7 +311,9 @@ For this project, SQLAlchemy has been selected as the ORM. It is popular among p
   - Expected HTTP Response Code: 200 (404 if not found)
   - Authentication: Not required
 
-- Create a Race ('/')
+![RaceGet1](/docs/Races_Endpoints/races_get_1.png)
+
+### Create a Race ('/')
   - Method: POST
   - Required JSON Request Data:
       - 'name': Name of the race
@@ -298,8 +325,9 @@ For this project, SQLAlchemy has been selected as the ORM. It is popular among p
   - Expected HTTP Response Code: 201 (400 if validation error, 400 if race already exists)
   - Authentication: Required (JWT token and user must have 'admin' or 'organizer' role)
 
+![CreateRace](/docs/Races_Endpoints/races_post.png)
 
-- Update a Race('/<int:race_id>')
+### Update a Race('/<int:race_id>')
   - Method: PUT, PATCH
   - Required JSON Request Data:
       - Object containing race data to be changed
@@ -313,7 +341,9 @@ For this project, SQLAlchemy has been selected as the ORM. It is popular among p
   - Authentication:
       - Required (JWT token and user must have 'admin' or 'organizer' role, or be the race owner)
 
-- Delete a Race ('/<int:race_id>')
+![UpdateRace](/docs/Races_Endpoints/races_post.png)
+
+### Delete a Race ('/<int:race_id>')
   - Method: DELETE
   - Required JSON Request Data:
     - None
@@ -323,8 +353,11 @@ For this project, SQLAlchemy has been selected as the ORM. It is popular among p
   - Authentication:
       - Required (JWT token and user must have 'admin' or 'organizer' role, or be the race owner)
 
-### 8. Results ('/results')
-- Get All Results ('/')
+![DeleteRace](/docs/Races_Endpoints/races_delete.png)
+
+## Results ('/results')
+
+### Get All Results ('/')
   - Method:GET
   - Required JSON Request Data: 
       - None
@@ -333,7 +366,9 @@ For this project, SQLAlchemy has been selected as the ORM. It is popular among p
   - Expected HTTP Response Code: 200 (404 if not found)
   - Authentication: Not required
 
-- Get Single Result ('/<int:result_id>')
+![GetAllResults](/docs/Results_Endpoints/results_get.png)
+
+### Get Single Result ('/<int:result_id>')
   - Method: GET
   - Required JSON Request Data:
       - None
@@ -342,7 +377,9 @@ For this project, SQLAlchemy has been selected as the ORM. It is popular among p
   - Expected HTTP Response Code: 200 (404 if not found)
   - Authentication: Not required
 
-- Create a Result ('/')
+![Get1Results](/docs/Results_Endpoints/results_get_1.png)
+
+### Create a Result ('/')
   - Method: POST
   - Required JSON Request Data:
       - 'start_position': Start position of the result
@@ -355,8 +392,9 @@ For this project, SQLAlchemy has been selected as the ORM. It is popular among p
   - Expected HTTP Response Code: 201 (400 if validation error, 409 if result already exists)
   - Authentication: Required (JWT token and user must have 'admin' or 'organizer' role)
 
+![CreateResults](/docs/Results_Endpoints/results_post.png)
 
-- Update a Result('/<int:result_id>')
+### Update a Result('/<int:result_id>')
   - Method: PUT, PATCH
   - Required JSON Request Data:
       - Object containing result data to be changed
@@ -371,7 +409,9 @@ For this project, SQLAlchemy has been selected as the ORM. It is popular among p
   - Authentication:
       - Required (JWT token and user must have 'admin' or 'organizer' role, or be the result owner)
 
-- Delete a Result ('/<int:result_id>')
+![UpdateResults](/docs/Results_Endpoints/results_put.png)
+
+### Delete a Result ('/<int:result_id>')
   - Method: DELETE
   - Required JSON Request Data:
     - None
@@ -381,9 +421,12 @@ For this project, SQLAlchemy has been selected as the ORM. It is popular among p
   - Authentication:
       - Required (JWT token and user must have 'admin' or 'organizer' role, or be the result owner)
 
+![DeleteResults](/docs/Races_Endpoints/races_delete.png)
 
-### 9. Teams ('/teams')
-- Get All Teams ('/')
+## Teams ('/teams')
+
+
+### Get All Teams ('/')
   - Method:GET
   - Required JSON Request Data: 
       - None
@@ -392,7 +435,9 @@ For this project, SQLAlchemy has been selected as the ORM. It is popular among p
   - Expected HTTP Response Code: 200 (404 if not found)
   - Authentication: Not required
 
-- Get Single Team ('/<int:team_id>')
+![GetAllTeams](/docs/Teams_Endpoints/teams_get.png)
+
+### Get Single Team ('/<int:team_id>')
   - Method: GET
   - Required JSON Request Data:
       - None
@@ -401,7 +446,10 @@ For this project, SQLAlchemy has been selected as the ORM. It is popular among p
   - Expected HTTP Response Code: 200 (404 if not found)
   - Authentication: Not required
 
-- Create a Result ('/')
+
+![Get1Team](/docs/Teams_Endpoints/teams_get_1.png)
+
+### Create a Team ('/')
   - Method: POST
   - Required JSON Request Data:
       - 'name': Name of the team
@@ -411,8 +459,9 @@ For this project, SQLAlchemy has been selected as the ORM. It is popular among p
   - Expected HTTP Response Code: 201 (400 if validation error, 409 if team already exists)
   - Authentication: Required (JWT token and user must have 'admin' or 'team' role)
 
+![CreateTeam](/docs/Teams_Endpoints/team_post.png)
 
-- Update a Team ('/<int:team_id>')
+### Update a Team ('/<int:team_id>')
   - Method: PUT, PATCH
   - Required JSON Request Data:
       - Object containing team data to be changed
@@ -424,7 +473,10 @@ For this project, SQLAlchemy has been selected as the ORM. It is popular among p
   - Authentication:
       - Required (JWT token and user must have 'admin' or be the team owner)
 
-- Delete a Team ('/<int:team_id>')
+
+![UpdateTeam](/docs/Teams_Endpoints/teams_put.png)
+
+### Delete a Team ('/<int:team_id>')
     - Method: DELETE
     - Required JSON Request Data:
       - None
@@ -433,6 +485,8 @@ For this project, SQLAlchemy has been selected as the ORM. It is popular among p
     - Expected HTTP Response Code: 204 (404 if not found, 403 if unauthorized)
     - Authentication:
         - Required (JWT token and user must have 'admin' or be the team owner)
+
+![DeleteTeam](/docs/Teams_Endpoints/teams_delete.png)
 
 
 ## ERD
