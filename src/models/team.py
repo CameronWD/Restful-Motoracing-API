@@ -16,8 +16,8 @@ class Team(db.Model):
     drivers = db.relationship('Driver', back_populates='team')
 
 class TeamSchema(ma.Schema):
-    drivers = ma.Nested('DriverSchema', many=True, only=('id', 'first_name', 'last_name'))
-    user= ma.Nested('UserSchema', only=('id',))
+    drivers = ma.Nested('DriverSchema', many=True, exclude=('team',))
+    user = ma.Nested('UserSchema', exclude=('password','is_admin'))
     name = fields.Str(required=True, validate=validate.Length(min=5, max=100))
     # year founded can be as early as the year 1000 but can not be any earlier than the current date
     year_founded = fields.Int(required=True, validate=validate.Range(min=1000, max=datetime.now().year))

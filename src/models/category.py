@@ -16,7 +16,7 @@ class Category(db.Model):
 
 
 class CategorySchema(ma.Schema):
-    user= ma.Nested('UserSchema', only=('id',))
+    user= ma.Nested('UserSchema', exclude=('password','is_admin'))
     name = fields.Str(required=True, validate=validate.Length(min=4, max=100))
     description = fields.Str(validate=validate.Length(min=5, max=500))
     class Meta:

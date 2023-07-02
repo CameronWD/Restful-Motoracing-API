@@ -22,8 +22,8 @@ class Driver(db.Model):
     results = db.relationship('Result', back_populates='driver', cascade='all, delete-orphan')
 
 class DriverSchema(ma.Schema):
-    team = ma.Nested('TeamSchema', only=('id',))
-    user = ma.Nested('UserSchema', only=('id',))
+    team = ma.Nested('TeamSchema', only=('id','name'))
+    user = ma.Nested('UserSchema', exclude=('password','is_admin'))
     
     first_name = fields.Str(required=True, validate=validate.Length(min=1, max=50))
     last_name = fields.Str(required=True, validate=validate.Length(min=1, max=50))

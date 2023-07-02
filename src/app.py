@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask
 from os import environ
 from init import db, ma, bcrypt, jwt
 from blueprints.cli_bp import cli_bp
@@ -36,6 +36,7 @@ def create_app():
     @app.errorhandler(404)
     def not_found_error(error):
         return {'error': str(error)}, 404
+    
 
     app.register_blueprint(cli_bp)
     app.register_blueprint(auth_bp)

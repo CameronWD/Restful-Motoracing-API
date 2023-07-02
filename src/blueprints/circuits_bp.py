@@ -32,7 +32,7 @@ def create_circuit():
     circuit=Circuit(
         track_name=circuit_details['track_name'],
         location=circuit_details['location'],
-        lap_record=circuit_details['lap_record'],
+        lap_record_seconds_seconds=circuit_details['lap_record_seconds'],
         user_id=current_user.id
     )
 
@@ -52,7 +52,7 @@ def update_circuit(circuit_id):
 
     circuit.track_name = circuit_details.get('track_name', circuit.track_name)
     circuit.location = circuit_details.get('location', circuit.location)
-    circuit.lap_record = circuit_details.get('lap_record', circuit.lap_record)
+    circuit.lap_record_seconds = circuit_details.get('lap_record_seconds', circuit.lap_record_seconds)
     db.session.commit()
     return CircuitSchema().dump(circuit)
 

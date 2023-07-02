@@ -1,8 +1,6 @@
 from init import db, ma
 from marshmallow import fields, validate
-from models.circuit import CircuitSchema
-from models.category import CategorySchema
-from datetime import date
+
 
 class Race(db.Model):
     __tablename__ = 'races'
@@ -30,10 +28,10 @@ class RaceSchema(ma.Schema):
     date = fields.Date(required=True)
     circuit_id = fields.Int(required=True, load_only=True)
     category_id = fields.Int(required=True, load_only=True)
-    circuit = ma.Nested('CircuitSchema', dump_only=('id', 'track_name', 'location'))
+    circuit = ma.Nested('CircuitSchema', exclude=('races',))
     category = ma.Nested('CategorySchema', dump_only=('id', 'name'))
     results = ma.Nested('ResultSchema', many=True)
-    user = ma.Nested('UserSchema', only=('id',))
+    user = ma.Nested('UserSchema', exclude=('password','is_admin'))
     
     class Meta:
         fields = ('id', 'date', 'name', 'circuit', 'category', 'circuit_id', 'category_id', 'user')
