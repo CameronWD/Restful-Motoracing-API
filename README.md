@@ -70,7 +70,7 @@ Object-Relational Mapping (ORM) is a technique that allows developers to interac
 For this project, SQLAlchemy has been selected as the ORM. It is popular among python developers due to its ease of use and expansive features. It allows developers to work with a database like it is a set of Python objects.
 ## Endpoints for Motor Racing API
 ### R5 - Document all endpoints for your API
-1. Login ('/login')
+### 1. Login ('/login')
     - Method: POST
     - Required JSON Request Data:
       - 'email': User's email address
@@ -80,7 +80,7 @@ For this project, SQLAlchemy has been selected as the ORM. It is popular among p
       - 'user': Object containing user's email and name
     - Authentication: Not required 
 
-2. Register ('/register')
+### 2. Register ('/register')
     - Method: POST
     - Required JSON Request Data:
       - 'name': User's full name
@@ -91,14 +91,14 @@ For this project, SQLAlchemy has been selected as the ORM. It is popular among p
       - The newly registered user's data (excluding password)
     - Authentication: Not required
 
-3. Get All Users ('/users')
+### 3. Get All Users ('/users')
    - Method: GET
    - Required JSON Request Data: None
    - Expected JSON Response Data:
      - An array of all users in the database (excluding their passwords)
    - Authentication: Required (JWT token and user must have 'admin' role)
 
-4. Categories ('/categories')
+### 4. Categories ('/categories')
 - Get All Categories ('/')
     - Method:GET
     - Required JSON Request Data: 
