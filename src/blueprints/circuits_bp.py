@@ -32,7 +32,7 @@ def create_circuit():
     circuit=Circuit(
         track_name=circuit_details['track_name'],
         location=circuit_details['location'],
-        lap_record_seconds_seconds=circuit_details['lap_record_seconds'],
+        lap_record_seconds=circuit_details['lap_record_seconds'],
         user_id=current_user.id
     )
 

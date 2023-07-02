@@ -3,6 +3,7 @@ from init import db, bcrypt
 from models.driver import Driver, DriverSchema
 from blueprints.auth_bp import admin_or_driver_role_required
 from utils import validate_schema, get_resource_or_404
+from datetime import datetime, date
 
 drivers_bp = Blueprint('driver', __name__, url_prefix='/drivers')
 
@@ -56,6 +57,7 @@ def update_driver(driver_id):
     driver.last_name = driver_details.get('last_name', driver.last_name)
     driver.nationality = driver_details.get('nationality', driver.nationality)
     driver.date_of_birth = driver_details.get('date_of_birth', driver.date_of_birth)
+
     db.session.commit()
     return DriverSchema().dump(driver)
 

@@ -1,7 +1,7 @@
 from init import db, ma
 from marshmallow import fields, validate, validates, ValidationError
 from marshmallow.validate import Range
-from datetime import datetime
+from datetime import datetime, date
 
 class Driver(db.Model):
     __tablename__ = 'drivers'
@@ -33,7 +33,10 @@ class DriverSchema(ma.Schema):
 
     @validates('date_of_birth')
     def validate_date_of_birth(self, value):
-        if value < datetime.date(1900, 1, 1) or value > datetime.date.today():
+        print("Value: ", value)
+        if value is None:
+            raise ValidationError('DOB is required.')
+        elif value < date(1900, 1, 1) or value > date.today():
             raise ValidationError('Date of birth must be between 1900-01-01 and today.')
     class Meta:
         fields = ('id','date_of_birth', 'first_name', 'last_name', 'nationality', 'team', 'user') 

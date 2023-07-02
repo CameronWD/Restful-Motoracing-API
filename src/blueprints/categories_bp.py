@@ -25,13 +25,12 @@ def create_category():
     current_user = admin_or_organizer_role_required()
     category_details = validate_schema(CategorySchema(), request.json)
 
-    existing_category = Category.query.filter_by(user_id=current_user.id).first()
-    if existing_category:
-        return {'error': 'You already have a category.'}, 409 # Conflict: The request could not be completed due to category already existing.
+    name = category_details['name']
+    description = category_details.get('description', '')
 
     category = Category(
-        name = category_details['name'],
-        description = category_details['description'],
+        name = name,
+        description = description,
         user_id = current_user.id
     )
 

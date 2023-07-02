@@ -4,6 +4,8 @@ from models.race import Race, RaceSchema
 from datetime import date
 from blueprints.auth_bp import admin_or_organizer_role_required
 from utils import validate_schema, get_resource_or_404
+from models.category import Category
+from models.circuit import Circuit  
 
 races_bp = Blueprint('race', __name__, url_prefix='/races')
 
@@ -28,7 +30,16 @@ def create_race():
 
     existing_race = db.session.query(Race).filter_by(date=race_details['date'], name=race_details['name']).first()
     if existing_race:
-        return {'error': 'Race already exists.'}, 409 # Conflict: The race already exists and creates a conflict with the unique constraint.
+        return {'error': 'Race already exists.'}, 409  # Conflict: The race already exists and creates a conflict with the unique constraint.
+    
+    category = db.session.query(Category).filter_by(id=race_details['category_id']).first()
+    if not category:
+        return {'error': 'Category does not exist.'}, 400
+    
+    circuit = db.session.query(Circuit).filter_by(id=race_details['circuit_id']).first()
+    if not circuit:
+        return {'error': 'Circuit does not exist.'}, 400
+    
 
     race = Race(
         name = race_details['name'],

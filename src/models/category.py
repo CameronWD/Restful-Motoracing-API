@@ -7,7 +7,7 @@ class Category(db.Model):
     id = db.Column(db.Integer, primary_key=True)
 
     name = db.Column(db.String(100), nullable=False, unique=True)
-    description = db.Column(db.Text())
+    description = db.Column(db.Text(), nullable=True)
 
     races = db.relationship('Race', back_populates='category')
 
@@ -18,6 +18,6 @@ class Category(db.Model):
 class CategorySchema(ma.Schema):
     user= ma.Nested('UserSchema', exclude=('password','is_admin'))
     name = fields.Str(required=True, validate=validate.Length(min=4, max=100))
-    description = fields.Str(validate=validate.Length(min=5, max=500))
+    description = fields.Str(required=False, validate=validate.Length(max=500))
     class Meta:
         fields = ('id','name', 'description', 'user')
