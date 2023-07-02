@@ -873,20 +873,23 @@ The Result table stores results from races. For this reason, it uses the race_id
 - Given that I want to keep track of my results throughout the season of racing, I want to be able to see all of my results so then I can see how I have been performing. 
 
 
-## Standups
+## Standups and Board Progress
 
+![KanBan1](/docs/kanban/start.png)
 ### 24/6/23
 1. Wrote out my ERD on pen and paper for ERD. Thought about user stories.
 2. Finding it hard to get started as I dont have an idea I love.
 3. I plan to start planning out the template of the README.md and revise some content
 4. That sometimes the best way to get inspiration is to force yourself to do some work. It might just comee to you.
 
+![KanBan2](/docs/kanban/second.png)
 ### 25/6/23
 1. Finished all that I could for the readme
 2. Finding it hard to start coding on a blank VSC page. But just need to get something down as its okay that it wont be perfect the first time.
 3. Complete the Models and app.py parts of my code. 
 4. Just doing what I can do, really helps start some momentum on the assingment. 
 
+![KanBan3](/docs/kanban/third.png)
 
 ### 26/6/23
 1. Finished with a solid base for the models of my API. 
@@ -894,20 +897,21 @@ The Result table stores results from races. For this reason, it uses the race_id
 3. Add all the blueprints, including cli commands and auth.
 4. That sometimes its not about knowing everything, but knowing how to access the information quickly.
 
-
+![KanBan4](/docs/kanban/fourth.png)
 ### 27/6/23
 1. Adding all the blueprints and did most of the cli commands and auth.
 2. Feeling quite confident at the moment. No real issues. Just a bit time poor at the moment.
 3. Go over code and try to abstract where I can and make more DRY. Add error handling too.
 4. Got a greater understanding of ways to use postman to test endpoints.
 
-
+![KanBan5](/docs/kanban/fifth.png)
 ### 28/6/23
 1. Made code much more dry. Tested endpoints with differnt permissions.
 2. Sometimes feel silly not using the skills I learnt in python last term to create utility functions. More that I forget to use those ideas until later on, and its frustrating not have remembered at the start.
 3. Sanitize and validate data for API.
 4. That I struggled a bit with the backend work when we started but am really enjoying it now.
 
+![KanBan6](/docs/kanban/sixth.png)
 ### 29/6/23
 1. Went over models ensuring sanitization and validation of data. 
 2. I had an issue where I thought I added a nice utility function that would make my blueprints more dry but it caused a lot of headache to fix.
@@ -919,6 +923,7 @@ The Result table stores results from races. For this reason, it uses the race_id
 3. Finish the coding - Need to add comments to code too.
 4. There is more than one way to achieve something.
 
+![KanBan7](/docs/kanban/secondlast.png)
 ### 1/6/23
 
 1. Finished coding.
@@ -926,5 +931,5 @@ The Result table stores results from races. For this reason, it uses the race_id
 3. Finish the readme and if I have time do study for the exam. 
 4. Documentation takes a long time.
 
+![FinalKanBan](docs/kanban/last.png)
 
-## Trello Board
