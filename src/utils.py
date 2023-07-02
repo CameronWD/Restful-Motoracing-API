@@ -2,6 +2,8 @@ from marshmallow.exceptions import ValidationError
 from flask import abort
 from init import db
 
+# aims to catch all validation errors to make blueprint code much dryer 
+
 def validate_schema(schema, data, partial=False):
     print(data)
     try:
@@ -13,6 +15,7 @@ def validate_schema(schema, data, partial=False):
         abort(400, {'error': 'Validation Error', 'errors': validation_error.messages})
     return validated_data
     
+# aims to catch all 404 errors to make blueprint code much dryer
 def get_resource_or_404(query, resource_name):
     resource = db.session.scalar(query)
     if not resource:

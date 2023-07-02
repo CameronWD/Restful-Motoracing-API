@@ -52,8 +52,6 @@ However, potential drawbacks should be considered. When compared to some other R
 
 In conclusion, despite its limitations, PostgreSQL benefits of robustness, ACID compliance, complex query handling, extensibility provide a compelling case for it to be used for this project. It aligns well with the nature of the data used for this case and makes it a great choice for this application. 
 
-
-# Attached image of databases for this project with seeded data
 ## ORM
 ### R4 - Identify and discuss the key functionalities and benefits of an ORM
 
@@ -787,3 +785,41 @@ The Result table stores results from races. For this reason, it uses the race_id
 ## Project Managment Methodology
 ### R10 - Describe the way tasks are allocated and tracked in your project
 
+
+ It is important to plan out larger projects to make sure that goals are met in a timely manner, ensuring greater organization and time manamgnet. 
+
+ Trello was the project managment software used for this project. Additionally, User Stories were utilized at the start of the project as a way to develop furhter understanding of possible needs or functions for future users of the API.
+
+## Perzonalised Enthusiest Experience
+### 1. User Story: 
+- As a user without an account, 
+  I want to be able to view a driver's complete profile, including their name, date of birth, nationality, and team affiliation.
+  So that I can understand their racing history, and find their results. 
+
+### 1. Acceptance Critera:
+- Given that I know the name of my favourite driver, 
+  When I search for their details, I will recieve a list of all their stats and information.
+
+### 2. User Story: 
+- As a user,
+  I want to browse through different teams, see when they were founded, and view all the drivers associated with each team,
+  So that I can follow my favourite teams and stay updated on their drivers.
+
+### 2. Acceptance Critera:
+- Given that I know the name of my favourite team, 
+  When I search for their details, I will recieve a list of all their stats and information, including drivers and founding year.
+### 3. User Story: 
+- As a user and organizer, 
+  I want to be able to centralize information about races and results,
+  So that participants and fans can follow competitions more effecitvely
+
+### 3. Acceptance Critera:
+- Given that I need to share results information about a race, When I upload those to a central system, then all drivers, teams and fans can access the information.
+### 4. User Story:
+- As a driver, 
+  I want to be able to track my results and other details about myself,
+ So that I can easily track how I have been performing and what tracks I have participated at. 
+
+ ### 4. Acceptance Critera:
+
+- Given that I want to keep track of my results throughout the season of racing, I want to be able to see all of my results so then I can see how I have been performing. 
