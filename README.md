@@ -70,7 +70,7 @@ Object-Relational Mapping (ORM) is a technique that allows developers to interac
 For this project, SQLAlchemy has been selected as the ORM. It is popular among python developers due to its ease of use and expansive features. It allows developers to work with a database like it is a set of Python objects.
 ## Endpoints for Motor Racing API
 ### R5 - Document all endpoints for your API
-### 1. Login ('/login')
+### Login ('/login')
 - Method: POST
 - Required JSON Request Data:
 - 'email': User's email address
@@ -80,7 +80,7 @@ For this project, SQLAlchemy has been selected as the ORM. It is popular among p
 - 'user': Object containing user's email and name
 - Authentication: Not required 
 
-### 2. Register ('/register')
+### Register ('/register')
 - Method: POST
 - Required JSON Request Data:
  - 'name': User's full name
@@ -91,7 +91,7 @@ For this project, SQLAlchemy has been selected as the ORM. It is popular among p
  - The newly registered user's data (excluding password)
 - Authentication: Not required
 
-### 3. Get All Users ('/users')
+### Get All Users ('/users')
   - Method: GET
   - Required JSON Request Data: None
   - Expected JSON Response Data:
@@ -100,62 +100,62 @@ For this project, SQLAlchemy has been selected as the ORM. It is popular among p
 
 ![Get_All_Users](/docs/Users_Endpoints/users_get.png)
 
-### 4. Categories ('/categories')
-  - Get All Categories ('/')
-      - Method:GET
-      - Required JSON Request Data: 
-          - None
-      - Expected JSON Response Data: 
-          - Array of all categories in the database
-      - Expected HTTP Response Code: 200
-      - Authentication: Not required
+## Categories ('/categories')
+### Get All Categories ('/')
+  - Method:GET
+  - Required JSON Request Data: 
+      - None
+  - Expected JSON Response Data: 
+      - Array of all categories in the database
+  - Expected HTTP Response Code: 200
+  - Authentication: Not required
 
 ![Get_All_Categories](/docs/Categories_Endpoints/categories_get.png)
   
-- Get Single Categories ('/<int:category_id>')
-      - Method: GET
-      - Required JSON Request Data:
-          - None
-      - Expected JSON Response Data: 
-          - Object containing the details of the requested category
-      - Expected HTTP Response Code: 200 (404 if not found)
-      - Authentication: Not required
+### Get Single Categories ('/<int:category_id>')
+  - Method: GET
+  - Required JSON Request Data:
+      - None
+  - Expected JSON Response Data: 
+      - Object containing the details of the requested category
+  - Expected HTTP Response Code: 200 (404 if not found)
+  - Authentication: Not required
   
 ![Get_Single_Cat](/docs/Categories_Endpoints/categories_get_single.png)
 
-- Create a Category ('/')
-      - Method: POST
-      - Required JSON Request Data:
-          - 'name': Name of the category
-          - 'description': Description of the category
-      - Expected JSON Response Data: 
-          - Object containing the newly created category's data
-      - Expected HTTP Response Code: 201 (400 if validation error, 400 if category already exists)
-      - Authentication: Required (JWT token and user must have 'admin' or 'organizer' role)
+### Create a Category ('/')
+  - Method: POST
+  - Required JSON Request Data:
+      - 'name': Name of the category
+      - 'description': Description of the category
+  - Expected JSON Response Data: 
+      - Object containing the newly created category's data
+  - Expected HTTP Response Code: 201 (400 if validation error, 400 if category already exists)
+  - Authentication: Required (JWT token and user must have 'admin' or 'organizer' role)
 
 ![Cat_Post](/docs/Categories_Endpoints/categories_post.png)
 
-- Update a Category('/<int:category_id>')
-    - Method: PUT, PATCH
-    - Required JSON Request Data:
-        - Object containing category data to be changed
-        -  'name' (New name for the category, string, optional)
-        -  'description' (New description for the category, string, optional)
-    - Expected JSON response data:
-        - Object containing the updated category's data
-    - Expected HTTP Response Code: 200 (400 if validation error, 404 if not found, 403 if unauthorized)
-    - Authentication:
-        - Required (JWT token and user must have 'admin' or 'organizer' role, or be the category owner)
+### Update a Category('/<int:category_id>')
+  - Method: PUT, PATCH
+  - Required JSON Request Data:
+      - Object containing category data to be changed
+      -  'name' (New name for the category, string, optional)
+      -  'description' (New description for the category, string, optional)
+  - Expected JSON response data:
+      - Object containing the updated category's data
+  - Expected HTTP Response Code: 200 (400 if validation error, 404 if not found, 403 if unauthorized)
+  - Authentication:
+      - Required (JWT token and user must have 'admin' or 'organizer' role, or be the category owner)
 ![Cat_Update](/docs/Categories_Endpoints/categories_post.png)
 
-  - Delete a Category ('/<int:category_id>')
-          - Method: DELETE
-          - Required JSON Request Data:
-          - Expected JSON response data:
-              - Empty JSON object
-          - Expected HTTP Response Code: 200 (404 if not found, 403 if unauthorized)
-          - Authentication:
-              - Required (JWT token and user must have 'admin' or 'organizer' role, or be the category owner)
+### Delete a Category ('/<int:category_id>')
+  - Method: DELETE
+  - Required JSON Request Data:
+  - Expected JSON response data:
+      - Empty JSON object
+  - Expected HTTP Response Code: 200 (404 if not found, 403 if unauthorized)
+  - Authentication:
+      - Required (JWT token and user must have 'admin' or 'organizer' role, or be the category owner)
 ![Cat_Delete](/docs/Categories_Endpoints/categories_delete.png)
 ### 5. Circuits ('/circuits')
 - Get All Categories ('/')
