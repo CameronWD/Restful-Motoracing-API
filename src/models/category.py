@@ -1,6 +1,7 @@
 from init import db, ma
 from marshmallow import validate, fields
 
+# Creation of the Category model with the following attributes: id, name, description and user_id
 class Category(db.Model):
     __tablename__ = 'categories'
 
@@ -14,7 +15,7 @@ class Category(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     user = db.relationship('User', back_populates='category')
 
-
+# Creation of the CategorySchema with the following attributes: id, name, description and user and is used to serialize the data
 class CategorySchema(ma.Schema):
     user= ma.Nested('UserSchema', exclude=('password','is_admin'))
     name = fields.Str(required=True, validate=validate.Length(min=4, max=100))

@@ -7,6 +7,7 @@ from datetime import timedelta
 
 auth_bp = Blueprint('auth', __name__)
 
+# This route is used to check if the user is logged in or not by checking if the JWT token is valid or not and returns the user's details if the token is valid or returns an error if the token is invalid
 @auth_bp.route('/login', methods=['POST'])
 def login():
     try:
@@ -20,6 +21,7 @@ def login():
     except KeyError:
         return {'error': 'Invalid email or password'}, 401 # Unauthorized
 
+# This route is used to register a new user and returns the user's details if the registration is successful or returns an error if the registration is unsuccessful
 @auth_bp.route('/register', methods=['POST'])
 def register():
     try:
@@ -45,7 +47,7 @@ def register():
 
     return UserSchema(exclude=['password']).dump(new_user), 201
 
-
+# This route is used to get all the users in the database and returns all the users if the user is an admin or returns an error if the user is not an admin
 @auth_bp.route('/users', methods=['GET'])
 def all_users():
     admin_required()
@@ -56,6 +58,7 @@ def all_users():
     else: 
         return {'error': 'No users found.'}, 404 # Not found
 
+# This route is used to get a specific user in the database and returns the user if the user is an admin or returns an error if the user is not an admin
 @jwt_required()
 def admin_required():
     user_id = get_jwt_identity()
@@ -66,6 +69,7 @@ def admin_required():
     if not user.is_admin:
         abort(400, 'Admin required.')
 
+# This route is used to get a specific user in the database and returns the user if the user is an admin or has the role "team" - returns an error if the user is not an admin
 @jwt_required()
 def admin_or_team_role_required():
     user_id = get_jwt_identity()
@@ -77,6 +81,7 @@ def admin_or_team_role_required():
         abort(400, 'Admin or Team can only perform this function.')
     return user
 
+# This route is used to get a specific user in the database and returns the user if the user is an admin or has the role "driver" - returns an error if the user is not an admin
 @jwt_required()
 def admin_or_driver_role_required():
     user_id = get_jwt_identity()
@@ -88,6 +93,7 @@ def admin_or_driver_role_required():
         abort(400, 'Admin or Driver can only perform this function.')
     return user
 
+# This route is used to get a specific user in the database and returns the user if the user is an admin or has the role "organizer" - returns an error if the user is not an admin
 @jwt_required()
 def admin_or_organizer_role_required():
     user_id = get_jwt_identity()

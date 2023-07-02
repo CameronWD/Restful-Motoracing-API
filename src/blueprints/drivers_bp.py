@@ -7,6 +7,7 @@ from datetime import datetime, date
 
 drivers_bp = Blueprint('driver', __name__, url_prefix='/drivers')
 
+# This route is used to get all the drivers in the database and returns all the drivers
 @drivers_bp.route('/')
 def all_drivers():
     stmt = db.select(Driver)
@@ -16,11 +17,13 @@ def all_drivers():
     else:
         return{'error': 'No drivers found.'}, 404 # Not Found: The requested drivers resource does not exist.
 
+# This route is used to get a specific driver in the database and returns the driver if the driver exists or returns an error if the driver does not exist
 @drivers_bp.route('/<int:driver_id>')
 def one_driver(driver_id):
     driver = get_resource_or_404(db.select(Driver).filter_by(id=driver_id), 'Driver')
     return DriverSchema().dump(driver)
 
+# This route is used to create a new driver in the database and returns the new driver if the user is an admin or driver or returns an error if the user is not an admin or driver
 @drivers_bp.route('/', methods=['POST'])
 def create_driver():
     current_user = admin_or_driver_role_required()
@@ -42,6 +45,7 @@ def create_driver():
     db.session.commit()
     return DriverSchema().dump(driver), 201 # Created: The driver resource has been successfully created.
 
+# This route is used to delete a specific driver in the database and returns the driver if the user is an admin or driver or returns an error if the user is not an admin or driver
 @drivers_bp.route('/<int:driver_id>', methods=['PUT', 'PATCH'])
 def update_driver(driver_id):
     current_user = admin_or_driver_role_required()
@@ -61,7 +65,7 @@ def update_driver(driver_id):
     db.session.commit()
     return DriverSchema().dump(driver)
 
-
+# This route is used to delete a specific driver in the database and returns the driver if the user is an admin or driver or returns an error if the user is not an admin or driver
 @drivers_bp.route('/<int:driver_id>', methods=['DELETE'])
 def delete_driver(driver_id):
     current_user = admin_or_driver_role_required()

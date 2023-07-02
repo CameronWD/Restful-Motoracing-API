@@ -1,7 +1,7 @@
 from init import db, ma
 from marshmallow import fields, validate
 
-
+# Creates the race model with the following attributes: id, date, name, circuit_id, category_id and user_id
 class Race(db.Model):
     __tablename__ = 'races'
 
@@ -19,9 +19,10 @@ class Race(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     user = db.relationship('User', back_populates='races')
 
-    results = db.relationship('Result', back_populates='race')
+    results = db.relationship('Result', back_populates='race', cascade='all, delete-orphan')
 
 
+# Creates the RaceSchema with the following attributes: id, date, name, circuit, category, circuit_id, category_id and user and is used to serialize the data
 class RaceSchema(ma.Schema):
     id = fields.Integer(dump_only=True)
     name = fields.Str(required=True, validate=validate.Length(min=5, max=100))

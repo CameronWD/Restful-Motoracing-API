@@ -10,14 +10,19 @@ from models.result import Result
 
 cli_bp = Blueprint('db', __name__)
 
+# Creates the CLI commands to create and seed the database with the data from the models. 
+# 'Create' will drop all tables and create them again
+# 'Seed' will seed the database with the data from the models
 @cli_bp.cli.command('create')
 def create_db():
     db.drop_all()
     db.create_all()
     print('Tables Created')
 
+# Creates the CLI commands to create and seed the database with the data from the models.
 @cli_bp.cli.command('seed')
 def seed_db():
+    # Creates the users to seed the database with the data from the models.
     users = [
         User(
             name='Admin',
@@ -57,11 +62,13 @@ def seed_db():
         ),
     ]
 
+    # Deletes all users from the database and adds the users to the database and commits the changes.
     db.session.query(User).delete()
     db.session.add_all(users)
     db.session.commit()
     print('Users successfully seeded')
 
+    # Creates the categories to seed the database with the data from the models.
     categories = [
         Category(
             name='Kart Racing',
@@ -81,12 +88,13 @@ def seed_db():
         )
 
     ]
-
+    # Deletes all categories from the database and adds the categories to the database and commits the changes.
     db.session.query(Category).delete()
     db.session.add_all(categories)
     db.session.commit()
     print('Categories successfully seeded')
 
+    # Creates the circuits to seed the database with the data from the models.
     circuits = [
         Circuit(
             track_name='Nordschleife',
@@ -108,11 +116,13 @@ def seed_db():
         )
     ]
 
+    # Deletes all circuits from the database and adds the circuits to the database and commits the changes.
     db.session.query(Circuit).delete()
     db.session.add_all(circuits)
     db.session.commit()
     print('Circuits successfully seeded')
 
+    # Creates the teams to seed the database
     teams = [
         Team(
             name='Ferrari',
@@ -126,11 +136,13 @@ def seed_db():
         )
     ]
 
+    # Deletes all teams from the database and adds the teams to the database and commits the changes.
     db.session.query(Team).delete()
     db.session.add_all(teams)
     db.session.commit()
     print('Teams successfully seeded')
 
+    # Creates the drivers to seed the database with
     drivers = [
         Driver(
             date_of_birth='2000-04-11',
@@ -157,12 +169,13 @@ def seed_db():
             user=users[0]
         )
     ]
-
+    # Deletes all drivers from the database and adds the drivers to the database and commits the changes.
     db.session.query(Driver).delete()
     db.session.add_all(drivers)
     db.session.commit()
     print('Drivers successfully seeded')
 
+    # Create the races to seed the database with
     races = [
         Race(
             name = 'German GP',
@@ -193,12 +206,15 @@ def seed_db():
             user_id=6
         )
     ]
+    
+   # Deletes all Races from the database and adds the races to the database and commits the changes.
 
     db.session.query(Race).delete()
     db.session.add_all(races)
     db.session.commit()
     print('Races successfully seeded')
 
+    # Create the races to seed the database with 
     results = [
         Result(
             start_position=10,
@@ -226,11 +242,15 @@ def seed_db():
         )
     ]
     
+    # Deletes all Results from the database and adds the new results to the database and commits the changes.
+
     db.session.query(Result).delete()
     db.session.add_all(results)
     db.session.commit()
     print('Results successfully seeded')
-    print('Seeding Completed.')
+
+    # Final print message to confirm seeding completed
+    print('Seeding Complete.')
 
 
 

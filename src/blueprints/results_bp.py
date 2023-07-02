@@ -9,6 +9,7 @@ from utils import validate_schema, get_resource_or_404
 
 results_bp = Blueprint('result', __name__, url_prefix='/results')
 
+# GET /results - Returns a list of all results.
 @results_bp.route('/')
 def all_results():
     stmt=db.select(Result)
@@ -18,12 +19,14 @@ def all_results():
         return schema.dump(results)
     else:
         return{'error': 'No results found.'}, 404 # Not Found: The requested results resource does not exist.
-
+    
+# GET /results/<result_id> - Returns a specific result from the database
 @results_bp.route('/<int:result_id>')
 def one_result(result_id):
     result = get_resource_or_404(db.select(Result).filter_by(id=result_id), 'Result')
     return ResultSchema().dump(result)
 
+# POST /results - Creates a new result in the database and returns the new result. The user must be an admin or organizer to create a result.
 @results_bp.route('/', methods=['POST'])
 def create_result():
     current_user = admin_or_organizer_role_required()
@@ -54,6 +57,7 @@ def create_result():
     db.session.commit()
     return ResultSchema().dump(result), 201 # Created: The result resource has been successfully created.
 
+# PUT /results/<result_id> - Updates a specific result in the database and returns the updated result. The user must be an admin or organizer to update a result. Organizers can only update results they created.
 @results_bp.route('/<int:result_id>', methods=['PUT', 'PATCH'])
 def update_result(result_id):
     current_user = admin_or_organizer_role_required()
@@ -83,7 +87,7 @@ def update_result(result_id):
     db.session.commit()
     return ResultSchema().dump(result)
 
-
+# DELETE /results/<result_id> - Deletes a specific result from the database. The user must be an admin or organizer to delete a result. Organizers can only delete results they created.
 @results_bp.route('/<int:result_id>', methods=['DELETE'])
 def delete_result(result_id):
     current_user = admin_or_organizer_role_required()

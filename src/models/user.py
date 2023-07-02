@@ -1,6 +1,7 @@
 from init import db, ma
 from marshmallow import validates, ValidationError, validates_schema, validate, fields
 
+# Creation of the User model with the following attributes: id, name, email, password, role and is_admin
 class User(db.Model):
     __tablename__ = 'users'
 
@@ -19,6 +20,7 @@ class User(db.Model):
     races = db.relationship('Race', back_populates='user')
     results = db.relationship('Result', back_populates='user')
 
+# Creation of the UserSchema with the following attributes: id, name, email, password, role and is_admin and is used to serialize the data
 class UserSchema(ma.Schema):
     name = fields.Str(validate=validate.Length(min=2, max=100))
     email = fields.Email(required=True)

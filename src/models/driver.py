@@ -3,6 +3,7 @@ from marshmallow import fields, validate, validates, ValidationError
 from marshmallow.validate import Range
 from datetime import datetime, date
 
+# Creation of the Driver model with the attributes: id, date of birth, first_name, last_name, nationality, team_id, team, user_id, user and results
 class Driver(db.Model):
     __tablename__ = 'drivers'
 
@@ -21,6 +22,7 @@ class Driver(db.Model):
 
     results = db.relationship('Result', back_populates='driver', cascade='all, delete-orphan')
 
+# Creation of the DriverSchema that will be used to serialize the data from the database
 class DriverSchema(ma.Schema):
     team = ma.Nested('TeamSchema', only=('id','name'))
     user = ma.Nested('UserSchema', exclude=('password','is_admin'))

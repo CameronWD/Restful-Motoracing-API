@@ -1,8 +1,8 @@
 from init import db, ma
 from marshmallow import fields, validate
-from models.race import Race, RaceSchema
-from models.driver import Driver, DriverSchema
 
+
+# Creates the result model 
 class Result(db.Model):
     __tablename__ = 'results'
 
@@ -12,7 +12,7 @@ class Result(db.Model):
     end_position = db.Column(db.Integer, nullable=False)
     points = db.Column(db.Integer)
 
-    race_id = db.Column(db.Integer, db.ForeignKey('races.id'))
+    race_id = db.Column(db.Integer, db.ForeignKey('races.id'), ondelete='CASCADE', nullable=False)
     race = db.relationship('Race', back_populates='results')
 
     driver_id = db.Column(db.Integer, db.ForeignKey('drivers.id', ondelete='CASCADE'), nullable=False)
@@ -21,6 +21,7 @@ class Result(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     user = db.relationship('User', back_populates='results')
 
+# Creates the Result Schema that includes race, driver, user, race_id, driver_id, start_position, end_position and points. Used to serialize data in the API
 class ResultSchema(ma.Schema):
     race = ma.Nested('RaceSchema')
     driver = ma.Nested('DriverSchema')

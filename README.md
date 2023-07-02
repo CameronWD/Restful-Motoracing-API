@@ -485,22 +485,22 @@ This project uses various models to store and manage data effectively from the v
 1. **User**: This is the cornerstone of the application. I designed it to have relationships with almost all the other models. It comprises fields for user identification and authentication (name, email, password, role, is_admin). I have established one-to-many relationships from the User model to Driver, Team, Category, Circuit, Race, and Result models. This design implies that a single user can own multiple instances of these entities based on their access level.
     ```
     class User(db.Model):
-        __tablename__ = 'users'
+    __tablename__ = 'users'
 
-        id = db.Column(db.Integer, primary_key=True)
-        name = db.Column(db.String)
-        email = db.Column(db.String, nullable=False, unique=True)
-        password = db.Column(db.String, nullable=False)
-        role = db.Column(db.String, nullable=True)
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100))
+    email = db.Column(db.String, nullable=False, unique=True)
+    password = db.Column(db.String, nullable=False)
+    role = db.Column(db.String, nullable=True)
 
-        is_admin = db.Column(db.Boolean, default=False)
+    is_admin = db.Column(db.Boolean, default=False)
 
-        driver = db.relationship('Driver', back_populates='user')
-        team = db.relationship('Team', back_populates='user')
-        category = db.relationship('Category', back_populates='user')
-        circuits = db.relationship('Circuit', back_populates='user')
-        races = db.relationship('Race', back_populates='user')
-        results = db.relationship('Result', back_populates='user')
+    driver = db.relationship('Driver', back_populates='user')
+    team = db.relationship('Team', back_populates='user')
+    category = db.relationship('Category', back_populates='user')
+    circuits = db.relationship('Circuit', back_populates='user')
+    races = db.relationship('Race', back_populates='user')
+    results = db.relationship('Result', back_populates='user')
     ```
 2. **Driver**: This model represents the drivers in the various racing communities who use this API. It exhibits a one-to-many relationship with Result, indicating that a driver can have multiple race results. Furthermore, it has a many-to-one relationship with Team and User, meaning each driver is associated with a specific team and user.
    ```

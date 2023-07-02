@@ -6,6 +6,7 @@ from utils import validate_schema, get_resource_or_404
 
 teams_bp = Blueprint('team', __name__, url_prefix='/teams')
 
+# This route is used to get all the teams in the database and returns all the teams
 @teams_bp.route('/')
 def all_teams():
     stmt = db.select(Team)
@@ -15,11 +16,13 @@ def all_teams():
     else:
         return{'error': 'No teams found.'}, 404 # Not Found: The requested teams resource does not exist.
 
+# This route is used to get a specific team in the database and returns the team if the team exists or returns an error if the team does not exist
 @teams_bp.route('/<int:team_id>')
 def one_team(team_id):
     team = get_resource_or_404(db.select(Team).filter_by(id=team_id), 'Team')
     return TeamSchema().dump(team)
 
+# This route is used to create a new team in the database and returns the new team if the user is an admin or has the role team or returns an error if the user is not an admin or does not have the role team
 @teams_bp.route('/', methods=['POST'])
 def create_team():
     current_user = admin_or_team_role_required()
@@ -39,6 +42,7 @@ def create_team():
     db.session.commit()
     return TeamSchema().dump(team), 201 # Created: The team resource has been successfully created.
 
+# This route is used to update a specific team in the database and returns the updated team if the user is an admin or has the role team or returns an error if the user is not an admin or does not have the role team
 @teams_bp.route('/<int:team_id>', methods=['PUT', 'PATCH'])
 def update_team(team_id):
     current_user = admin_or_team_role_required()
@@ -56,7 +60,7 @@ def update_team(team_id):
     return TeamSchema().dump(team)
     
 
-
+# This route is used to delete a specific team in the database and returns an error if the user is not an admin or does not have the role team or returns an error if the user is not an admin or does not have the role team
 @teams_bp.route('/<int:team_id>', methods=['DELETE'])
 def delete_team(team_id):
     current_user = admin_or_team_role_required()

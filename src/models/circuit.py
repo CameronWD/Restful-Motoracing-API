@@ -1,6 +1,7 @@
 from init import db, ma
 from marshmallow import fields, validate
 
+# Creation of the Circuit model with the following attributes: id, track_name, location, lap_record_seconds and user_id
 class Circuit(db.Model):
     __tablename__ = 'circuits'
 
@@ -15,6 +16,7 @@ class Circuit(db.Model):
 
     races = db.relationship('Race', back_populates='circuit')
 
+# Creation of the CircuitSchema with the following attributes: id, track_name, location, lap_record_seconds and user and is used to serialize the data
 class CircuitSchema(ma.Schema):
     user = fields.Nested('UserSchema', exclude=('password','is_admin'))
     races =fields.Nested('RaceSchema', many=True, only=('id', 'name', 'date'))

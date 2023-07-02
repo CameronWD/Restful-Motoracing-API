@@ -9,6 +9,8 @@ from models.circuit import Circuit
 
 races_bp = Blueprint('race', __name__, url_prefix='/races')
 
+# This route is used to get all the races in the database and returns all the races
+
 @races_bp.route('/')
 def all_races():
     stmt = db.select(Race)
@@ -18,11 +20,13 @@ def all_races():
     else:
         return{'error': 'No races found.'}, 404 # Not found
 
+# GET /races/<race_id> - Returns a specific race from the database
 @races_bp.route('/<int:race_id>')
 def one_race(race_id):
     race = get_resource_or_404(db.select(Race).filter_by(id=race_id), 'Race')
     return RaceSchema().dump(race)
 
+# POST /races - Creates a new race in the database and returns the new race. The user must be an admin or organizer to create a race.
 @races_bp.route('/', methods=['POST'])
 def create_race():
     current_user = admin_or_organizer_role_required()
@@ -53,7 +57,7 @@ def create_race():
     db.session.commit()
     return RaceSchema().dump(race), 201
     
-
+# PUT /races/<races_id> - Updates a specific race in the database and returns the updated race. The user must be an admin or organizer to update a race.  Organizer must own the race. 
 @races_bp.route('/<int:race_id>', methods=['PUT', 'PATCH'])
 def update_race(race_id):
     current_user = admin_or_organizer_role_required()
@@ -72,6 +76,7 @@ def update_race(race_id):
     db.session.commit()
     return RaceSchema().dump(race)
 
+# DELETE /races/<races_id> - Delete a specific race in the database and returns a 204. The user must be an admin or organizer who owns the race result. 
 @races_bp.route('/<int:race_id>', methods=['DELETE'])
 def delete_race(race_id):
     current_user = admin_or_organizer_role_required()

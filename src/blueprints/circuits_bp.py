@@ -6,6 +6,7 @@ from utils import validate_schema, get_resource_or_404
 
 circuits_bp = Blueprint('circuit', __name__, url_prefix='/circuits')
 
+# This route is used to get all the circuits in the database and returns all the circuits - Is open to all users and public to view
 @circuits_bp.route('/')
 def all_circuits():
     stmt=db.select(Circuit)
@@ -15,11 +16,13 @@ def all_circuits():
     else:
         return{'error': 'No circuits found.'}, 404 # Not Found: The requested circuits resource does not exist.
 
+# This route is used to get a specific circuit in the database and returns the circuit if the circuit exists or returns an error if the circuit does not exist - Is open to all users and public to view
 @circuits_bp.route('/<int:circuit_id>')
 def one_circuit(circuit_id):
     circuit = get_resource_or_404(db.select(Circuit).filter_by(id=circuit_id), 'Circuit')
     return CircuitSchema().dump(circuit)
 
+# This route is used to create a new circuit in the database and returns the new circuit if the user is an admin or organizer or returns an error if the user is not an admin or organizer - Is only open to admin and organizer users
 @circuits_bp.route('/', methods=['POST'])
 def create_circuit():
     current_user = admin_or_organizer_role_required()
@@ -40,6 +43,7 @@ def create_circuit():
     db.session.commit()
     return CircuitSchema().dump(circuit), 201
 
+# This route is used to update a specific circuit in the database and returns the updated circuit if the user is an admin or organizer or returns an error if the user is not an admin or organizer - Only the user who created the circuit or an admin can update the circuit
 @circuits_bp.route('/<int:circuit_id>', methods=['PUT', 'PATCH'])
 def update_circuit(circuit_id):
     current_user = admin_or_organizer_role_required()
@@ -56,7 +60,7 @@ def update_circuit(circuit_id):
     db.session.commit()
     return CircuitSchema().dump(circuit)
 
-
+# This route is used to delete a specific circuit in the database and returns a 204 status code if the user is an admin or organizer or returns an error if the user is not an admin or organizer - Only the user who created the circuit or an admin can delete the circuit
 @circuits_bp.route('/<int:circuit_id>', methods=['DELETE'])
 def delete_circuit(circuit_id):
     current_user = admin_or_organizer_role_required()

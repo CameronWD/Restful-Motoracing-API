@@ -2,6 +2,7 @@ from init import db, ma
 from marshmallow import fields, validate
 from datetime import datetime
 
+# Creates the Team model with the following attributes: id, name, year_founded and user_id
 class Team(db.Model):
     __tablename__ = 'teams'
 
@@ -15,6 +16,7 @@ class Team(db.Model):
 
     drivers = db.relationship('Driver', back_populates='team')
 
+# Creates the TeamSchema with the following attributes: id, name, year_founded, drivers and user and is used to serialize the data
 class TeamSchema(ma.Schema):
     drivers = ma.Nested('DriverSchema', many=True, exclude=('team',))
     user = ma.Nested('UserSchema', exclude=('password','is_admin'))
