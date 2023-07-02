@@ -5,6 +5,7 @@ from models.driver import Driver
 from models.race import Race
 from models.result import Result, ResultSchema
 from blueprints.auth_bp import admin_or_organizer_role_required
+from utils import validate_schema, get_resource_or_404
 
 
 results_bp = Blueprint('result', __name__, url_prefix='/results')
@@ -21,22 +22,13 @@ def all_results():
 
 @results_bp.route('/<int:result_id>')
 def one_result(result_id):
-    stmt=db.select(Result).filter_by(id=result_id)
-    result=db.session.scalar(stmt)
-    if result:
-        schema = ResultSchema(exclude=('driver_id','race_id'))
-        return schema.dump(result)
-    else:
-        return{'error': 'Result not found.'}, 404 # Not Found: The requested result resource does not exist.
+    result = get_resource_or_404(db.select(Result).filter_by(id=result_id), 'Result')
+    return ResultSchema().dump(result)
 
 @results_bp.route('/', methods=['POST'])
 def create_result():
     current_user = admin_or_organizer_role_required()
-
-    try:
-        result_details = ResultSchema().load(request.json)
-    except ValidationError as valdiation_error:
-        return{'error': 'Validation Error', 'errors': valdiation_error.messages}, 400 # Bad Request: The request data is invalid.
+    result_details = validate_schema(ResultSchema(), request.json)
     
     existing_result = db.session.query(Result).filter_by(race_id=result_details['race_id'], driver_id=result_details['driver_id']).first()
     if existing_result:
@@ -66,20 +58,12 @@ def create_result():
 @results_bp.route('/<int:result_id>', methods=['PUT', 'PATCH'])
 def update_result(result_id):
     current_user = admin_or_organizer_role_required()
+    result = get_resource_or_404(db.select(Result).filter_by(id=result_id), 'Result')
 
-    stmt = db.select(Result).filter_by(id=result_id)
-    result = db.session.scalar(stmt)
-
-    if not result:
-        return {'error': f'Result ID {result_id} not found.'}, 404 # Not Found: The requested result resource does not exist.
     if not (current_user.is_admin or current_user.id == result.user_id):
         return {'error': 'You do not have permission to edit this result.'}, 403 # Forbidden: The user is not authorized to update the result resource.
 
-    
-    try:
-        result_details = ResultSchema().load(request.json)
-    except ValidationError as valdiation_error:
-        return{'error': 'Validation Error', 'errors': valdiation_error.messages}, 400 
+    result_details = validate_schema(ResultSchema(), request.json)
     
     if 'race_id' in result_details:
         race = Race.query.get(result_details['race_id'])
@@ -104,18 +88,12 @@ def update_result(result_id):
 @results_bp.route('/<int:result_id>', methods=['DELETE'])
 def delete_result(result_id):
     current_user = admin_or_organizer_role_required()
+    result = get_resource_or_404(db.select(Result).filter_by(id=result_id), 'Result')
 
-    stmt = db.select(Result).filter_by(id=result_id)
-    result = db.session.scalar(stmt)
-
-    if not result:
-        return {'error': f'Result ID {result_id} not found.'}, 404 # Not Found: The requested result resource does not exist.
     if not (current_user.is_admin or current_user.id == result.user_id): 
         return {'error': 'You do not have permission to edit this result.'}, 403 # Forbidden: The user is not authorized to update the result resource.
 
-    
-    if result:
-        db.session.delete(result)
-        db.session.commit()
-        return{}, 204  # No Content: The result has been successfully deleted.
+    db.session.delete(result)
+    db.session.commit()
+    return{}, 204  # No Content: The result has been successfully deleted.
    

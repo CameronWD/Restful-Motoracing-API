@@ -4,6 +4,7 @@ from marshmallow.exceptions import ValidationError
 from models.user import User, UserSchema
 from models.category import Category, CategorySchema
 from blueprints.auth_bp import admin_or_organizer_role_required
+from utils import validate_schema, get_resource_or_404
 
 categories_bp = Blueprint('category', __name__, url_prefix='/categories')
 
@@ -11,31 +12,24 @@ categories_bp = Blueprint('category', __name__, url_prefix='/categories')
 def all_categories():
     stmt = db.select(Category)
     categories = db.session.scalars(stmt).all()
-    return CategorySchema(many=True).dump(categories)
+    if categories:
+        return CategorySchema(many=True).dump(categories)
+    else:
+        return{'error': 'No categories found.'}, 404 # Not Found: The requested categories resource does not exist.
 
 @categories_bp.route('/<int:category_id>')
 def one_category(category_id):
-    stmt = db.select(Category).filter_by(id=category_id)
-    category = db.session.scalar(stmt)
-    if category:
-        return CategorySchema().dump(category)
-    else:
-        return{'error': 'Category not found.'}, 404
+    category = get_resource_or_404(db.select(Category).filter_by(id=category_id), 'Category')
+    return CategorySchema().dump(category)
 
 @categories_bp.route('/', methods=['POST'])
 def create_category():
     current_user = admin_or_organizer_role_required()
+    category_details = validate_schema(CategorySchema(), request.json)
 
     existing_category = Category.query.filter_by(user_id=current_user.id).first()
-    
-    try:
-        category_details = CategorySchema().load(request.json)
-    except ValidationError as validation_error:
-        return {'error': 'Validation Error', 'errors': validation_error.messages}, 400
-
-    existing_category = db.session.query(Category).filter_by(name=category_details['name']).first()
     if existing_category:
-        return {'error': 'Category already exists.'}, 400
+        return {'error': 'You already have a category.'}, 409 # Conflict: The request could not be completed due to category already existing.
 
     category = Category(
         name = category_details['name'],
@@ -50,42 +44,28 @@ def create_category():
 @categories_bp.route('/<int:category_id>', methods=['PUT', 'PATCH'])
 def update_category(category_id):
     current_user = admin_or_organizer_role_required()
+    category = get_resource_or_404(db.select(Category).filter_by(id=category_id), 'Category')
 
-    stmt = db.select(Category).filter_by(id=category_id)
-    category = db.session.scalar(stmt)
-
-    if not category:
-        return{'error': 'Category not found.'}, 404
     if not (current_user.id == category.user_id or current_user.is_admin):
         return{'error': 'You are not authorized to update this category.'}, 403
     
-    try:
-        category_details = CategorySchema().load(request.json)
-    except ValidationError as valdiation_error:
-        return{'error': 'Validation Error', 'errors': valdiation_error.messages}, 400
+    category_details = validate_schema(CategorySchema(), request.json)
 
-    if category:
-        category.name = category_details.get('name', category.name)
-        category.description = category_details.get('description', category.description)
-        db.session.commit()
-        return CategorySchema().dump(category)
+    category.name = category_details.get('name', category.name)
+    category.description = category_details.get('description', category.description)
+    db.session.commit()
+    return CategorySchema().dump(category)
 
 
 @categories_bp.route('/<int:category_id>', methods=['DELETE'])
 def delete_category(category_id):
     current_user = admin_or_organizer_role_required()
+    category = get_resource_or_404(db.select(Category).filter_by(id=category_id), 'Category')
 
-    stmt = db.select(Category).filter_by(id=category_id)
-    category = db.session.scalar(stmt)
-
-    if not category:
-        return{'error': 'Category not found.'}, 404
     if not (current_user.id == category.user_id or current_user.is_admin):
         return{'error': 'You are not authorized to update this category.'}, 403
     
-    if category:
-        db.session.delete(category)
-        db.session.commit()
-        return {}, 200
-    else:
-        return{'error': 'Category not found.'}, 404
+    db.session.delete(category)
+    db.session.commit()
+    return {}, 204
+    

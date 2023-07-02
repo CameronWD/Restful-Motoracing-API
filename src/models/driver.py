@@ -1,6 +1,6 @@
 from init import db, ma
-from marshmallow import fields, validate
-from marhsmallow.validate import Range
+from marshmallow import fields, validate, validates, ValidationError
+from marshmallow.validate import Range
 from datetime import datetime
 
 class Driver(db.Model):
@@ -28,8 +28,12 @@ class DriverSchema(ma.Schema):
     first_name = fields.Str(required=True, validate=validate.Length(min=1, max=50))
     last_name = fields.Str(required=True, validate=validate.Length(min=1, max=50))
     nationality = fields.Str(validate=validate.Length(min=4, max=60))
-    date_of_birth = fields.Date(required=True, validate=Range(min=datetime.date(1900, 1, 1), max=datetime.date.today()))
+    date_of_birth = fields.Date(required=True)
 
 
+    @validates('date_of_birth')
+    def validate_date_of_birth(self, value):
+        if value < datetime.date(1900, 1, 1) or value > datetime.date.today():
+            raise ValidationError('Date of birth must be between 1900-01-01 and today.')
     class Meta:
         fields = ('id','date_of_birth', 'first_name', 'last_name', 'nationality', 'team', 'user') 

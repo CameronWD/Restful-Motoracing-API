@@ -16,9 +16,9 @@ def login():
             token = create_access_token(identity=user.id, expires_delta=timedelta(days=1))
             return {'token': token, 'user': UserSchema(only=['email','name']).dump(user)}, 200
         else:
-            return {'error': 'Invalid email or password'}, 401
+            return {'error': 'Invalid email or password'}, 401 # Unauthorized
     except KeyError:
-        return {'error': 'Invalid email or password'}, 401
+        return {'error': 'Invalid email or password'}, 401 # Unauthorized
 
 @auth_bp.route('/register', methods=['POST'])
 def register():
@@ -51,7 +51,10 @@ def all_users():
     admin_required()
     stmt = db.select(User)
     users = db.session.scalars(stmt).all()
-    return UserSchema(many=True, exclude=['password']).dump(users)
+    if users:
+        return UserSchema(many=True, exclude=['password']).dump(users)
+    else: 
+        return {'error': 'No users found.'}, 404 # Not found
 
 @jwt_required()
 def admin_required():

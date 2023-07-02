@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, jsonify
 from os import environ
 from init import db, ma, bcrypt, jwt
 from blueprints.cli_bp import cli_bp
@@ -21,9 +21,21 @@ def create_app():
     bcrypt.init_app(app)
     jwt.init_app(app)
 
+    @app.errorhandler(400)
+    def bad_request(error):
+        return {'error': str(error)}, 400
+
     @app.errorhandler(401)
-    def unauthorized(err):
-        return {'error': str(err)}, 401
+    def unauthorized(error):
+        return {'error': str(error)}, 401
+    
+    @app.errorhandler(403)
+    def forbidden(error):
+        return {'error': str(error)}, 403
+    
+    @app.errorhandler(404)
+    def not_found_error(error):
+        return {'error': str(error)}, 404
 
     app.register_blueprint(cli_bp)
     app.register_blueprint(auth_bp)

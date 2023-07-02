@@ -24,7 +24,7 @@ class UserSchema(ma.Schema):
     email = fields.Email(required=True)
     # Minimum eight characters, at least one uppercase letter, one lowercase letter and one number
     password = fields.Str(required=True, validate=validate.Regexp('^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$')) 
-    role = fields.Str(validate=validate.OneOf(["team", "driver", "organizer"], case_sensitive=False))
+    role = fields.Str(validate=validate.OneOf(["team", "driver", "organizer"]))
     is_admin = fields.Boolean()
     class Meta:
        fields = ('id', 'name', 'email', 'password', 'role', 'is_admin')

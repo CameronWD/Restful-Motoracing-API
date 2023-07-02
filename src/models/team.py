@@ -1,6 +1,6 @@
 from init import db, ma
 from marshmallow import fields, validate
-from datetime import date
+from datetime import datetime
 
 class Team(db.Model):
     __tablename__ = 'teams'
@@ -20,6 +20,6 @@ class TeamSchema(ma.Schema):
     user= ma.Nested('UserSchema', only=('id',))
     name = fields.Str(required=True, validate=validate.Length(min=5, max=100))
     # year founded can be as early as the year 1000 but can not be any earlier than the current date
-    year_founded = fields.Int(required=True, validate=validate.Range(min=1000, max=date.time.now().year))
+    year_founded = fields.Int(required=True, validate=validate.Range(min=1000, max=datetime.now().year))
     class Meta:
         fields = ('id','name', 'year_founded', 'drivers', 'user', 'user_id')
