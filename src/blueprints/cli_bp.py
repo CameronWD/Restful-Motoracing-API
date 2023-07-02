@@ -11,8 +11,10 @@ from models.result import Result
 cli_bp = Blueprint('db', __name__)
 
 # Creates the CLI commands to create and seed the database with the data from the models. 
+
 # 'Create' will drop all tables and create them again
 # 'Seed' will seed the database with the data from the models
+
 @cli_bp.cli.command('create')
 def create_db():
     db.drop_all()

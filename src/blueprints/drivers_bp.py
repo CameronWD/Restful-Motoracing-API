@@ -7,6 +7,7 @@ from utils import validate_schema, get_resource_or_404
 drivers_bp = Blueprint('driver', __name__, url_prefix='/drivers')
 
 # This route is used to get all the drivers in the database and returns all the drivers
+
 @drivers_bp.route('/')
 def all_drivers():
     stmt = db.select(Driver)

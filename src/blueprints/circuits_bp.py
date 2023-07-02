@@ -7,6 +7,7 @@ from utils import validate_schema, get_resource_or_404
 circuits_bp = Blueprint('circuit', __name__, url_prefix='/circuits')
 
 # This route is used to get all the circuits in the database and returns all the circuits - Is open to all users and public to view
+
 @circuits_bp.route('/')
 def all_circuits():
     stmt=db.select(Circuit)

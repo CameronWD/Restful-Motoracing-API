@@ -21,6 +21,7 @@ def all_races():
         return{'error': 'No races found.'}, 404 # Not found
 
 # GET /races/<race_id> - Returns a specific race from the database
+
 @races_bp.route('/<int:race_id>')
 def one_race(race_id):
     race = get_resource_or_404(db.select(Race).filter_by(id=race_id), 'Race')

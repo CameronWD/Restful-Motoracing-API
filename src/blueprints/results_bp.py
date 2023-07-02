@@ -10,6 +10,7 @@ from utils import validate_schema, get_resource_or_404
 results_bp = Blueprint('result', __name__, url_prefix='/results')
 
 # GET /results - Returns a list of all results.
+
 @results_bp.route('/')
 def all_results():
     stmt=db.select(Result)

@@ -7,6 +7,7 @@ from utils import validate_schema, get_resource_or_404
 teams_bp = Blueprint('team', __name__, url_prefix='/teams')
 
 # This route is used to get all the teams in the database and returns all the teams
+
 @teams_bp.route('/')
 def all_teams():
     stmt = db.select(Team)

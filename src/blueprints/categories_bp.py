@@ -7,6 +7,7 @@ from utils import validate_schema, get_resource_or_404
 categories_bp = Blueprint('category', __name__, url_prefix='/categories')
 
 # This route is used to get all the categories in the database and returns all the categories
+
 @categories_bp.route('/')
 def all_categories():
     stmt = db.select(Category)

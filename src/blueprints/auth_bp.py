@@ -94,6 +94,7 @@ def admin_or_driver_role_required():
     return user
 
 # This route is used to get a specific user in the database and returns the user if the user is an admin or has the role "organizer" - returns an error if the user is not an admin
+
 @jwt_required()
 def admin_or_organizer_role_required():
     user_id = get_jwt_identity()
