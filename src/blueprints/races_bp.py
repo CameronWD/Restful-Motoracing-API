@@ -21,7 +21,7 @@ def one_race(race_id):
     if race:
         return RaceSchema().dump(race), 200
     else:
-        return{'error': 'Race not found.'}, 400
+        return{'error': 'Race not found.'}, 404 # Not Found: The requested race resource does not exist.
 
 @races_bp.route('/', methods=['POST'])
 def create_race():
@@ -31,7 +31,7 @@ def create_race():
     try:
         race_details = RaceSchema().load(request.json)
     except ValidationError as valdiation_error:
-        return {'error': 'Validation Error', 'errors': valdiation_error.messages}, 400
+        return {'error': 'Validation Error', 'errors': valdiation_error.messages}, 400 # Bad Request: The request data is invalid.
     
     # A race can have the same name as another race, like "Tour de France", but can not have the same date. 
     # Therefore a race that is held every year for example, can still have the same name as the date will change 
@@ -39,7 +39,7 @@ def create_race():
 
     existing_race = db.session.query(Race).filter_by(date=race_details['date'], name=race_details['name']).first()
     if existing_race:
-        return {'error': 'Race already exists.'}, 400
+        return {'error': 'Race already exists.'}, 409 # Conflict: The race already exists and creates a conflict with the unique constraint.
 
     race = Race(
         name = race_details['name'],
@@ -62,17 +62,18 @@ def update_race(race_id):
     race = db.session.scalar(stmt)
 
     if not race:
-        return{'error': 'Race not found.'}, 404
+        return{'error': 'Race not found.'}, 404 # Not Found: The requested race resource does not exist.
     if not (current_user.id == race.user_id or current_user.is_admin):
-        return{'error': 'You are not authorized to update this race.'}, 403
+        return{'error': 'You are not authorized to update this race.'}, 403 # Forbidden: The user is not authorized to update the race resource.
+    
     try:
         race_details = RaceSchema().load(request.json)
     except ValidationError as valdiation_error:
-        return{'error': 'Validation Error', 'errors': valdiation_error.messages}, 400
+        return{'error': 'Validation Error', 'errors': valdiation_error.messages}, 400 # Bad Request: The request data is invalid.
     
     existing_race = db.session.query(Race).filter_by(date=race_details['date']).first()
     if existing_race:
-        return {'error': 'Race already exists.'}, 400
+        return {'error': 'Race already exists.'}, 409 # Conflict: The updated race conflicts with an existing race due to a duplicate date.
     
     if race:
         race.date = race_details.get('date', race.date)

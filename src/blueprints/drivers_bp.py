@@ -12,16 +12,16 @@ drivers_bp = Blueprint('driver', __name__, url_prefix='/drivers')
 def all_drivers():
     stmt = db.select(Driver)
     drivers = db.session.scalars(stmt).all()
-    return DriverSchema(many=True).dump(drivers)
+    return DriverSchema(many=True).dump(drivers) # Status code will be 200 by default
 
 @drivers_bp.route('/<int:driver_id>')
 def one_driver(driver_id):
     stmt = db.select(Driver).filter_by(id=driver_id)
     driver = db.session.scalar(stmt)
     if driver:
-        return DriverSchema().dump(driver)
+        return DriverSchema().dump(driver) # Status code will be 200 by default
     else:
-        return{'error': 'Driver not found.'}, 400
+        return{'error': 'Driver not found.'}, 404
 
 @drivers_bp.route('/', methods=['POST'])
 def create_driver():
