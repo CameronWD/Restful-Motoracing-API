@@ -1,6 +1,5 @@
 from flask import Blueprint, request
 from init import db
-from marshmallow.exceptions import ValidationError
 from models.team import Team, TeamSchema
 from blueprints.auth_bp import admin_or_team_role_required
 from utils import validate_schema, get_resource_or_404

@@ -1,6 +1,5 @@
 from flask import Blueprint, request
 from init import db
-from marshmallow.exceptions import ValidationError
 from models.driver import Driver
 from models.race import Race
 from models.result import Result, ResultSchema

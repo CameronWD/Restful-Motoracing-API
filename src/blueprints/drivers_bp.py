@@ -1,6 +1,5 @@
 from flask import Blueprint, request
 from init import db, bcrypt
-from marshmallow.exceptions import ValidationError
 from models.driver import Driver, DriverSchema
 from blueprints.auth_bp import admin_or_driver_role_required
 from utils import validate_schema, get_resource_or_404
